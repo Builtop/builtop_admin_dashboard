@@ -1,0 +1,13 @@
+{
+    "app_bar" : {
+        "title" : "Flutter App"
+    },
+    "body" : {
+        "text1" : "Test",
+        "dashboard": 
+		{
+			"text1": "Dashboard"
+		}
+
+    }
+}
