@@ -323,7 +323,9 @@ class _MenuBarState extends State<MenuBarPage> {
                     SizedBox(
                       height: 40.0,
                       child: MenuItemButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          AppConfigService.isDark = !AppConfigService.isDark;
+                        },
                         child: MenuAcceleratorLabel(
                             isDark ? 'Light mode' : 'Dark mode'),
                       ),
@@ -349,7 +351,12 @@ class _MenuBarState extends State<MenuBarPage> {
                       ),
                     ),
                   ],
-                  child: const SvgIcon(icon: IconlyBroken.setting),
+                  child: SvgIcon(
+                    icon: IconlyBroken.setting,
+                    color: AppConfigService.isDark
+                        ? ColorConst.white
+                        : ColorConst.black,
+                  ),
                 ),
               ],
             ),

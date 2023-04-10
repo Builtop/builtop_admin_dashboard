@@ -21,9 +21,6 @@ void main() async {
       fallbackLocale: AppConfigService.isArabic ? 'ar' : 'en',
       supportedLocales: ['en', 'ar']);
 
-  print(AppConfigService.isArabic);
-  print(AppConfigService.isDark);
-
   usePathUrlStrategy();
   runApp(
     LocalizedApp(delegate, MyApp()),

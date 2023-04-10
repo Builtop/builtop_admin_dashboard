@@ -4,10 +4,6 @@
     },
     "body" : {
         "text1" : "Test",
-        "dashboard": 
-		{
-			"text1": "Dashboard"
-		}
-
+        "dashboard": "Dashboard"
     }
 }

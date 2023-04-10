@@ -7,7 +7,7 @@ class AppConfigService {
 
   // static TokenData? _tokendata;
   // static ValueNotifier<int> progressNotifier = ValueNotifier(0);
-  static ValueNotifier<bool> darkNotifier = ValueNotifier(false);
+  static ValueNotifier<bool> darkNotifier = ValueNotifier(isDark);
 
   // static TokenData? get tokenData => _tokendata;
 

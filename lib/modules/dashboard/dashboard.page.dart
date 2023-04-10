@@ -26,7 +26,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
                   // context.router.push(gr.LoginRoute());
                 },
-                child: Text(translate('body.dashboard.text1')))
+                child: Text(translate('body.dashboard')))
             // Listitem(),
             // FxBox.h24,
             // Monthlyearning(),
