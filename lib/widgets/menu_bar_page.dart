@@ -29,6 +29,7 @@ class _MenuBarState extends State<MenuBarPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<ScaffoldState> _scaffoldDrawerKey =
       GlobalKey<ScaffoldState>();
+  PointerDownEvent? mouseEvent;
 
   final ScrollController _scrollController = ScrollController();
 
@@ -376,120 +377,123 @@ class _MenuBarState extends State<MenuBarPage> {
   // }
 
   Widget _notification() {
-    return FxDropdownButton(
-      focusColor: Colors.transparent,
-      underline: FxBox.shrink,
-      customButton: MaterialButton(
-        height: double.infinity,
-        minWidth: 60,
-        hoverColor: ColorConst.transparent,
-        onPressed: null,
-        child: SvgIcon(
-          icon: IconlyBroken.notification,
-          color: AppConfigService.isDark ? ColorConst.white : ColorConst.black,
-        ),
-      ),
-      customItemsIndexes: const [1],
-      customItemsHeight: 0,
-      onChanged: (value) {},
-      dropdownWidth: 298,
-      dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
-      dropdownDecoration: BoxDecoration(
-        color: isDark ? ColorConst.cardDark : Colors.white,
-        border: Border.all(
-          color: isDark
-              ? ColorConst.lightGrey.withOpacity(0.1)
-              : ColorConst.lightGrey.withOpacity(0.5),
-        ),
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      scrollbarAlwaysShow: false,
-      dropdownElevation: 0,
-      offset: const Offset(-246, 0),
-      itemHeight: 352,
-      items: [
-        DropdownMenuItem(
-          alignment: AlignmentDirectional.topStart,
-          value: '',
-          child: SizedBox(
-            height: 344,
-            child: ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: SingleChildScrollView(
-                controller: ScrollController(),
-                physics: const NeverScrollableScrollPhysics(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
-                      child: Text(
-                        '${Strings.notifications} (258)',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    FxBox.h8,
-                    SizedBox(
-                      height: 200,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: _notificationTitle.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 4.0),
-                            title: Text(
-                              _notificationTitle[index],
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
+    return Listener(
+        onPointerDown: (event) => mouseEvent = event,
+        child: FxDropdownButton(
+          focusColor: Colors.transparent,
+          underline: FxBox.shrink,
+          customButton: MaterialButton(
+            height: double.infinity,
+            minWidth: 60,
+            hoverColor: ColorConst.transparent,
+            onPressed: null,
+            child: SvgIcon(
+              icon: IconlyBroken.notification,
+              color:
+                  AppConfigService.isDark ? ColorConst.white : ColorConst.black,
+            ),
+          ),
+          customItemsIndexes: const [1],
+          customItemsHeight: 0,
+          onChanged: (value) {},
+          dropdownWidth: 400,
+          dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
+          dropdownDecoration: BoxDecoration(
+            color: isDark ? ColorConst.cardDark : Colors.white,
+            border: Border.all(
+              color: isDark
+                  ? ColorConst.lightGrey.withOpacity(0.1)
+                  : ColorConst.lightGrey.withOpacity(0.5),
+            ),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          scrollbarAlwaysShow: false,
+          dropdownElevation: 0,
+          offset: const Offset(-246, 0),
+          itemHeight: 250,
+          items: [
+            DropdownMenuItem(
+              alignment: AlignmentDirectional.topStart,
+              value: '',
+              child: SizedBox(
+                height: 240,
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context)
+                      .copyWith(scrollbars: false),
+                  child: SingleChildScrollView(
+                    controller: ScrollController(),
+                    physics: const NeverScrollableScrollPhysics(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 4.0, vertical: 8.0),
+                          child: Text(
+                            '${Strings.notifications} (258)',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
                             ),
-                            subtitle: Text(
-                              _notificationSubtitle[index],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelMedium!
-                                  .copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium!
-                                        .color!
-                                        .withOpacity(0.5),
-                                  ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    const Divider(color: ColorConst.lightGrey, height: 8.0),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          Strings.viewAll,
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
-                      ),
+                        FxBox.h8,
+                        SizedBox(
+                          height: 200,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _notificationTitle.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 4.0),
+                                title: Text(
+                                  _notificationTitle[index],
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: Text(
+                                  _notificationSubtitle[index],
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium!
+                                            .color!
+                                            .withOpacity(0.5),
+                                      ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        const Divider(color: ColorConst.lightGrey, height: 8.0),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              Strings.viewAll,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ],
-    );
+          ],
+        ));
   }
 
   Widget _profile(TabsRouter tabsRouter) {
