@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_excel/excel.dart';
 import 'package:flutterx/flutterx.dart';
-import 'package:builtop_admin_dashboard/routes/app_routes.gr.dart' as gr;
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class AdminsPage extends StatefulWidget {
@@ -161,11 +160,13 @@ class _AdminsPageState extends State<AdminsPage> {
                     child: CustomSyncFusionTable(
                         key: UniqueKey(),
                         rowHeights: 70,
+                        columnsWithOptionalWidth: {'actions': 200},
                         fieldToColumnName: {
                           "id": 'id',
                           "name": 'Name',
                           "age": 'Age',
                           "isActive": 'Active',
+                          "actions": "actions"
                         },
                         generalList: [
                           {
@@ -208,6 +209,9 @@ class _AdminsPageState extends State<AdminsPage> {
                         buildCells: (row) {
                           return DataGridRowAdapter(
                               cells: row.getCells().map((e) {
+                            if (e.columnName == 'actions') {
+                              return _viewButton();
+                            }
                             return Container(
                                 decoration: DecorationEx.getBorderDecoration(),
                                 child: Center(child: Text(e.value.toString())));
@@ -322,39 +326,67 @@ class _AdminsPageState extends State<AdminsPage> {
     );
   }
 
-  Widget _tableHeader(String text) {
-    return ConstText.lightText(
-      text: text,
-      fontWeight: FontWeight.w700,
-    );
-  }
-
-  Widget _viewButton(Map<String, dynamic> e) {
-    return FxButton(
-      onPressed: () async {
-        var result = await showGeneralDialog(
-            transitionDuration: Duration(milliseconds: 200),
-            barrierDismissible: true,
-            barrierLabel: '',
-            context: context,
-            pageBuilder: (context, animation1, animation2) {
-              return const SizedBox.shrink();
+  Widget _viewButton() {
+    return Container(
+      decoration: DecorationEx.getBorderDecoration(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            onPressed: () async {
+              var result = await showGeneralDialog(
+                  transitionDuration: Duration(milliseconds: 200),
+                  barrierDismissible: true,
+                  barrierLabel: '',
+                  context: context,
+                  pageBuilder: (context, animation1, animation2) {
+                    return const SizedBox.shrink();
+                  },
+                  transitionBuilder: (context, a1, a2, widget) =>
+                      Transform.scale(
+                        scale: a1.value,
+                        child: Opacity(
+                          opacity: a1.value,
+                          child: Dialog(
+                            insetAnimationCurve: Curves.bounceIn,
+                            insetAnimationDuration: Duration(seconds: 1),
+                            child: AdminsDetailsPage(id: 'lol'),
+                          ),
+                        ),
+                      ));
             },
-            transitionBuilder: (context, a1, a2, widget) => Transform.scale(
-                  scale: a1.value,
-                  child: Opacity(
-                    opacity: a1.value,
-                    child: Dialog(
-                      insetAnimationCurve: Curves.bounceIn,
-                      insetAnimationDuration: Duration(seconds: 1),
-                      child: AdminsDetailsPage(id: 'lol'),
-                    ),
-                  ),
-                ));
-      },
-      text: 'View',
-      textColor: ColorConst.white,
-      color: ColorConst.primary,
+            icon: Icon(Icons.remove_red_eye_outlined),
+          ),
+          IconButton(
+            onPressed: () async {
+              var result = await showGeneralDialog(
+                  transitionDuration: Duration(milliseconds: 200),
+                  barrierDismissible: true,
+                  barrierLabel: '',
+                  context: context,
+                  pageBuilder: (context, animation1, animation2) {
+                    return const SizedBox.shrink();
+                  },
+                  transitionBuilder: (context, a1, a2, widget) =>
+                      Transform.scale(
+                        scale: a1.value,
+                        child: Opacity(
+                          opacity: a1.value,
+                          child: Dialog(
+                            insetAnimationCurve: Curves.bounceIn,
+                            insetAnimationDuration: Duration(seconds: 1),
+                            child: AdminsDetailsPage(id: 'lol'),
+                          ),
+                        ),
+                      ));
+            },
+            icon: Icon(
+              Icons.delete,
+              color: Colors.red,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

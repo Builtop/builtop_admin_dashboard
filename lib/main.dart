@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';
+import 'package:lifecycle/lifecycle.dart' show defaultLifecycleObserver;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,7 +59,8 @@ class _MyAppState extends State<MyApp> {
               DefaultCupertinoLocalizations.delegate,
               localizationDelegate
             ],
-            routerDelegate: AutoRouterDelegate(_appRouter),
+            routerDelegate: AutoRouterDelegate(_appRouter,
+                navigatorObservers: () => [defaultLifecycleObserver]),
             routeInformationParser: _appRouter.defaultRouteParser(),
             debugShowCheckedModeBanner: false,
             theme: ThemeClass.themeData(value, context),

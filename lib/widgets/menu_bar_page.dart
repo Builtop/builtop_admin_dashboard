@@ -5,6 +5,7 @@ import 'package:builtop_admin_dashboard/constants/icons.dart';
 import 'package:builtop_admin_dashboard/constants/images.dart';
 import 'package:builtop_admin_dashboard/constants/string.dart';
 import 'package:builtop_admin_dashboard/constants/theme.dart';
+import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.controller.dart';
 import 'package:builtop_admin_dashboard/routes/routes.dart';
 import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/utils/extensions.dart';
@@ -73,8 +74,8 @@ class _MenuBarState extends State<MenuBarPage> {
     'Congratulation  👏🏻',
     'Hey!, How are you?',
   ];
-  final List<PageRouteInfo<dynamic>> routes = const [
-    gr.DashboardRoute(),
+  final List<PageRouteInfo<dynamic>> routes = [
+    gr.DashboardRoute(controllerEx: null),
     gr.AdminsRoute()
   ];
 
@@ -89,9 +90,7 @@ class _MenuBarState extends State<MenuBarPage> {
       routes: routes,
       builder: (context, child, animation) {
         final tabsRouter = AutoTabsRouter.of(context);
-        tabsRouter.currentChild?.args;
         autoTabRouter = tabsRouter;
-
         return ValueListenableBuilder<TextDirection>(
             valueListenable: _layout,
             builder: (context, value, _) {

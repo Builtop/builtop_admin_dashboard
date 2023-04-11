@@ -1,5 +1,6 @@
 import 'package:builtop_admin_dashboard/constants/color.dart';
 import 'package:builtop_admin_dashboard/constants/decoration.dart';
+import 'package:builtop_admin_dashboard/constants/text.dart';
 import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -88,12 +89,7 @@ class _CustomSyncFusionTableState extends State<CustomSyncFusionTable> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 12),
                                 alignment: Alignment.center,
-                                child: Text(
-                                  entry.value,
-                                  style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
-                                ))))
+                                child: _tableHeader(entry.value))))
                         .toList())),
           ),
           SizedBox(
@@ -116,6 +112,13 @@ class _CustomSyncFusionTableState extends State<CustomSyncFusionTable> {
           )
         ],
       ),
+    );
+  }
+
+  Widget _tableHeader(String text) {
+    return ConstText.lightText(
+      text: text,
+      fontWeight: FontWeight.w700,
     );
   }
 }

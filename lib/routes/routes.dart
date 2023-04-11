@@ -22,9 +22,6 @@ Widget getRouteWidget(int index) {
     case 1:
       return AdminsPage();
 
-    case 2:
-      return AdminsDetailsPage();
-
     default:
       return DashboardPage();
   }
