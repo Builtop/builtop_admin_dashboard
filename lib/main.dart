@@ -18,7 +18,9 @@ void main() async {
   await ConfigService.init();
 
   var delegate = await LocalizationDelegate.create(
-      fallbackLocale: AppConfigService.isArabic ? 'ar' : 'en',
+      fallbackLocale: ConfigService.getValueString('language') == ''
+          ? 'en'
+          : ConfigService.getValueString('language'),
       supportedLocales: ['en', 'ar']);
 
   usePathUrlStrategy();
@@ -45,7 +47,9 @@ class _MyAppState extends State<MyApp> {
       child: ValueListenableBuilder(
         builder: (BuildContext context, value, Widget? child) {
           return MaterialApp.router(
-            locale: localizationDelegate.currentLocale,
+            locale: AppConfigService.isArabic
+                ? const Locale('ar')
+                : const Locale('en'),
             supportedLocales: localizationDelegate.supportedLocales,
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,

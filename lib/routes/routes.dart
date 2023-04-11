@@ -1,11 +1,15 @@
 import 'package:builtop_admin_dashboard/constants/string.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admins.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/admins/admins_details.page.dart';
 import 'package:flutter/material.dart';
 
 int getRouteIndex(String route) {
   if (route == Strings.admins) {
     return 1;
+  }
+  if (route == Strings.adminsDetails) {
+    return 2;
   } else {
     return 0;
   }
@@ -17,6 +21,9 @@ Widget getRouteWidget(int index) {
   switch (index) {
     case 1:
       return AdminsPage();
+
+    case 2:
+      return AdminsDetailsPage();
 
     default:
       return DashboardPage();

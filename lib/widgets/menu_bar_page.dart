@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/constants/color.dart';
+import 'package:builtop_admin_dashboard/constants/const.dart';
 import 'package:builtop_admin_dashboard/constants/icons.dart';
 import 'package:builtop_admin_dashboard/constants/images.dart';
 import 'package:builtop_admin_dashboard/constants/string.dart';
@@ -36,12 +37,15 @@ class _MenuBarState extends State<MenuBarPage> {
   ValueNotifier<bool> isOpen = ValueNotifier(true);
   ValueNotifier<bool> isSubListOpen = ValueNotifier(false);
 
+  final ValueNotifier<TextDirection> _layout = ValueNotifier<TextDirection>(
+      AppConfigService.isArabic ? TextDirection.rtl : TextDirection.ltr);
+
   Map<String, String> mainData = {
     Strings.dashboard: IconlyBroken.home,
   };
 
   Map<String, String> componentData = {
-    Strings.users: IconlyBroken.box,
+    Strings.users: IconlyBroken.users,
   };
 
   List<List<String>> componentsExpandList = [
@@ -69,11 +73,7 @@ class _MenuBarState extends State<MenuBarPage> {
     'Congratulation  👏🏻',
     'Hey!, How are you?',
   ];
-
-  final List<PageRouteInfo<dynamic>> _routes = const [
-    gr.DashboardRoute(),
-    gr.AdminsRoute()
-  ];
+  List<PageRouteInfo<dynamic>> routes = [gr.DashboardRoute(), gr.AdminsRoute()];
 
   // for change language
   final ValueNotifier<String> _language =
@@ -82,102 +82,127 @@ class _MenuBarState extends State<MenuBarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsRouter(
-      routes: _routes,
-      builder: (context, child, animation) {
-        final tabsRouter = AutoTabsRouter.of(context);
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Scaffold(
-            key: _scaffoldKey,
-            endDrawer: Drawer(
-              width: 280,
-              child: SafeArea(
-                child: SettingDrawer(scaffoldKey: _scaffoldKey),
-              ),
-            ),
-            appBar: _appBar(tabsRouter),
-            body: SafeArea(
-              child: Scaffold(
-                key: _scaffoldDrawerKey,
-                // drawerScrimColor: ColorConst.transparent,
-                drawer: _sidebar(tabsRouter),
-                body: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ValueListenableBuilder<bool>(
-                      valueListenable: isOpen,
-                      builder: (context, value, child) {
-                        return Responsive.isWeb(context)
-                            ? _sidebar(tabsRouter)
-                            : const SizedBox.shrink();
-                      },
-                    ),
-                    Expanded(
-                      child: CustomScrollView(
-                        controller: _scrollController,
-                        slivers: [
-                          SliverList(
-                            delegate: SliverChildListDelegate(
-                              [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 24.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      if (!upperCase(tabsRouter.currentPath)
-                                          // .camelCase()
-                                          .trim()
-                                          .contains(Strings.landingPage)) ...[
-                                        FxBox.h20,
-                                        Text(
-                                          upperCase(tabsRouter.currentPath)
-                                              // .camelCase()
-                                              .trim(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                  fontWeight: FontWeight.bold),
+    return ValueListenableBuilder(
+        valueListenable: AppConfigService.routesEx,
+        builder: (context, value, __) {
+          print('===================${value}');
+          print('Before ===================routesLength${routes.length}');
+
+          if (value.isNotEmpty) {
+            routes.addAll(value);
+          }
+          print('After ===================routesLength${routes.length}');
+
+          return AutoTabsRouter(
+            key: UniqueKey(),
+            routes: routes,
+            builder: (context, child, animation) {
+              final tabsRouter = AutoTabsRouter.of(context);
+              tabsRouter.currentChild?.args;
+              autoTabRouter = tabsRouter;
+
+              return ValueListenableBuilder<TextDirection>(
+                  valueListenable: _layout,
+                  builder: (context, value, _) {
+                    return Directionality(
+                      textDirection: value,
+                      child: Scaffold(
+                        key: _scaffoldKey,
+                        endDrawer: Drawer(
+                          width: 280,
+                          child: SafeArea(
+                            child: SettingDrawer(scaffoldKey: _scaffoldKey),
+                          ),
+                        ),
+                        appBar: _appBar(tabsRouter),
+                        body: SafeArea(
+                          child: Scaffold(
+                            key: _scaffoldDrawerKey,
+                            // drawerScrimColor: ColorConst.transparent,
+                            drawer: _sidebar(tabsRouter),
+                            body: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ValueListenableBuilder<bool>(
+                                  valueListenable: isOpen,
+                                  builder: (context, value, child) {
+                                    return Responsive.isWeb(context)
+                                        ? _sidebar(tabsRouter)
+                                        : const SizedBox.shrink();
+                                  },
+                                ),
+                                Expanded(
+                                  child: CustomScrollView(
+                                    controller: _scrollController,
+                                    slivers: [
+                                      SliverList(
+                                        delegate: SliverChildListDelegate(
+                                          [
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 24.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  if (!upperCase(tabsRouter
+                                                          .currentPath)
+                                                      // .camelCase()
+                                                      .trim()
+                                                      .contains(Strings
+                                                          .landingPage)) ...[
+                                                    FxBox.h20,
+                                                    Text(
+                                                      translate(
+                                                          'body.${upperCase(tabsRouter.currentPath).trim().toLowerCase()}'),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyLarge!
+                                                          .copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                    ),
+                                                    FxBox.h8,
+                                                    _routesDeatils(tabsRouter),
+                                                    FxBox.h20,
+                                                  ],
+                                                  getRouteWidget(
+                                                      tabsRouter.activeIndex),
+                                                  FxBox.h20,
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        FxBox.h8,
-                                        _routesDeatils(tabsRouter),
-                                        FxBox.h20,
-                                      ],
-                                      getRouteWidget(tabsRouter.activeIndex),
-                                      FxBox.h20,
+                                      ),
+                                      SliverFillRemaining(
+                                        hasScrollBody: false,
+                                        fillOverscroll: true,
+                                        child: Column(
+                                          children: <Widget>[
+                                            const Expanded(
+                                              child: SizedBox.shrink(),
+                                            ),
+                                            _footer(),
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          SliverFillRemaining(
-                            hasScrollBody: false,
-                            fillOverscroll: true,
-                            child: Column(
-                              children: <Widget>[
-                                const Expanded(
-                                  child: SizedBox.shrink(),
-                                ),
-                                _footer(),
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
+                    );
+                  });
+            },
+          );
+        });
   }
 
   /// appbar
@@ -257,19 +282,7 @@ class _MenuBarState extends State<MenuBarPage> {
               valueListenable: _language,
               builder: (context, value, _) {
                 return InkWell(
-                  onTap: () async {
-                    if (value == 'en' || value == '') {
-                      changeLocale(context, 'ar');
-
-                      _language.value = 'ar';
-                    } else {
-                      changeLocale(context, 'en');
-
-                      _language.value = 'en';
-                    }
-                    AppConfigService.language = _language.value;
-                    // await languageModel.changeLanguage();
-                  },
+                  onTap: () => changeLanguage(value),
                   child: Text(
                     AppConfigService.isArabic ? 'ar' : 'en',
                     style: const TextStyle(
@@ -334,19 +347,7 @@ class _MenuBarState extends State<MenuBarPage> {
                     SizedBox(
                       height: 40.0,
                       child: MenuItemButton(
-                        onPressed: () async {
-                          if (_language.value == 'en') {
-                            changeLocale(context, 'ar');
-
-                            _language.value = 'ar';
-                          } else {
-                            changeLocale(context, 'en');
-
-                            _language.value = 'en';
-                          }
-                          AppConfigService.language = _language.value;
-                          // await languageModel.changeLanguage();
-                        },
+                        onPressed: () => changeLanguage(_language.value),
                         child: MenuAcceleratorLabel(
                             _language.value == 'en' ? 'Arabic' : 'English'),
                       ),
@@ -396,7 +397,7 @@ class _MenuBarState extends State<MenuBarPage> {
           customItemsIndexes: const [1],
           customItemsHeight: 0,
           onChanged: (value) {},
-          dropdownWidth: 400,
+          dropdownWidth: 300,
           dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
           dropdownDecoration: BoxDecoration(
             color: isDark ? ColorConst.cardDark : Colors.white,
@@ -409,14 +410,16 @@ class _MenuBarState extends State<MenuBarPage> {
           ),
           scrollbarAlwaysShow: false,
           dropdownElevation: 0,
-          offset: const Offset(-246, 0),
-          itemHeight: 250,
+          offset: AppConfigService.isArabic
+              ? const Offset(246, 0)
+              : const Offset(-246, 0),
+          itemHeight: 300,
           items: [
             DropdownMenuItem(
               alignment: AlignmentDirectional.topStart,
               value: '',
               child: SizedBox(
-                height: 240,
+                height: 300,
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)
                       .copyWith(scrollbars: false),
@@ -563,7 +566,9 @@ class _MenuBarState extends State<MenuBarPage> {
         borderRadius: BorderRadius.circular(4.0),
       ),
       dropdownElevation: 0,
-      offset: const Offset(-108, 0),
+      offset: AppConfigService.isArabic
+          ? const Offset(108, 0)
+          : const Offset(-108, 0),
     );
   }
 
@@ -657,7 +662,7 @@ class _MenuBarState extends State<MenuBarPage> {
                         FxBox.w(22.0),
                         SvgIcon(
                           icon: items.values.elementAt(index),
-                          size: 16,
+                          size: 20,
                           color: children[index]
                                   .contains(upperCase(tabsRouter.currentPath))
                               ? isDark
@@ -669,7 +674,8 @@ class _MenuBarState extends State<MenuBarPage> {
                       ],
                     ),
                     title: Text(
-                      items.keys.elementAt(index),
+                      translate(
+                          'body.${items.keys.elementAt(index).toLowerCase()}'),
                       style: TextStyle(
                           color: children[index]
                                   .contains(upperCase(tabsRouter.currentPath))
@@ -694,7 +700,7 @@ class _MenuBarState extends State<MenuBarPage> {
                 : ListTile(
                     leading: SvgIcon(
                       icon: items.values.elementAt(index),
-                      size: isopen ? 16 : 18,
+                      size: isopen ? 18 : 22,
                       color: items.keys.elementAt(index) ==
                               upperCase(tabsRouter.currentPath)
                           ? isDark
@@ -748,7 +754,7 @@ class _MenuBarState extends State<MenuBarPage> {
                   child: ListTile(
                     leading: SvgIcon(
                       icon: items.values.elementAt(index),
-                      size: isopen ? 16 : 18,
+                      size: isopen ? 16 : 20,
                       color: items.keys.elementAt(index) ==
                               upperCase(tabsRouter.currentPath)
                           ? isDark
@@ -758,7 +764,8 @@ class _MenuBarState extends State<MenuBarPage> {
                     ),
                     title: isopen
                         ? Text(
-                            items.keys.elementAt(index),
+                            translate(
+                                'body.${items.keys.elementAt(index).toLowerCase()}'),
                             style: TextStyle(
                               color: items.keys.elementAt(index) ==
                                       upperCase(tabsRouter.currentPath)
@@ -1084,7 +1091,9 @@ class _MenuBarState extends State<MenuBarPage> {
                   dense: true,
                   visualDensity: const VisualDensity(vertical: -3),
                   mouseCursor: SystemMouseCursors.click,
-                  contentPadding: const EdgeInsets.only(left: 52.0),
+                  contentPadding: AppConfigService.isArabic
+                      ? EdgeInsets.only(right: 52.0)
+                      : EdgeInsets.only(left: 52.0),
                   title: Text(
                     // items[index],
                     items[index],
@@ -1141,6 +1150,21 @@ class _MenuBarState extends State<MenuBarPage> {
         },
       ),
     );
+  }
+
+  void changeLanguage(String value) async {
+    if (value == 'en' || value == '') {
+      changeLocale(context, 'ar');
+
+      _language.value = 'ar';
+      _layout.value = TextDirection.rtl;
+    } else {
+      changeLocale(context, 'en');
+
+      _language.value = 'en';
+      _layout.value = TextDirection.ltr;
+    }
+    AppConfigService.language = _language.value;
   }
 
   /// routes

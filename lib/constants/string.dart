@@ -44,6 +44,7 @@ class Strings {
 
   // ui users option
   static const String admins = 'Admins';
+  static const String adminsDetails = 'Admins Details';
   static const String suppliers = 'Suppliers';
   static const String buyers = 'Buyers';
   static const String badge = 'Badge';

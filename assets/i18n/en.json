@@ -4,6 +4,7 @@
     },
     "body" : {
         "text1" : "Test",
-        "dashboard": "Dashboard"
+        "dashboard": "Dashboard",
+        "users": "Users"
     }
 }

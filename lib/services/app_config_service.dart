@@ -1,7 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';
 
 class AppConfigService {
+  static ValueNotifier<List<PageRouteInfo<dynamic>>> routesEx =
+      ValueNotifier<List<PageRouteInfo<dynamic>>>([]);
+
+  final ValueNotifier<String> _language =
+      ValueNotifier<String>(AppConfigService.language);
+
   // static UserData? _user;
   // static List<Locale>? supportedAppLocale;
 
