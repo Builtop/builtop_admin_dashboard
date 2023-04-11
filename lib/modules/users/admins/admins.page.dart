@@ -1,12 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/constants/color.dart';
 import 'package:builtop_admin_dashboard/constants/const.dart';
+import 'package:builtop_admin_dashboard/constants/decoration.dart';
 import 'package:builtop_admin_dashboard/constants/icons.dart';
 import 'package:builtop_admin_dashboard/constants/text.dart';
 import 'package:builtop_admin_dashboard/constants/theme.dart';
 import 'package:builtop_admin_dashboard/modules/login/login.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/admins/admins_details.page.dart';
 import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
+import 'package:builtop_admin_dashboard/widgets/custom_sync_fusion_table.widget.dart';
 import 'package:builtop_admin_dashboard/widgets/datatable.dart';
 import 'package:builtop_admin_dashboard/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_excel/excel.dart';
 import 'package:flutterx/flutterx.dart';
 import 'package:builtop_admin_dashboard/routes/app_routes.gr.dart' as gr;
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class AdminsPage extends StatefulWidget {
   const AdminsPage({Key? key}) : super(key: key);
@@ -120,7 +124,6 @@ class _AdminsPageState extends State<AdminsPage> {
                     ),
                   ],
                 ),
-                _listCounter(),
                 FxBox.h16,
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.2,
@@ -138,10 +141,13 @@ class _AdminsPageState extends State<AdminsPage> {
                       }).toList();
                       setState(() {});
                     },
-                    suffixIcon: const Padding(
+                    suffixIcon: Padding(
                       padding: EdgeInsets.all(8.0),
                       child: SvgIcon(
                         icon: IconlyBroken.search,
+                        color: AppConfigService.isDark
+                            ? ColorConst.white
+                            : ColorConst.black,
                       ),
                     ),
                     border: OutlineInputBorder(
@@ -150,106 +156,164 @@ class _AdminsPageState extends State<AdminsPage> {
                 ),
                 FxBox.h16,
                 ConstrainedBox(
-                  constraints:
-                      const BoxConstraints(maxHeight: (56.0 * 10) + 72.0),
-                  child: DataTable3(
-                    showCheckboxColumn: false,
-                    showBottomBorder: true,
-                    columnSpacing: 20.0,
-                    minWidth: 728.0,
-                    dataRowHeight: Responsive.isMobile(context)
-                        ? 100
-                        : Responsive.isTablet(context)
-                            ? 95
-                            : islg(context)
-                                ? 90
-                                : 56.0,
-                    headingRowHeight: 64.0,
-                    border: TableBorder(
-                      bottom: BorderSide(
-                        width: 1,
-                        color: isDark
-                            ? ColorConst.white.withOpacity(0.25)
-                            : Colors.grey.shade200,
-                      ),
-                      horizontalInside: BorderSide(
-                        width: 1,
-                        color: isDark
-                            ? ColorConst.white.withOpacity(0.25)
-                            : Colors.grey.shade50,
-                      ),
+                    constraints:
+                        const BoxConstraints(maxHeight: (56.0 * 10) + 72.0),
+                    child: CustomSyncFusionTable(
+                        key: UniqueKey(),
+                        rowHeights: 70,
+                        fieldToColumnName: {
+                          "id": 'id',
+                          "name": 'Name',
+                          "age": 'Age',
+                          "isActive": 'Active',
+                        },
+                        generalList: [
+                          {
+                            "id": '1',
+                            "name": 'Ahmed',
+                            "age": '22',
+                            "isActive": true,
+                          },
+                          {
+                            "id": '2',
+                            "name": 'Nader',
+                            "age": '33',
+                            "isActive": false,
+                          },
+                          {
+                            "id": '2',
+                            "name": 'Nader',
+                            "age": '33',
+                            "isActive": false,
+                          },
+                          {
+                            "id": '2',
+                            "name": 'Nader',
+                            "age": '33',
+                            "isActive": false,
+                          },
+                          {
+                            "id": '2',
+                            "name": 'Nader',
+                            "age": '33',
+                            "isActive": false,
+                          },
+                          {
+                            "id": '2',
+                            "name": 'Nader',
+                            "age": '33',
+                            "isActive": false,
+                          },
+                        ],
+                        buildCells: (row) {
+                          return DataGridRowAdapter(
+                              cells: row.getCells().map((e) {
+                            return Container(
+                                decoration: DecorationEx.getBorderDecoration(),
+                                child: Center(child: Text(e.value.toString())));
+                          }).toList());
+                        },
+                        context: context)
+
+                    // DataTable3(
+                    //   showCheckboxColumn: false,
+                    //   showBottomBorder: true,
+                    //   columnSpacing: 20.0,
+                    //   minWidth: 728.0,
+                    //   dataRowHeight: Responsive.isMobile(context)
+                    //       ? 100
+                    //       : Responsive.isTablet(context)
+                    //           ? 95
+                    //           : islg(context)
+                    //               ? 90
+                    //               : 56.0,
+                    //   headingRowHeight: 64.0,
+                    //   border: TableBorder(
+                    //     bottom: BorderSide(
+                    //       width: 1,
+                    //       color: isDark
+                    //           ? ColorConst.white.withOpacity(0.25)
+                    //           : Colors.grey.shade200,
+                    //     ),
+                    //     horizontalInside: BorderSide(
+                    //       width: 1,
+                    //       color: isDark
+                    //           ? ColorConst.white.withOpacity(0.25)
+                    //           : Colors.grey.shade50,
+                    //     ),
+                    //   ),
+                    //   columns: [
+                    //     DataColumn2(
+                    //       label: _tableHeader('id'),
+                    //       size: ColumnSize.S,
+                    //     ),
+                    //     DataColumn2(
+                    //       label: _tableHeader('orderID'),
+                    //       size: ColumnSize.L,
+                    //     ),
+                    //     DataColumn2(
+                    //       label: _tableHeader('customerName'),
+                    //       size: ColumnSize.M,
+                    //     ),
+                    //     DataColumn2(
+                    //       label: _tableHeader('emailAndMobile'),
+                    //       size: ColumnSize.M,
+                    //     ),
+                    //     DataColumn2(
+                    //       label: _tableHeader('productName'),
+                    //       size: ColumnSize.M,
+                    //     ),
+                    //     DataColumn2(
+                    //       label: _tableHeader('orderDate'),
+                    //       size: ColumnSize.M,
+                    //     ),
+                    //     DataColumn2(
+                    //       label: _tableHeader('orderAmount'),
+                    //       size: ColumnSize.M,
+                    //     ),
+                    //     DataColumn2(
+                    //       label: _tableHeader(''),
+                    //       size: ColumnSize.S,
+                    //     ),
+                    //   ],
+                    //   rows: _searchList.isEmpty
+                    //       ? _venderList.map((e) {
+                    //           return DataRow(
+                    //             onSelectChanged: (value) {
+                    //               // autoTabRouter!.setActiveIndex(51);
+                    //             },
+                    //             cells: [
+                    //               DataCell(_tableHeader(e['id'].toString())),
+                    //               DataCell(_tableHeader(e['orderID'])),
+                    //               DataCell(_tableHeader(e['Name'])),
+                    //               DataCell(_tableHeader(e['Email'])),
+                    //               DataCell(_tableHeader(e['productName'])),
+                    //               DataCell(_tableHeader(e['date'])),
+                    //               DataCell(_tableHeader(e['amount'])),
+                    //               DataCell(_viewButton(e)),
+                    //             ],
+                    //           );
+                    //         }).toList()
+                    //       : _searchList.map((e) {
+                    //           return DataRow(
+                    //             onSelectChanged: (value) {
+                    //               // autoTabRouter!.setActiveIndex(51);
+                    //             },
+                    //             cells: [
+                    //               DataCell(_tableHeader(e['id'].toString())),
+                    //               DataCell(_tableHeader(e['orderID'])),
+                    //               DataCell(_tableHeader(e['Name'])),
+                    //               DataCell(_tableHeader(e['Email'])),
+                    //               DataCell(_tableHeader(e['productName'])),
+                    //               DataCell(_tableHeader(e['date'])),
+                    //               DataCell(_tableHeader(e['amount'])),
+                    //               DataCell(_viewButton(e)),
+                    //             ],
+                    //           );
+                    //         }).toList(),
+                    // ),
+
                     ),
-                    columns: [
-                      DataColumn2(
-                        label: _tableHeader('id'),
-                        size: ColumnSize.S,
-                      ),
-                      DataColumn2(
-                        label: _tableHeader('orderID'),
-                        size: ColumnSize.L,
-                      ),
-                      DataColumn2(
-                        label: _tableHeader('customerName'),
-                        size: ColumnSize.M,
-                      ),
-                      DataColumn2(
-                        label: _tableHeader('emailAndMobile'),
-                        size: ColumnSize.M,
-                      ),
-                      DataColumn2(
-                        label: _tableHeader('productName'),
-                        size: ColumnSize.M,
-                      ),
-                      DataColumn2(
-                        label: _tableHeader('orderDate'),
-                        size: ColumnSize.M,
-                      ),
-                      DataColumn2(
-                        label: _tableHeader('orderAmount'),
-                        size: ColumnSize.M,
-                      ),
-                      DataColumn2(
-                        label: _tableHeader(''),
-                        size: ColumnSize.S,
-                      ),
-                    ],
-                    rows: _searchList.isEmpty
-                        ? _venderList.map((e) {
-                            return DataRow(
-                              onSelectChanged: (value) {
-                                // autoTabRouter!.setActiveIndex(51);
-                              },
-                              cells: [
-                                DataCell(_tableHeader(e['id'].toString())),
-                                DataCell(_tableHeader(e['orderID'])),
-                                DataCell(_tableHeader(e['Name'])),
-                                DataCell(_tableHeader(e['Email'])),
-                                DataCell(_tableHeader(e['productName'])),
-                                DataCell(_tableHeader(e['date'])),
-                                DataCell(_tableHeader(e['amount'])),
-                                DataCell(_viewButton(e)),
-                              ],
-                            );
-                          }).toList()
-                        : _searchList.map((e) {
-                            return DataRow(
-                              onSelectChanged: (value) {
-                                // autoTabRouter!.setActiveIndex(51);
-                              },
-                              cells: [
-                                DataCell(_tableHeader(e['id'].toString())),
-                                DataCell(_tableHeader(e['orderID'])),
-                                DataCell(_tableHeader(e['Name'])),
-                                DataCell(_tableHeader(e['Email'])),
-                                DataCell(_tableHeader(e['productName'])),
-                                DataCell(_tableHeader(e['date'])),
-                                DataCell(_tableHeader(e['amount'])),
-                                DataCell(_viewButton(e)),
-                              ],
-                            );
-                          }).toList(),
-                  ),
-                ),
               ],
             ),
           ),
@@ -268,47 +332,29 @@ class _AdminsPageState extends State<AdminsPage> {
   Widget _viewButton(Map<String, dynamic> e) {
     return FxButton(
       onPressed: () async {
-        AppConfigService.routesEx.value
-            .add(gr.AdminsDetailsRoute(id: e['orderID']));
-        AppConfigService.routesEx.notifyListeners();
-        await Future.delayed(Duration(seconds: 1));
-        autoTabRouter!.setActiveIndex(2);
+        var result = await showGeneralDialog(
+            transitionDuration: Duration(milliseconds: 200),
+            barrierDismissible: true,
+            barrierLabel: '',
+            context: context,
+            pageBuilder: (context, animation1, animation2) {
+              return const SizedBox.shrink();
+            },
+            transitionBuilder: (context, a1, a2, widget) => Transform.scale(
+                  scale: a1.value,
+                  child: Opacity(
+                    opacity: a1.value,
+                    child: Dialog(
+                      insetAnimationCurve: Curves.bounceIn,
+                      insetAnimationDuration: Duration(seconds: 1),
+                      child: AdminsDetailsPage(id: 'lol'),
+                    ),
+                  ),
+                ));
       },
       text: 'View',
       textColor: ColorConst.white,
       color: ColorConst.primary,
-    );
-  }
-
-  Widget _listCounter() {
-    return Row(
-      children: [
-        const Text("Show   "),
-        DropdownButtonHideUnderline(
-          child: DropdownButton<int>(
-            focusColor: Colors.transparent,
-            items: <int>[10, 20, 50, 100].map((int value) {
-              return DropdownMenuItem<int>(
-                value: value,
-                child: Text(value.toString()),
-              );
-            }).toList(),
-            onChanged: (value) {
-              if (value != null) {
-                _dropValue = value;
-                _start = 0;
-                _end = value < ls.length ? value : ls.length;
-                _page = 0;
-              }
-            },
-            value: _dropValue,
-          ),
-        ),
-        const Text(" entries"),
-        if (!Responsive.isMobile(context)) const Spacer(),
-        if (!Responsive.isMobile(context))
-          Text("Showing ${_start + 1} to $_end of ${ls.length} entries"),
-      ],
     );
   }
 

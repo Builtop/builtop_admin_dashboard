@@ -73,7 +73,10 @@ class _MenuBarState extends State<MenuBarPage> {
     'Congratulation  👏🏻',
     'Hey!, How are you?',
   ];
-  List<PageRouteInfo<dynamic>> routes = [gr.DashboardRoute(), gr.AdminsRoute()];
+  final List<PageRouteInfo<dynamic>> routes = const [
+    gr.DashboardRoute(),
+    gr.AdminsRoute()
+  ];
 
   // for change language
   final ValueNotifier<String> _language =
@@ -82,127 +85,112 @@ class _MenuBarState extends State<MenuBarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: AppConfigService.routesEx,
-        builder: (context, value, __) {
-          print('===================${value}');
-          print('Before ===================routesLength${routes.length}');
+    return AutoTabsRouter(
+      routes: routes,
+      builder: (context, child, animation) {
+        final tabsRouter = AutoTabsRouter.of(context);
+        tabsRouter.currentChild?.args;
+        autoTabRouter = tabsRouter;
 
-          if (value.isNotEmpty) {
-            routes.addAll(value);
-          }
-          print('After ===================routesLength${routes.length}');
-
-          return AutoTabsRouter(
-            key: UniqueKey(),
-            routes: routes,
-            builder: (context, child, animation) {
-              final tabsRouter = AutoTabsRouter.of(context);
-              tabsRouter.currentChild?.args;
-              autoTabRouter = tabsRouter;
-
-              return ValueListenableBuilder<TextDirection>(
-                  valueListenable: _layout,
-                  builder: (context, value, _) {
-                    return Directionality(
-                      textDirection: value,
-                      child: Scaffold(
-                        key: _scaffoldKey,
-                        endDrawer: Drawer(
-                          width: 280,
-                          child: SafeArea(
-                            child: SettingDrawer(scaffoldKey: _scaffoldKey),
+        return ValueListenableBuilder<TextDirection>(
+            valueListenable: _layout,
+            builder: (context, value, _) {
+              return Directionality(
+                textDirection: value,
+                child: Scaffold(
+                  key: _scaffoldKey,
+                  endDrawer: Drawer(
+                    width: 280,
+                    child: SafeArea(
+                      child: SettingDrawer(scaffoldKey: _scaffoldKey),
+                    ),
+                  ),
+                  appBar: _appBar(tabsRouter),
+                  body: SafeArea(
+                    child: Scaffold(
+                      key: _scaffoldDrawerKey,
+                      // drawerScrimColor: ColorConst.transparent,
+                      drawer: _sidebar(tabsRouter),
+                      body: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ValueListenableBuilder<bool>(
+                            valueListenable: isOpen,
+                            builder: (context, value, child) {
+                              return Responsive.isWeb(context)
+                                  ? _sidebar(tabsRouter)
+                                  : const SizedBox.shrink();
+                            },
                           ),
-                        ),
-                        appBar: _appBar(tabsRouter),
-                        body: SafeArea(
-                          child: Scaffold(
-                            key: _scaffoldDrawerKey,
-                            // drawerScrimColor: ColorConst.transparent,
-                            drawer: _sidebar(tabsRouter),
-                            body: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ValueListenableBuilder<bool>(
-                                  valueListenable: isOpen,
-                                  builder: (context, value, child) {
-                                    return Responsive.isWeb(context)
-                                        ? _sidebar(tabsRouter)
-                                        : const SizedBox.shrink();
-                                  },
-                                ),
-                                Expanded(
-                                  child: CustomScrollView(
-                                    controller: _scrollController,
-                                    slivers: [
-                                      SliverList(
-                                        delegate: SliverChildListDelegate(
-                                          [
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 24.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  if (!upperCase(tabsRouter
-                                                          .currentPath)
-                                                      // .camelCase()
-                                                      .trim()
-                                                      .contains(Strings
-                                                          .landingPage)) ...[
-                                                    FxBox.h20,
-                                                    Text(
-                                                      translate(
-                                                          'body.${upperCase(tabsRouter.currentPath).trim().toLowerCase()}'),
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyLarge!
-                                                          .copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                    ),
-                                                    FxBox.h8,
-                                                    _routesDeatils(tabsRouter),
-                                                    FxBox.h20,
-                                                  ],
-                                                  getRouteWidget(
-                                                      tabsRouter.activeIndex),
-                                                  FxBox.h20,
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SliverFillRemaining(
-                                        hasScrollBody: false,
-                                        fillOverscroll: true,
+                          Expanded(
+                            child: CustomScrollView(
+                              controller: _scrollController,
+                              slivers: [
+                                SliverList(
+                                  delegate: SliverChildListDelegate(
+                                    [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 24.0),
                                         child: Column(
-                                          children: <Widget>[
-                                            const Expanded(
-                                              child: SizedBox.shrink(),
-                                            ),
-                                            _footer(),
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            if (!upperCase(
+                                                    tabsRouter.currentPath)
+                                                // .camelCase()
+                                                .trim()
+                                                .contains(
+                                                    Strings.landingPage)) ...[
+                                              FxBox.h20,
+                                              Text(
+                                                translate(
+                                                    'body.${upperCase(tabsRouter.currentPath).trim().toLowerCase()}'),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                              ),
+                                              FxBox.h8,
+                                              _routesDeatils(tabsRouter),
+                                              FxBox.h20,
+                                            ],
+                                            getRouteWidget(
+                                                tabsRouter.activeIndex),
+                                            FxBox.h20,
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
+                                SliverFillRemaining(
+                                  hasScrollBody: false,
+                                  fillOverscroll: true,
+                                  child: Column(
+                                    children: <Widget>[
+                                      const Expanded(
+                                        child: SizedBox.shrink(),
+                                      ),
+                                      _footer(),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    );
-                  });
-            },
-          );
-        });
+                    ),
+                  ),
+                ),
+              );
+            });
+      },
+    );
   }
 
   /// appbar
