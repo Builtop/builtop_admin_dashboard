@@ -6,6 +6,8 @@ class AppConfigService {
   final ValueNotifier<String> _language =
       ValueNotifier<String>(AppConfigService.language);
 
+  static bool isLogin = false;
+
   // static UserData? _user;
   // static List<Locale>? supportedAppLocale;
 

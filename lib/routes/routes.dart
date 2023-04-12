@@ -1,15 +1,18 @@
 import 'package:builtop_admin_dashboard/constants/string.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.page.dart';
+import 'package:builtop_admin_dashboard/modules/requests/rfq/rfq.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admins.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admins_details.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/suppliers/suppliers.page.dart';
 import 'package:flutter/material.dart';
 
 int getRouteIndex(String route) {
   if (route == Strings.admins) {
     return 1;
-  }
-  if (route == Strings.adminsDetails) {
+  } else if (route == Strings.suppliers) {
     return 2;
+  } else if (route == Strings.rfq) {
+    return 3;
   } else {
     return 0;
   }
@@ -18,12 +21,14 @@ int getRouteIndex(String route) {
 Widget getRouteWidget(int index) {
   // return DashboardPage();
 
-  switch (index) {
-    case 1:
-      return AdminsPage();
-
-    default:
-      return DashboardPage();
+  if (index == 1) {
+    return AdminsPage();
+  } else if (index == 2) {
+    return SuppliersPage();
+  } else if (index == 3) {
+    return RfqPage();
+  } else {
+    return DashboardPage();
   }
 
   // if (index == 1) {

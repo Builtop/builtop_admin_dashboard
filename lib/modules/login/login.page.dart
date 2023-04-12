@@ -1,13 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/constants/color.dart';
 import 'package:builtop_admin_dashboard/constants/icons.dart';
 import 'package:builtop_admin_dashboard/constants/images.dart';
 import 'package:builtop_admin_dashboard/constants/string.dart';
 import 'package:builtop_admin_dashboard/constants/theme.dart';
+import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/utils/hover.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterx/flutterx.dart';
+import 'package:builtop_admin_dashboard/routes/app_routes.gr.dart' as gr;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -190,13 +193,20 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loginButton() {
     return FxButton(
-      onPressed: () {},
+      onPressed: () {
+        signIn();
+      },
       text: 'signIn',
       borderRadius: 8.0,
       height: 40,
       minWidth: MediaQuery.of(context).size.width,
       color: Theme.of(context).colorScheme.primary,
     );
+  }
+
+  void signIn() {
+    AppConfigService.isLogin = true;
+    context.popRoute();
   }
 
   Widget _forgotPasswordButton() {

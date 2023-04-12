@@ -1,6 +1,8 @@
+import 'package:builtop_admin_dashboard/utils/extensions.dart';
+
 String upperCase(String text) {
-  if (text == '/FAQs') {
-    return text.replaceAll('/', '');
+  if (text == '/rfq' || text == '/rfp') {
+    return text.replaceAll('/', '').capitalize();
   } else if (text == '/products/products-detail') {
     String tempText = '';
     for (String element in text.split('/')[2].split('-')) {

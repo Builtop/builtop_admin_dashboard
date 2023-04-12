@@ -6,6 +6,7 @@ import 'package:builtop_admin_dashboard/constants/images.dart';
 import 'package:builtop_admin_dashboard/constants/string.dart';
 import 'package:builtop_admin_dashboard/constants/theme.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.controller.dart';
+import 'package:builtop_admin_dashboard/modules/login/login.page.dart';
 import 'package:builtop_admin_dashboard/routes/routes.dart';
 import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/utils/extensions.dart';
@@ -45,11 +46,20 @@ class _MenuBarState extends State<MenuBarPage> {
     Strings.dashboard: IconlyBroken.home,
   };
 
-  Map<String, String> componentData = {
+  Map<String, String> usersData = {
     Strings.users: IconlyBroken.users,
   };
+  Map<String, String> requestsData = {
+    Strings.requests: IconlyBroken.requests,
+  };
 
-  List<List<String>> componentsExpandList = [
+  List<List<String>> requestsDataList = [
+    [
+      Strings.rfq,
+      Strings.rfp,
+    ],
+  ];
+  List<List<String>> usersExpandList = [
     [
       Strings.admins,
       Strings.suppliers,
@@ -76,13 +86,23 @@ class _MenuBarState extends State<MenuBarPage> {
   ];
   final List<PageRouteInfo<dynamic>> routes = [
     gr.DashboardRoute(controllerEx: null),
-    gr.AdminsRoute()
+    gr.AdminsRoute(),
+    gr.SuppliersRoute(),
+    gr.RfqRoute()
   ];
 
   // for change language
   final ValueNotifier<String> _language =
       ValueNotifier<String>(AppConfigService.language);
   //final ValueNotifier<bool> _changeLanguage = ValueNotifier<bool>(false);
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  void init() {}
 
   @override
   Widget build(BuildContext context) {
@@ -588,9 +608,16 @@ class _MenuBarState extends State<MenuBarPage> {
                     // if (value) _menuHeading(Strings.components),
                     _menuList(
                       tabsRouter: tabsRouter,
-                      items: componentData,
+                      items: requestsData,
                       isExpanded: true,
-                      children: componentsExpandList,
+                      children: requestsDataList,
+                      isopen: value,
+                    ),
+                    _menuList(
+                      tabsRouter: tabsRouter,
+                      items: usersData,
+                      isExpanded: true,
+                      children: usersExpandList,
                       isopen: value,
                     ),
 
@@ -1095,8 +1122,14 @@ class _MenuBarState extends State<MenuBarPage> {
                     }
                     _scaffoldDrawerKey.currentState?.closeDrawer();
 
-                    // if (items[index] == 'Login 1') {
-                    //   context.router.push(const LoginOne());
+                    if (items[index] == 'Admins') {
+                      tabsRouter.setActiveIndex(getRouteIndex(items[index]));
+                    } else if (items[index] == 'Suppliers') {
+                      tabsRouter.setActiveIndex(getRouteIndex(items[index]));
+                    } else if (items[index] == 'Rfq') {
+                      tabsRouter.setActiveIndex(getRouteIndex(items[index]));
+                    } else {}
+
                     // } else if (items[index] == 'Login 2') {
                     //   context.router.push(const LoginTwo());
                     // } else if (items[index] == 'Register 1') {
@@ -1156,28 +1189,23 @@ class _MenuBarState extends State<MenuBarPage> {
 
   /// routes
   Widget _routesDeatils(TabsRouter tabsRouter) {
-    int routeIndex = getRouteIndex(tabsRouter.currentPath
-        .substring(1, tabsRouter.currentPath.length)
-        .replaceAll('-', ' ')
-        .capitalize());
+    // int routeIndex = getRouteIndex(tabsRouter.currentPath
+    //     .substring(0, tabsRouter.currentPath.length)
+    //     .replaceAll('-', ' ')
+    //     .capitalize());
+    int routeIndex =
+        getRouteIndex(tabsRouter.currentPath.substring(1).capitalize());
 
     return Row(
       children: (tabsRouter.currentPath == '/dashboard')
           ? []
           : [
-              if (routeIndex.isBetween(1, 6) ||
-                  routeIndex == 10 ||
-                  routeIndex == 24 ||
-                  routeIndex == 25 ||
-                  routeIndex == 33 ||
-                  routeIndex == 36 ||
-                  routeIndex == 37 ||
-                  routeIndex == 57) ...[
+              if (routeIndex.isBetween(1, 2)) ...[
                 // const Text(' / ${Strings.uiElements} '),
                 Text('${'Users'} '),
-              ] else if (routeIndex.isBetween(27, 32)) ...[
+              ] else if (routeIndex.isBetween(3, 4)) ...[
                 // const Text(' / ${Strings.forms} '),
-                Text(' / ${'formElements'} '),
+                Text('${'Requests'} '),
               ] else if (routeIndex.isBetween(11, 13)) ...[
                 // const Text(' / ${Strings.charts} '),
                 Text(' / ${'charts'} '),

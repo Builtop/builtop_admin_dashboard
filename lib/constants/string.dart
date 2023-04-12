@@ -34,13 +34,16 @@ class Strings {
   static const String charts = 'Charts';
   static const String tables = 'Tables';
   static const String authentication = 'Authentication';
-  static const String extraPages = 'Extra Pages';
+  static const String requests = 'Requests';
   static const String emailTemplates = 'Email Templates';
   static const String userProfile = 'User Profile';
   static const String selectedmenuIndex = 'selectedindex';
   static const String eCommerce = 'E-Commerce';
   static const String eCommerceAdmin = 'Admin';
   static const String eCommerceSite = 'Web Site';
+
+  static const String rfq = 'Rfq';
+  static const String rfp = 'Rfp';
 
   // ui users option
   static const String admins = 'Admins';
