@@ -44,6 +44,7 @@ dependencies:
   syncfusion_flutter_datagrid: ^20.4.53
   syncfusion_flutter_core: ^20.4.53
   fl_chart: ^0.55.1
+  cool_alert: ^2.0.1
 
 
   flutterx:
@@ -58,6 +59,10 @@ dev_dependencies:
     sdk: flutter
   auto_route_generator: ^5.0.3
   build_runner: ^2.2.0
+
+
+dependency_overrides:
+  lottie: 2.2.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

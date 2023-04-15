@@ -757,9 +757,11 @@ class _MenuBarState extends State<MenuBarPage> {
                               ? ColorConst.chartForgoundColor
                               : ColorConst.primary
                           : ColorConst.transparent,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(6.0),
-                        bottomRight: Radius.circular(6.0),
+                      borderRadius: BorderRadius.only(
+                        topRight: englishRadiusForSelector,
+                        bottomRight: englishRadiusForSelector,
+                        topLeft: arabicRadiusForSelector,
+                        bottomLeft: arabicRadiusForSelector,
                       ),
                     ),
                   ),
@@ -811,6 +813,13 @@ class _MenuBarState extends State<MenuBarPage> {
       ),
     );
   }
+
+  Radius get englishRadiusForSelector => AppConfigService.isArabic
+      ? const Radius.circular(0.0)
+      : const Radius.circular(6.0);
+  Radius get arabicRadiusForSelector => AppConfigService.isArabic
+      ? const Radius.circular(6.0)
+      : const Radius.circular(0.0);
 
   Widget _tempMenuList({
     required TabsRouter tabsRouter,

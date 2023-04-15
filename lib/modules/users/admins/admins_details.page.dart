@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/constants/color.dart';
 import 'package:builtop_admin_dashboard/modules/login/login.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admins.page.dart';
+import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -58,111 +59,123 @@ class _AdminsDetailsPageState extends State<AdminsDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
-        constraints: BoxConstraints(maxHeight: 700, maxWidth: 1000),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: WidgetScrollable(
-            columnMainAxisAlignment: MainAxisAlignment.start,
-            isColumn: true,
-            widgets: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'inputElements',
-                    style: const TextStyle(
-                        fontSize: 17, fontWeight: FontWeight.w600),
-                  ),
-                  FxBox.h24,
-                  if (Responsive.isWeb(context))
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  _commonText(_headingList[0]),
-                                  FxBox.h4,
-                                  _listBox(_hintList[0]),
-                                ],
-                              ),
-                            ),
-                            FxBox.w16,
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  _commonText(_headingList[1]),
-                                  FxBox.h4,
-                                  _listBox(_hintList[1]),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        FxBox.h16,
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  _commonText(_headingList[2]),
-                                  FxBox.h4,
-                                  _listBox(_hintList[2]),
-                                ],
-                              ),
-                            ),
-                            FxBox.w16,
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  _commonText(_headingList[3]),
-                                  FxBox.h4,
-                                  _listBox(_hintList[3]),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        FxBox.h16,
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  _commonText(_headingList[4]),
-                                  FxBox.h4,
-                                  _listBox(_hintList[4]),
-                                ],
-                              ),
-                            ),
-                            FxBox.w16,
-                            Expanded(child: _passwordTextField()),
-                          ],
-                        ),
-                        FxBox.h16,
-                      ],
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: AppConfigService.isDark
+            ? ColorConst.scaffoldDark
+            : ColorConst.drawerBG,
+      ),
+      constraints: BoxConstraints(maxHeight: 700, maxWidth: 1000),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Card(
+          shadowColor: ColorConst.primary.withOpacity(0.5),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: WidgetScrollable(
+              columnMainAxisAlignment: MainAxisAlignment.start,
+              isColumn: true,
+              widgets: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'inputElements',
+                      style: const TextStyle(
+                          fontSize: 17, fontWeight: FontWeight.w600),
                     ),
-                  if (!Responsive.isWeb(context))
-                    Column(
-                      children: [
-                        _textFieldNormal(_headingList, _hintList),
-                        FxBox.h8,
-                        _passwordTextField(),
-                        FxBox.h16,
-                      ],
-                    )
-                ],
-              ),
-            ],
+                    FxBox.h24,
+                    if (Responsive.isWeb(context))
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _commonText(_headingList[0]),
+                                    FxBox.h4,
+                                    _listBox(_hintList[0]),
+                                  ],
+                                ),
+                              ),
+                              FxBox.w16,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _commonText(_headingList[1]),
+                                    FxBox.h4,
+                                    _listBox(_hintList[1]),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          FxBox.h16,
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _commonText(_headingList[2]),
+                                    FxBox.h4,
+                                    _listBox(_hintList[2]),
+                                  ],
+                                ),
+                              ),
+                              FxBox.w16,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _commonText(_headingList[3]),
+                                    FxBox.h4,
+                                    _listBox(_hintList[3]),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          FxBox.h16,
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _commonText(_headingList[4]),
+                                    FxBox.h4,
+                                    _listBox(_hintList[4]),
+                                  ],
+                                ),
+                              ),
+                              FxBox.w16,
+                              Expanded(child: _passwordTextField()),
+                            ],
+                          ),
+                          FxBox.h16,
+                        ],
+                      ),
+                    if (!Responsive.isWeb(context))
+                      Column(
+                        children: [
+                          _textFieldNormal(_headingList, _hintList),
+                          FxBox.h8,
+                          _passwordTextField(),
+                          FxBox.h16,
+                        ],
+                      )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

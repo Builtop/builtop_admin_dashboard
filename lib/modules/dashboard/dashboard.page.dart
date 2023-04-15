@@ -1,11 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/widgets/list_item.widget.dart';
-import 'package:builtop_admin_dashboard/modules/dashboard/widgets/montly_earning.widget.dart';
-import 'package:builtop_admin_dashboard/modules/dashboard/widgets/sales_analytics.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/widgets/sales_report.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/widgets/transaction.widget.dart';
-import 'package:builtop_admin_dashboard/modules/login/login.page.dart';
-import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
@@ -29,7 +24,6 @@ class _DashboardPageState
       children: [
         ListitemWidget(),
         FxBox.h24,
-        MonthlyearningWidget(),
         FxBox.h24,
         Responsive.isWeb(context)
             ? Row(
@@ -40,7 +34,7 @@ class _DashboardPageState
                   ),
                   FxBox.w24,
                   Expanded(
-                    child: Salesanalytics(),
+                    child: SalesReport(),
                   ),
                 ],
               )
@@ -48,11 +42,13 @@ class _DashboardPageState
                 children: [
                   SalesReport(),
                   FxBox.h24,
-                  Salesanalytics(),
+                  SalesReport(),
                 ],
               ),
         FxBox.h24,
-        TransactionWidget()
+        TransactionWidget(),
+        FxBox.h16,
+        TransactionWidget(),
       ],
     );
   }
