@@ -1,31 +1,36 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/constants/color.dart';
-import 'package:builtop_admin_dashboard/constants/const.dart';
 import 'package:builtop_admin_dashboard/constants/decoration.dart';
 import 'package:builtop_admin_dashboard/constants/icons.dart';
 import 'package:builtop_admin_dashboard/constants/text.dart';
 import 'package:builtop_admin_dashboard/constants/theme.dart';
-import 'package:builtop_admin_dashboard/modules/login/login.page.dart';
-import 'package:builtop_admin_dashboard/modules/users/admins/admins_details.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/admins/admin_details.page.dart';
 import 'package:builtop_admin_dashboard/services/app_config_service.dart';
-import 'package:builtop_admin_dashboard/utils/responsive.dart';
 import 'package:builtop_admin_dashboard/widgets/custom_sync_fusion_table.widget.dart';
-import 'package:builtop_admin_dashboard/widgets/datatable.dart';
 import 'package:builtop_admin_dashboard/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_excel/excel.dart';
 import 'package:flutterx/flutterx.dart';
+import 'package:mahg_essential_package/mahg_essential_package.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-class AdminsPage extends StatefulWidget {
-  const AdminsPage({Key? key}) : super(key: key);
+import 'admins.controller.dart';
+
+class AdminsPage extends MahgStatefulWidget<AdminsController> {
+  const AdminsPage({AdminsController? controllerEx, Key? key})
+      : super(controllerEx, key: key);
 
   @override
   State<AdminsPage> createState() => _AdminsPageState();
 }
 
-class _AdminsPageState extends State<AdminsPage> {
+class _AdminsPageState extends MahgState<AdminsPage, AdminsController> {
+  @override
+  createController() {
+    return AdminsController();
+  }
+
   final TextEditingController _search = TextEditingController();
 
   List<Map<String, dynamic>> _searchList = [];
@@ -174,43 +179,49 @@ class _AdminsPageState extends State<AdminsPage> {
                             "name": 'Ahmed',
                             "age": '22',
                             "isActive": true,
+                            "actions": "1"
                           },
                           {
                             "id": '2',
                             "name": 'Nader',
                             "age": '33',
                             "isActive": false,
+                            "actions": "2"
                           },
                           {
                             "id": '2',
                             "name": 'Nader',
                             "age": '33',
                             "isActive": false,
+                            "actions": "3"
                           },
                           {
                             "id": '2',
                             "name": 'Nader',
                             "age": '33',
                             "isActive": false,
+                            "actions": "4"
                           },
                           {
                             "id": '2',
                             "name": 'Nader',
                             "age": '33',
                             "isActive": false,
+                            "actions": "5"
                           },
                           {
                             "id": '2',
                             "name": 'Nader',
                             "age": '33',
                             "isActive": false,
+                            "actions": "6"
                           },
                         ],
                         buildCells: (row) {
                           return DataGridRowAdapter(
                               cells: row.getCells().map((e) {
                             if (e.columnName == 'actions') {
-                              return _viewButton();
+                              return _viewButton(e.value);
                             }
                             return Container(
                                 decoration: DecorationEx.getBorderDecoration(),
@@ -326,7 +337,7 @@ class _AdminsPageState extends State<AdminsPage> {
     );
   }
 
-  Widget _viewButton() {
+  Widget _viewButton(value) {
     return Container(
       decoration: DecorationEx.getBorderDecoration(),
       child: Row(
@@ -334,26 +345,8 @@ class _AdminsPageState extends State<AdminsPage> {
         children: [
           IconButton(
             onPressed: () async {
-              var result = await showGeneralDialog(
-                  transitionDuration: Duration(milliseconds: 200),
-                  barrierDismissible: true,
-                  barrierLabel: '',
-                  context: context,
-                  pageBuilder: (context, animation1, animation2) {
-                    return const SizedBox.shrink();
-                  },
-                  transitionBuilder: (context, a1, a2, widget) =>
-                      Transform.scale(
-                        scale: a1.value,
-                        child: Opacity(
-                          opacity: a1.value,
-                          child: Dialog(
-                            insetAnimationCurve: Curves.bounceIn,
-                            insetAnimationDuration: Duration(seconds: 1),
-                            child: AdminsDetailsPage(id: 'lol'),
-                          ),
-                        ),
-                      ));
+              print(value);
+              context.navigateNamedTo('/adminDetails?id=$value');
             },
             icon: Icon(Icons.remove_red_eye_outlined),
           ),
@@ -375,11 +368,18 @@ class _AdminsPageState extends State<AdminsPage> {
                           child: Dialog(
                             insetAnimationCurve: Curves.bounceIn,
                             insetAnimationDuration: Duration(seconds: 1),
-                            child: AdminsDetailsPage(id: 'lol'),
+                            child: AdminDetailsPage(),
                           ),
                         ),
                       ));
             },
+            icon: Icon(
+              Icons.details,
+              color: Colors.indigo,
+            ),
+          ),
+          IconButton(
+            onPressed: () async {},
             icon: Icon(
               Icons.delete,
               color: Colors.red,

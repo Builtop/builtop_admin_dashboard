@@ -1,23 +1,30 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/constants/color.dart';
-import 'package:builtop_admin_dashboard/modules/login/login.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admins.page.dart';
 import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutterx/flutterx.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';
 
-class AdminsDetailsPage extends StatefulWidget {
-  const AdminsDetailsPage({@QueryParam('id') String? id, super.key});
+import 'admins.controller.dart';
+
+class AdminDetailsPage extends MahgStatefulWidget<AdminsController> {
+  const AdminDetailsPage({AdminsController? controllerEx, Key? key})
+      : super(controllerEx, key: key);
 
   @override
-  State<AdminsDetailsPage> createState() => _AdminsDetailsPageState();
+  State<AdminDetailsPage> createState() => _AdminDetailsPageState();
 }
 
-class _AdminsDetailsPageState extends State<AdminsDetailsPage> {
+class _AdminDetailsPageState
+    extends MahgState<AdminDetailsPage, AdminsController> {
+  // if data sended from pop Not Get id from route ${context.routeData.queryParams} else if open page get data from query parameter
+  @override
+  createController() {
+    return AdminsController();
+  }
+
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _numberController = TextEditingController();
   final TextEditingController _dateNtimeController = TextEditingController();
@@ -59,6 +66,8 @@ class _AdminsDetailsPageState extends State<AdminsDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    // print('routeeeeee is ${context.routeData.queryParams}');
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -66,7 +75,7 @@ class _AdminsDetailsPageState extends State<AdminsDetailsPage> {
             ? ColorConst.scaffoldDark
             : ColorConst.drawerBG,
       ),
-      constraints: BoxConstraints(maxHeight: 700, maxWidth: 1000),
+      constraints: const BoxConstraints(maxHeight: 700, maxWidth: 1000),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Card(

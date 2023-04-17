@@ -22,7 +22,8 @@ import 'package:flutterx/flutterx.dart';
 import 'package:builtop_admin_dashboard/routes/app_routes.gr.dart' as gr;
 
 class MenuBarPage extends StatefulWidget {
-  const MenuBarPage({Key? key}) : super(key: key);
+  final Widget Function()? body;
+  const MenuBarPage({Key? key, this.body}) : super(key: key);
 
   @override
   State<MenuBarPage> createState() => _MenuBarState();
@@ -88,13 +89,13 @@ class _MenuBarState extends State<MenuBarPage> {
     gr.DashboardRoute(controllerEx: null),
     gr.AdminsRoute(),
     gr.SuppliersRoute(),
-    gr.RfqRoute()
+    gr.RfqRoute(),
+    gr.AdminDetailsRoute(),
   ];
 
   // for change language
   final ValueNotifier<String> _language =
       ValueNotifier<String>(AppConfigService.language);
-  //final ValueNotifier<bool> _changeLanguage = ValueNotifier<bool>(false);
 
   @override
   void initState() {
@@ -142,65 +143,69 @@ class _MenuBarState extends State<MenuBarPage> {
                                   : const SizedBox.shrink();
                             },
                           ),
-                          Expanded(
-                            child: CustomScrollView(
-                              controller: _scrollController,
-                              slivers: [
-                                SliverList(
-                                  delegate: SliverChildListDelegate(
-                                    [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 24.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            if (!upperCase(
-                                                    tabsRouter.currentPath)
-                                                // .camelCase()
-                                                .trim()
-                                                .contains(
-                                                    Strings.landingPage)) ...[
-                                              FxBox.h20,
-                                              Text(
-                                                translate(
-                                                    'body.${upperCase(tabsRouter.currentPath).trim().toLowerCase()}'),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge!
-                                                    .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                          (widget.body != null)
+                              ? widget.body?.call() ?? const SizedBox()
+                              : Expanded(
+                                  child: CustomScrollView(
+                                    controller: _scrollController,
+                                    slivers: [
+                                      SliverList(
+                                        delegate: SliverChildListDelegate(
+                                          [
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 24.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  if (!upperCase(tabsRouter
+                                                          .currentPath)
+                                                      // .camelCase()
+                                                      .trim()
+                                                      .contains(Strings
+                                                          .landingPage)) ...[
+                                                    FxBox.h20,
+                                                    Text(
+                                                      translate(
+                                                          'body.${upperCase(tabsRouter.currentPath).trim().toLowerCase()}'),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyLarge!
+                                                          .copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                    ),
+                                                    FxBox.h8,
+                                                    _routesDeatils(tabsRouter),
+                                                    FxBox.h20,
+                                                  ],
+                                                  getRouteWidget(
+                                                      tabsRouter.activeIndex),
+                                                  FxBox.h20,
+                                                ],
                                               ),
-                                              FxBox.h8,
-                                              _routesDeatils(tabsRouter),
-                                              FxBox.h20,
-                                            ],
-                                            getRouteWidget(
-                                                tabsRouter.activeIndex),
-                                            FxBox.h20,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SliverFillRemaining(
+                                        hasScrollBody: false,
+                                        fillOverscroll: true,
+                                        child: Column(
+                                          children: <Widget>[
+                                            const Expanded(
+                                              child: SizedBox.shrink(),
+                                            ),
+                                            _footer(),
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                SliverFillRemaining(
-                                  hasScrollBody: false,
-                                  fillOverscroll: true,
-                                  child: Column(
-                                    children: <Widget>[
-                                      const Expanded(
-                                        child: SizedBox.shrink(),
-                                      ),
-                                      _footer(),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -1212,6 +1217,8 @@ class _MenuBarState extends State<MenuBarPage> {
               if (routeIndex.isBetween(1, 2)) ...[
                 // const Text(' / ${Strings.uiElements} '),
                 Text('${'Users'} '),
+              ] else if (routeIndex == 4) ...[
+                Text('${'Users'} / ${'Admins'} '),
               ] else if (routeIndex.isBetween(3, 4)) ...[
                 // const Text(' / ${Strings.forms} '),
                 Text('${'Requests'} '),

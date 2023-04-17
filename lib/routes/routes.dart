@@ -1,18 +1,22 @@
 import 'package:builtop_admin_dashboard/constants/string.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.page.dart';
 import 'package:builtop_admin_dashboard/modules/requests/rfq/rfq.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/admins/admin_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admins.page.dart';
-import 'package:builtop_admin_dashboard/modules/users/admins/admins_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/suppliers/suppliers.page.dart';
+import 'package:builtop_admin_dashboard/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
 int getRouteIndex(String route) {
+  print('xxxxxxxxxxxxxxxxxxxxx${route}');
   if (route == Strings.admins) {
     return 1;
   } else if (route == Strings.suppliers) {
     return 2;
   } else if (route == Strings.rfq) {
     return 3;
+  } else if (route == Strings.adminDetails.capitalize()) {
+    return 4;
   } else {
     return 0;
   }
@@ -27,6 +31,8 @@ Widget getRouteWidget(int index) {
     return SuppliersPage();
   } else if (index == 3) {
     return RfqPage();
+  } else if (index == 4) {
+    return AdminDetailsPage();
   } else {
     return DashboardPage();
   }

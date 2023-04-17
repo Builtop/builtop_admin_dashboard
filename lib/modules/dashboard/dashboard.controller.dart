@@ -15,8 +15,6 @@ class DashboardController extends MahgController {
   @override
   Future<void> onDisplayed(Widget page, bool isDisplayed) async {
     await Future.delayed(Duration(milliseconds: 400));
-
-    print('=========================== In on display');
     if (!AppConfigService.isLogin) {
       context.navigateTo(gr.LoginRoute());
     }
