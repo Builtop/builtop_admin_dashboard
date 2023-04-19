@@ -1,11 +1,70 @@
 import 'package:builtop_admin_dashboard/constants/color.dart';
 import 'package:builtop_admin_dashboard/constants/text.dart';
+import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.controller.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
 
-class ListitemWidget extends StatelessWidget {
-  const ListitemWidget({super.key});
+class ListitemWidget extends StatefulWidget {
+  final DashboardController? dashboardController;
+  const ListitemWidget({required this.dashboardController, super.key});
+
+  @override
+  State<ListitemWidget> createState() => _ListitemWidgetState();
+}
+
+class _ListitemWidgetState extends State<ListitemWidget> {
+  late List<Map<String, dynamic>>? _listItem;
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  void init() {
+    _listItem = [
+      {
+        'id': 0,
+        'producTitle': 'Users',
+        'value': widget.dashboardController?.dashboardData?.usersNum.toString(),
+        'boxIcon': Icons.note_add,
+        // 'boxColor': '05A660',
+        'boxColor': ['FEBE99', 'F66F94'],
+        'percentage': 60,
+      },
+      {
+        'id': 1,
+        'producTitle': 'Suppliers',
+        'value':
+            widget.dashboardController?.dashboardData?.suppliersNum.toString(),
+        'boxIcon': Icons.note_alt_rounded,
+        // 'boxColor': '9B5B1E',
+        'boxColor': ['43D5E7', '7DB1F0'],
+        'percentage': 10,
+      },
+      {
+        'id': 2,
+        'producTitle': 'Buyers',
+        'value':
+            widget.dashboardController?.dashboardData?.buyersNum.toString(),
+        'boxIcon': Icons.pending_actions_outlined,
+        // 'boxColor': '18818D',
+        'boxColor': ['8DDAD3', '3CC2AE'],
+        'percentage': -5,
+      },
+      {
+        'id': 3,
+        'producTitle': 'Admins',
+        'value':
+            widget.dashboardController?.dashboardData?.adminsNum.toString(),
+        'boxIcon': Icons.shopping_bag_rounded,
+        // 'boxColor': '004FC4',
+        'boxColor': ['A100DA', '400370'],
+        'percentage': 15,
+      },
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,25 +92,25 @@ class ListitemWidget extends StatelessWidget {
                     mainAxisSpacing: 20,
                     mainAxisExtent: 205,
                   ),
-        itemCount: _listItem.length,
+        itemCount: _listItem?.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return _listContainer(
-            boxIcon: _listItem[index]['boxIcon'],
-            productTitle: _listItem[index]['producTitle'],
-            value: _listItem[index]['value'],
-            percentage: _listItem[index]['percentage'],
+            boxIcon: _listItem?[index]['boxIcon'],
+            productTitle: _listItem?[index]['producTitle'],
+            value: _listItem?[index]['value'] ?? '0',
+            percentage: _listItem?[index]['percentage'],
             color: index == 3
                 ? [
-                    Color(int.parse('0xff${_listItem[index]['boxColor'][0]}'))
+                    Color(int.parse('0xff${_listItem?[index]['boxColor'][0]}'))
                         .withOpacity(0.75),
-                    Color(int.parse('0xff${_listItem[index]['boxColor'][1]}'))
+                    Color(int.parse('0xff${_listItem?[index]['boxColor'][1]}'))
                         .withOpacity(0.75)
                   ]
                 : [
-                    Color(int.parse('0xff${_listItem[index]['boxColor'][0]}')),
-                    Color(int.parse('0xff${_listItem[index]['boxColor'][1]}'))
+                    Color(int.parse('0xff${_listItem?[index]['boxColor'][0]}')),
+                    Color(int.parse('0xff${_listItem?[index]['boxColor'][1]}'))
                   ],
           );
         },
@@ -92,7 +151,7 @@ class ListitemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ConstText.lightText(
-                      text: 'total productTitle',
+                      text: productTitle,
                       color: ColorConst.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -145,42 +204,3 @@ class ListitemWidget extends StatelessWidget {
     );
   }
 }
-
-final List<Map<String, dynamic>> _listItem = [
-  {
-    'id': 0,
-    'producTitle': 'inventory',
-    'value': '3,930',
-    'boxIcon': Icons.note_add,
-    // 'boxColor': '05A660',
-    'boxColor': ['FEBE99', 'F66F94'],
-    'percentage': 60,
-  },
-  {
-    'id': 1,
-    'producTitle': 'active',
-    'value': '1,268',
-    'boxIcon': Icons.note_alt_rounded,
-    // 'boxColor': '9B5B1E',
-    'boxColor': ['43D5E7', '7DB1F0'],
-    'percentage': 10,
-  },
-  {
-    'id': 2,
-    'producTitle': 'cancel',
-    'value': '170',
-    'boxIcon': Icons.pending_actions_outlined,
-    // 'boxColor': '18818D',
-    'boxColor': ['8DDAD3', '3CC2AE'],
-    'percentage': -5,
-  },
-  {
-    'id': 3,
-    'producTitle': 'sales',
-    'value': '28,060',
-    'boxIcon': Icons.shopping_bag_rounded,
-    // 'boxColor': '004FC4',
-    'boxColor': ['A100DA', '400370'],
-    'percentage': 15,
-  },
-];

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.service.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/widgets/list_item.widget.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/widgets/sales_report.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/widgets/transaction.widget.dart';
@@ -23,7 +24,19 @@ class _DashboardPageState
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ListitemWidget(),
+        TextButton(
+            onPressed: () async {
+              await DashboardService.testFunction();
+            },
+            child: Text('test')),
+        controller.dashboardData == null
+            ? SizedBox(
+                width: 50,
+                height: 50,
+                child: const CircularProgressIndicator.adaptive())
+            : ListitemWidget(
+                dashboardController: controller,
+              ),
         FxBox.h24,
         FxBox.h24,
         Responsive.isWeb(context)

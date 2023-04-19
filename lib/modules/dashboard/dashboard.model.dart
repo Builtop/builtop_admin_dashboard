@@ -1,11 +1,23 @@
+class Dashboard {
+  int? usersNum;
+  int? adminsNum;
+  int? supervisorsNum;
+  int? buyersNum;
+  int? suppliersNum;
+  Dashboard({
+    this.usersNum,
+    this.adminsNum,
+    this.supervisorsNum,
+    this.buyersNum,
+    this.suppliersNum,
+  });
 
-class Dashboard{
-
-Dashboard();
-
-
-Dashboard.fromJson(Map<String,dynamic> data){
-
-}
-Map<String,dynamic> toJson() => {};
+  factory Dashboard.fromJson(Map<String, dynamic> data) {
+    return Dashboard(
+        usersNum: data['usersNum'],
+        adminsNum: data['adminsNum'],
+        supervisorsNum: data['supervisorsNum'],
+        buyersNum: data['buyersNum'],
+        suppliersNum: data['suppliersNum']);
+  }
 }
