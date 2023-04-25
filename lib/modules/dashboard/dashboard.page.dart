@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.service.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/widgets/list_item.widget.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/widgets/sales_report.dart';
+import 'package:builtop_admin_dashboard/modules/dashboard/widgets/users_report.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/widgets/transaction.widget.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +44,7 @@ class _DashboardPageState
             ? Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: SalesReport(),
-                  ),
+                  Expanded(child: getUsersReportWidget),
                   FxBox.w24,
                   Expanded(
                     child: SalesReport(),
@@ -54,7 +53,7 @@ class _DashboardPageState
               )
             : Column(
                 children: [
-                  SalesReport(),
+                  getUsersReportWidget,
                   FxBox.h24,
                   SalesReport(),
                 ],
@@ -66,6 +65,15 @@ class _DashboardPageState
       ],
     );
   }
+
+  Widget get getUsersReportWidget => controller.dashboardData == null
+      ? SizedBox(
+          width: 50,
+          height: 50,
+          child: const CircularProgressIndicator.adaptive())
+      : UsersReport(
+          dashboardController: controller,
+        );
 
   @override
   DashboardController createController() {

@@ -1,11 +1,17 @@
 class Dashboard {
   int? usersNum;
+  int? activeUsersnNum;
+  int? pendingUsersnNum;
+  int? inActiveUsersnNum;
   int? adminsNum;
   int? supervisorsNum;
   int? buyersNum;
   int? suppliersNum;
   Dashboard({
     this.usersNum,
+    this.activeUsersnNum,
+    this.pendingUsersnNum,
+    this.inActiveUsersnNum,
     this.adminsNum,
     this.supervisorsNum,
     this.buyersNum,
@@ -15,6 +21,9 @@ class Dashboard {
   factory Dashboard.fromJson(Map<String, dynamic> data) {
     return Dashboard(
         usersNum: data['usersNum'],
+        activeUsersnNum: data['activeUsersnNum'],
+        pendingUsersnNum: data['usersNum'],
+        inActiveUsersnNum: data['usersNum'],
         adminsNum: data['adminsNum'],
         supervisorsNum: data['supervisorsNum'],
         buyersNum: data['buyersNum'],

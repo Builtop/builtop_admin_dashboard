@@ -19,9 +19,9 @@ import '../modules/dashboard/dashboard.page.dart' as _i3;
 import '../modules/login/login.page.dart' as _i1;
 import '../modules/requests/rfq/rfq.controller.dart' as _i13;
 import '../modules/requests/rfq/rfq.page.dart' as _i7;
-import '../modules/users/admins/admin_details.page.dart' as _i4;
-import '../modules/users/admins/admins.controller.dart' as _i11;
-import '../modules/users/admins/admins.page.dart' as _i5;
+import '../modules/users/supervisors/supervisor_details.page.dart' as _i5;
+import '../modules/users/supervisors/supervisors.controller.dart' as _i11;
+import '../modules/users/supervisors/supervisors.page.dart' as _i4;
 import '../modules/users/suppliers/suppliers.controller.dart' as _i12;
 import '../modules/users/suppliers/suppliers.page.dart' as _i6;
 import '../widgets/menu_bar_page.dart' as _i2;
@@ -60,23 +60,23 @@ class AppRouter extends _i8.RootStackRouter {
         ),
       );
     },
-    AdminDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<AdminDetailsRouteArgs>(
-          orElse: () => const AdminDetailsRouteArgs());
+    SupervisorsRoute.name: (routeData) {
+      final args = routeData.argsAs<SupervisorsRouteArgs>(
+          orElse: () => const SupervisorsRouteArgs());
       return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i4.AdminDetailsPage(
+        child: _i4.SupervisorsPage(
           controllerEx: args.controllerEx,
           key: args.key,
         ),
       );
     },
-    AdminsRoute.name: (routeData) {
-      final args = routeData.argsAs<AdminsRouteArgs>(
-          orElse: () => const AdminsRouteArgs());
+    SupervisorDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<SupervisorDetailsRouteArgs>(
+          orElse: () => const SupervisorDetailsRouteArgs());
       return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i5.AdminsPage(
+        child: _i5.SupervisorDetailsPage(
           controllerEx: args.controllerEx,
           key: args.key,
         ),
@@ -129,13 +129,13 @@ class AppRouter extends _i8.RootStackRouter {
               parent: MenuBarRoute.name,
             ),
             _i8.RouteConfig(
-              AdminDetailsRoute.name,
-              path: 'adminDetails',
+              SupervisorsRoute.name,
+              path: 'supervisors',
               parent: MenuBarRoute.name,
             ),
             _i8.RouteConfig(
-              AdminsRoute.name,
-              path: 'admins',
+              SupervisorDetailsRoute.name,
+              path: 'supervisorDetails',
               parent: MenuBarRoute.name,
             ),
             _i8.RouteConfig(
@@ -236,70 +236,71 @@ class DashboardRouteArgs {
 }
 
 /// generated route for
-/// [_i4.AdminDetailsPage]
-class AdminDetailsRoute extends _i8.PageRouteInfo<AdminDetailsRouteArgs> {
-  AdminDetailsRoute({
-    _i11.AdminsController? controllerEx,
+/// [_i4.SupervisorsPage]
+class SupervisorsRoute extends _i8.PageRouteInfo<SupervisorsRouteArgs> {
+  SupervisorsRoute({
+    _i11.SupervisorsController? controllerEx,
     _i9.Key? key,
   }) : super(
-          AdminDetailsRoute.name,
-          path: 'adminDetails',
-          args: AdminDetailsRouteArgs(
+          SupervisorsRoute.name,
+          path: 'supervisors',
+          args: SupervisorsRouteArgs(
             controllerEx: controllerEx,
             key: key,
           ),
         );
 
-  static const String name = 'AdminDetailsRoute';
+  static const String name = 'SupervisorsRoute';
 }
 
-class AdminDetailsRouteArgs {
-  const AdminDetailsRouteArgs({
+class SupervisorsRouteArgs {
+  const SupervisorsRouteArgs({
     this.controllerEx,
     this.key,
   });
 
-  final _i11.AdminsController? controllerEx;
+  final _i11.SupervisorsController? controllerEx;
 
   final _i9.Key? key;
 
   @override
   String toString() {
-    return 'AdminDetailsRouteArgs{controllerEx: $controllerEx, key: $key}';
+    return 'SupervisorsRouteArgs{controllerEx: $controllerEx, key: $key}';
   }
 }
 
 /// generated route for
-/// [_i5.AdminsPage]
-class AdminsRoute extends _i8.PageRouteInfo<AdminsRouteArgs> {
-  AdminsRoute({
-    _i11.AdminsController? controllerEx,
+/// [_i5.SupervisorDetailsPage]
+class SupervisorDetailsRoute
+    extends _i8.PageRouteInfo<SupervisorDetailsRouteArgs> {
+  SupervisorDetailsRoute({
+    _i11.SupervisorsController? controllerEx,
     _i9.Key? key,
   }) : super(
-          AdminsRoute.name,
-          path: 'admins',
-          args: AdminsRouteArgs(
+          SupervisorDetailsRoute.name,
+          path: 'supervisorDetails',
+          args: SupervisorDetailsRouteArgs(
             controllerEx: controllerEx,
             key: key,
           ),
         );
 
-  static const String name = 'AdminsRoute';
+  static const String name = 'SupervisorDetailsRoute';
 }
 
-class AdminsRouteArgs {
-  const AdminsRouteArgs({
+class SupervisorDetailsRouteArgs {
+  const SupervisorDetailsRouteArgs({
     this.controllerEx,
     this.key,
   });
 
-  final _i11.AdminsController? controllerEx;
+  final _i11.SupervisorsController? controllerEx;
 
   final _i9.Key? key;
 
   @override
   String toString() {
-    return 'AdminsRouteArgs{controllerEx: $controllerEx, key: $key}';
+    return 'SupervisorDetailsRouteArgs{controllerEx: $controllerEx, key: $key}';
   }
 }
 

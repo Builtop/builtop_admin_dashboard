@@ -38,7 +38,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _appRouter = AppRouter();
+  final appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +59,9 @@ class _MyAppState extends State<MyApp> {
               DefaultCupertinoLocalizations.delegate,
               localizationDelegate
             ],
-            routerDelegate: AutoRouterDelegate(_appRouter,
+            routerDelegate: AutoRouterDelegate(appRouter,
                 navigatorObservers: () => [defaultLifecycleObserver]),
-            routeInformationParser: _appRouter.defaultRouteParser(),
+            routeInformationParser: appRouter.defaultRouteParser(),
             debugShowCheckedModeBanner: false,
             theme: ThemeClass.themeData(value, context),
             scrollBehavior: const MaterialScrollBehavior().copyWith(
@@ -80,4 +80,24 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+}
+
+extension Unique<E, Id> on List<E> {
+  List<E> unique([Id Function(E element)? id, bool inplace = true]) {
+    final ids = Set();
+    var list = inplace ? this : List<E>.from(this);
+    list.retainWhere((x) => ids.add(id != null ? id(x) : x as Id));
+    return list;
+  }
+}
+
+extension FixNum<E> on double {
+  double fixnum() => ((this * 100).ceil()) / 100;
+}
+
+extension Iterables<E> on Iterable<E> {
+  Map<K, List<E>> groupBy<K>(K Function(E) keyFunction) => fold(
+      <K, List<E>>{},
+      (Map<K, List<E>> map, E element) =>
+          map..putIfAbsent(keyFunction(element), () => <E>[]).add(element));
 }

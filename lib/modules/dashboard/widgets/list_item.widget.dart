@@ -26,8 +26,9 @@ class _ListitemWidgetState extends State<ListitemWidget> {
     _listItem = [
       {
         'id': 0,
-        'producTitle': 'Users',
-        'value': widget.dashboardController?.dashboardData?.usersNum.toString(),
+        'producTitle': 'Supervisors',
+        'value': widget.dashboardController?.dashboardData?.supervisorsNum
+            .toString(),
         'boxIcon': Icons.note_add,
         // 'boxColor': '05A660',
         'boxColor': ['FEBE99', 'F66F94'],

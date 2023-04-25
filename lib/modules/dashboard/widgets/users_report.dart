@@ -1,17 +1,21 @@
 import 'package:builtop_admin_dashboard/constants/color.dart';
 import 'package:builtop_admin_dashboard/constants/text.dart';
+import 'package:builtop_admin_dashboard/main.dart';
+import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.controller.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
 
-class SalesReport extends StatefulWidget {
-  const SalesReport({Key? key}) : super(key: key);
+class UsersReport extends StatefulWidget {
+  final DashboardController? dashboardController;
+  const UsersReport({Key? key, required this.dashboardController})
+      : super(key: key);
 
   @override
-  State<SalesReport> createState() => _SalesReportState();
+  State<UsersReport> createState() => _UsersReportState();
 }
 
-class _SalesReportState extends State<SalesReport> {
+class _UsersReportState extends State<UsersReport> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -28,7 +32,7 @@ class _SalesReportState extends State<SalesReport> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ConstText.lightText(
-              text: 'monthlyReport',
+              text: 'Users Report',
               fontWeight: FontWeight.bold,
             ),
             FxBox.h24,
@@ -37,7 +41,9 @@ class _SalesReportState extends State<SalesReport> {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 240,
-              child: PieChartSample2(),
+              child: PieChartSample2(
+                dashboardController: widget.dashboardController,
+              ),
             ),
           ],
         ),
@@ -71,13 +77,16 @@ class _SalesReportState extends State<SalesReport> {
 }
 
 class PieChartSample2 extends StatefulWidget {
-  const PieChartSample2({Key? key}) : super(key: key);
+  final DashboardController? dashboardController;
+
+  const PieChartSample2({Key? key, required this.dashboardController})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => PieChart2State();
 }
 
-class PieChart2State extends State {
+class PieChart2State extends State<PieChartSample2> {
   int touchedIndex = -1;
 
   @override
@@ -112,8 +121,24 @@ class PieChart2State extends State {
     );
   }
 
+  double get supervisorsPrecentage =>
+      ((widget.dashboardController?.dashboardData?.supervisorsNum ?? 0) /
+              (widget.dashboardController?.dashboardData?.usersNum ?? 0))
+          .fixnum() *
+      100;
+  double get buyersPrecentage =>
+      ((widget.dashboardController?.dashboardData?.buyersNum ?? 0) /
+              (widget.dashboardController?.dashboardData?.usersNum ?? 0))
+          .fixnum() *
+      100;
+  double get suppliersPrecentage =>
+      ((widget.dashboardController?.dashboardData?.suppliersNum ?? 0) /
+              (widget.dashboardController?.dashboardData?.usersNum ?? 0))
+          .fixnum() *
+      100;
+
   List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
+    return List.generate(3, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 26.0 : 17.0;
       final radius = isTouched ? 61.0 : 51.0;
@@ -121,8 +146,8 @@ class PieChart2State extends State {
         case 0:
           return PieChartSectionData(
             color: const Color(0xff0293ee),
-            value: 40,
-            title: '40%',
+            value: supervisorsPrecentage,
+            title: supervisorsPrecentage.toString(),
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -132,8 +157,8 @@ class PieChart2State extends State {
         case 1:
           return PieChartSectionData(
             color: const Color(0xfff8b250),
-            value: 30,
-            title: '30%',
+            value: buyersPrecentage,
+            title: buyersPrecentage.toString(),
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -143,25 +168,15 @@ class PieChart2State extends State {
         case 2:
           return PieChartSectionData(
             color: ColorConst.primary,
-            value: 25,
-            title: '15%',
+            value: suppliersPrecentage,
+            title: suppliersPrecentage.toString(),
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
           );
-        case 3:
-          return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
+
         default:
           throw Error();
       }

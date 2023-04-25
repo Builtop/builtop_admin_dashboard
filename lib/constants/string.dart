@@ -46,8 +46,10 @@ class Strings {
   static const String rfp = 'Rfp';
 
   // ui users option
-  static const String admins = 'Admins';
-  static const String adminDetails = 'Admindetails';
+  // static const String admins = 'Admins';
+  // static const String adminDetails = 'Admindetails';
+  static const String supervisors = 'Supervisors';
+  static const String supervisorDetails = 'Supervisordetails';
   static const String suppliers = 'Suppliers';
   static const String buyers = 'Buyers';
   static const String badge = 'Badge';

@@ -3,19 +3,20 @@ import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.page.dart';
 import 'package:builtop_admin_dashboard/modules/requests/rfq/rfq.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admin_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admins.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor_details.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisors.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/suppliers/suppliers.page.dart';
 import 'package:builtop_admin_dashboard/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
 int getRouteIndex(String route) {
-  print('xxxxxxxxxxxxxxxxxxxxx${route}');
-  if (route == Strings.admins) {
+  if (route == Strings.supervisors) {
     return 1;
   } else if (route == Strings.suppliers) {
     return 2;
   } else if (route == Strings.rfq) {
     return 3;
-  } else if (route == Strings.adminDetails.capitalize()) {
+  } else if (route == Strings.supervisorDetails.capitalize()) {
     return 4;
   } else {
     return 0;
@@ -26,13 +27,13 @@ Widget getRouteWidget(int index) {
   // return DashboardPage();
 
   if (index == 1) {
-    return AdminsPage();
+    return SupervisorsPage();
   } else if (index == 2) {
     return SuppliersPage();
   } else if (index == 3) {
     return RfqPage();
   } else if (index == 4) {
-    return AdminDetailsPage();
+    return SupervisorDetailsPage();
   } else {
     return DashboardPage();
   }

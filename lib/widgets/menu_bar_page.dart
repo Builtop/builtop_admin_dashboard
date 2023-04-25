@@ -62,7 +62,7 @@ class _MenuBarState extends State<MenuBarPage> {
   ];
   List<List<String>> usersExpandList = [
     [
-      Strings.admins,
+      Strings.supervisors,
       Strings.suppliers,
       Strings.buyers,
     ],
@@ -87,10 +87,10 @@ class _MenuBarState extends State<MenuBarPage> {
   ];
   final List<PageRouteInfo<dynamic>> routes = [
     gr.DashboardRoute(controllerEx: null),
-    gr.AdminsRoute(),
+    gr.SupervisorsRoute(),
     gr.SuppliersRoute(),
     gr.RfqRoute(),
-    gr.AdminDetailsRoute(),
+    gr.SupervisorDetailsRoute(),
   ];
 
   // for change language
@@ -1128,21 +1128,14 @@ class _MenuBarState extends State<MenuBarPage> {
                     style: TextStyle(color: color, fontSize: 15),
                   ),
                   onTap: () {
-                    switch (items[index]) {
-                      case 'Admins':
-                        tabsRouter.setActiveIndex(getRouteIndex(items[index]));
-                        break;
-                      default:
-                    }
-                    _scaffoldDrawerKey.currentState?.closeDrawer();
-
-                    if (items[index] == 'Admins') {
+                    if (items[index] == 'Supervisors') {
                       tabsRouter.setActiveIndex(getRouteIndex(items[index]));
                     } else if (items[index] == 'Suppliers') {
                       tabsRouter.setActiveIndex(getRouteIndex(items[index]));
                     } else if (items[index] == 'Rfq') {
                       tabsRouter.setActiveIndex(getRouteIndex(items[index]));
                     } else {}
+                    _scaffoldDrawerKey.currentState?.closeDrawer();
 
                     // } else if (items[index] == 'Login 2') {
                     //   context.router.push(const LoginTwo());
@@ -1218,7 +1211,7 @@ class _MenuBarState extends State<MenuBarPage> {
                 // const Text(' / ${Strings.uiElements} '),
                 Text('${'Users'} '),
               ] else if (routeIndex == 4) ...[
-                Text('${'Users'} / ${'Admins'} '),
+                Text('${'Users'} / ${'Supervisors'} '),
               ] else if (routeIndex.isBetween(3, 4)) ...[
                 // const Text(' / ${Strings.forms} '),
                 Text('${'Requests'} '),

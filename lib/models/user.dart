@@ -24,5 +24,6 @@ abstract class User {
         "email": email,
         "privileges": privileges,
         "status": status,
+        "createdAt": createdAt,
       };
 }
