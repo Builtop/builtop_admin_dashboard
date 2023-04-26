@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:builtop_admin_dashboard/constants/numbers.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.model.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.page.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.service.dart';
@@ -29,6 +30,7 @@ class DashboardController extends MahgController {
       print(dashboardData?.adminsNum);
     } else {
       CoolAlert.show(
+          width: NumbersConst.dialogWidth,
           context: context,
           type: CoolAlertType.error,
           title: result.errorMessage);

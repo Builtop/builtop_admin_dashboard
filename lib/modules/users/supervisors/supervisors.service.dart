@@ -25,4 +25,13 @@ class SupervisorsService {
       return ProcessResult(success: false, errorMessage: e.toString());
     }
   }
+
+  static Future<ProcessResult> addSupervisor(Map<String, dynamic> data) async {
+    try {
+      var result = await _apiService.httpPostEx('${_url}add-supervisor', data);
+      return result;
+    } catch (e) {
+      return ProcessResult(success: false, errorMessage: e.toString());
+    }
+  }
 }

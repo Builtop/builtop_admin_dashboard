@@ -44,7 +44,7 @@ class _DashboardPageState
             ? Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(child: getUsersReportWidget),
+                  getUsersReportWidget,
                   FxBox.w24,
                   Expanded(
                     child: SalesReport(),
@@ -71,8 +71,10 @@ class _DashboardPageState
           width: 50,
           height: 50,
           child: const CircularProgressIndicator.adaptive())
-      : UsersReport(
-          dashboardController: controller,
+      : Expanded(
+          child: UsersReport(
+            dashboardController: controller,
+          ),
         );
 
   @override
