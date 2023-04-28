@@ -25,11 +25,6 @@ class _DashboardPageState
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextButton(
-            onPressed: () async {
-              await DashboardService.testFunction();
-            },
-            child: Text('test')),
         controller.dashboardData == null
             ? SizedBox(
                 width: 50,
@@ -44,7 +39,7 @@ class _DashboardPageState
             ? Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  getUsersReportWidget,
+                  getUsersReportWidget(),
                   FxBox.w24,
                   Expanded(
                     child: SalesReport(),
@@ -53,7 +48,7 @@ class _DashboardPageState
               )
             : Column(
                 children: [
-                  getUsersReportWidget,
+                  getUsersReportWidget(isColumn: true),
                   FxBox.h24,
                   SalesReport(),
                 ],
@@ -66,16 +61,21 @@ class _DashboardPageState
     );
   }
 
-  Widget get getUsersReportWidget => controller.dashboardData == null
-      ? SizedBox(
-          width: 50,
-          height: 50,
-          child: const CircularProgressIndicator.adaptive())
-      : Expanded(
-          child: UsersReport(
-            dashboardController: controller,
-          ),
-        );
+  Widget getUsersReportWidget({bool isColumn = false}) =>
+      controller.dashboardData == null
+          ? SizedBox(
+              width: 50,
+              height: 50,
+              child: const CircularProgressIndicator.adaptive())
+          : isColumn
+              ? UsersReport(
+                  dashboardController: controller,
+                )
+              : Expanded(
+                  child: UsersReport(
+                    dashboardController: controller,
+                  ),
+                );
 
   @override
   DashboardController createController() {

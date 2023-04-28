@@ -22,8 +22,8 @@ class Dashboard {
     return Dashboard(
         usersNum: data['usersNum'],
         activeUsersnNum: data['activeUsersnNum'],
-        pendingUsersnNum: data['usersNum'],
-        inActiveUsersnNum: data['usersNum'],
+        pendingUsersnNum: data['pendingUsersnNum'],
+        inActiveUsersnNum: data['inActiveUsersnNum'],
         adminsNum: data['adminsNum'],
         supervisorsNum: data['supervisorsNum'],
         buyersNum: data['buyersNum'],

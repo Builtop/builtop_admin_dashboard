@@ -38,43 +38,47 @@ class _SupervisorsPageState
     return SupervisorsController();
   }
 
-  Widget get getTable => (controller.supervisors == null ||
-          (controller.supervisors?.isEmpty ?? false))
+  Widget get getTable => (controller.supervisors == null)
       ? const CircularProgressIndicator.adaptive()
-      : CustomSyncFusionTable(
-          key: UniqueKey(),
-          rowHeights: 70,
-          columnsWithOptionalWidth: {'actions': 200},
-          fieldToColumnName: {
-            "_id": 'id',
-            "email": 'email',
-            "status": 'status',
-            "createdAt": 'createdAt',
-            'actions': 'actions'
-          },
-          generalList: controller.supervisors
-                  ?.map((e) => {...e.toJson(), 'actions': e.id})
-                  .toList() ??
-              [],
-          buildCells: (row) {
-            return DataGridRowAdapter(
-                cells: row.getCells().map((e) {
-              if (e.columnName == 'actions') {
-                return _viewButton(e.value);
-              }
-              if (e.columnName == 'createdAt') {
-                return Container(
-                    decoration: DecorationEx.getBorderDecoration(),
-                    child: Center(
-                        child: Text(intl.DateFormat('yyyy-MM-dd HH:mm a')
-                            .format(e.value))));
-              }
-              return Container(
-                  decoration: DecorationEx.getBorderDecoration(),
-                  child: Center(child: Text(e.value.toString())));
-            }).toList());
-          },
-          context: context);
+      : (controller.supervisors?.isEmpty ?? false)
+          ? ConstText.lightText(
+              text: 'No Data Found',
+              fontWeight: FontWeight.bold,
+            )
+          : CustomSyncFusionTable(
+              key: UniqueKey(),
+              rowHeights: 70,
+              columnsWithOptionalWidth: {'actions': 200},
+              fieldToColumnName: {
+                "_id": 'id',
+                "email": 'email',
+                "status": 'status',
+                "createdAt": 'createdAt',
+                'actions': 'actions'
+              },
+              generalList: controller.supervisors
+                      ?.map((e) => {...e.toJson(), 'actions': e.id})
+                      .toList() ??
+                  [],
+              buildCells: (row) {
+                return DataGridRowAdapter(
+                    cells: row.getCells().map((e) {
+                  if (e.columnName == 'actions') {
+                    return _viewButton(e.value);
+                  }
+                  if (e.columnName == 'createdAt') {
+                    return Container(
+                        decoration: DecorationEx.getBorderDecoration(),
+                        child: Center(
+                            child: Text(intl.DateFormat('yyyy-MM-dd HH:mm a')
+                                .format(e.value))));
+                  }
+                  return Container(
+                      decoration: DecorationEx.getBorderDecoration(),
+                      child: Center(child: Text(e.value.toString())));
+                }).toList());
+              },
+              context: context);
 
   @override
   Widget build(BuildContext context) {

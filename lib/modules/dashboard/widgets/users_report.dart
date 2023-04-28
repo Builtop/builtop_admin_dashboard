@@ -136,9 +136,14 @@ class PieChart2State extends State<PieChartSample2> {
               (widget.dashboardController?.dashboardData?.usersNum ?? 0))
           .fixnum() *
       100;
+  double get pendingUsersPrecentage =>
+      ((widget.dashboardController?.dashboardData?.pendingUsersnNum ?? 0) /
+              (widget.dashboardController?.dashboardData?.usersNum ?? 0))
+          .fixnum() *
+      100;
 
   List<PieChartSectionData> showingSections() {
-    return List.generate(3, (i) {
+    return List.generate(4, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 26.0 : 17.0;
       final radius = isTouched ? 61.0 : 51.0;
@@ -156,20 +161,33 @@ class PieChart2State extends State<PieChartSample2> {
           );
         case 1:
           return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: buyersPrecentage,
-            title: buyersPrecentage.toString(),
+            color: const Color(0xff13d38e),
+            value: pendingUsersPrecentage,
+            title: pendingUsersPrecentage.toString(),
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
                 color: const Color(0xffffffff)),
           );
+
         case 2:
           return PieChartSectionData(
             color: ColorConst.primary,
             value: suppliersPrecentage,
             title: suppliersPrecentage.toString(),
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
+          );
+
+        case 3:
+          return PieChartSectionData(
+            color: const Color(0xfff8b250),
+            value: buyersPrecentage,
+            title: buyersPrecentage.toString(),
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
