@@ -21,7 +21,6 @@ class SupervisorDetailsPage extends MahgStatefulWidget<SupervisorsController> {
 
 class _SupervisorDetailsPageState
     extends MahgState<SupervisorDetailsPage, SupervisorsController> {
-  // if data sended from pop Not Get id from route ${context.routeData.queryParams} else if open page get data from query parameter
   @override
   createController() {
     return SupervisorsController();

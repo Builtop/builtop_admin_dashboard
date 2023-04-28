@@ -54,7 +54,10 @@ class UsersMenuButton extends StatelessWidget {
         } else if (index == 2) {
           deActivateUser();
         } else if (index == 3) {
-          deleteUser();
+          AdminUsersService.deleteUserEx(
+              context: contextEx,
+              id: user.id ?? '',
+              returnToIndex: returnToIndex);
         }
       },
     );
@@ -108,55 +111,6 @@ class UsersMenuButton extends StatelessWidget {
             context: contextEx,
             type: CoolAlertType.error,
             text: result.result?.errorMessage);
-      }
-    } catch (e) {
-      CoolAlert.show(
-          width: NumbersConst.dialogWidth,
-          context: contextEx,
-          type: CoolAlertType.error,
-          text: e.toString());
-    }
-  }
-
-  Future<void> deleteUser() async {
-    try {
-      bool? confirm;
-      await CoolAlert.show(
-          width: NumbersConst.dialogWidth,
-          context: contextEx,
-          type: CoolAlertType.confirm,
-          onConfirmBtnTap: () {
-            confirm = true;
-          },
-          onCancelBtnTap: () {
-            confirm = false;
-          },
-          title: 'Are you sure you want to delete ?');
-
-      if (confirm ?? false) {
-        if (!contextEx.mounted) return;
-        var result = await LoadingOverlay.showFutureLoadingDialog(
-            context: contextEx,
-            future: () => AdminUsersService.deleteUser(user.id ?? ''));
-
-        if (result.result?.success ?? false) {
-          if (!contextEx.mounted) return;
-
-          CoolAlert.show(
-                  width: NumbersConst.dialogWidth,
-                  context: contextEx,
-                  type: CoolAlertType.success,
-                  text: 'User Deleted Successfully')
-              .then((value) => autoTabRouter?.setActiveIndex(returnToIndex));
-        } else {
-          if (!contextEx.mounted) return;
-
-          CoolAlert.show(
-              width: NumbersConst.dialogWidth,
-              context: contextEx,
-              type: CoolAlertType.error,
-              text: result.result?.errorMessage);
-        }
       }
     } catch (e) {
       CoolAlert.show(

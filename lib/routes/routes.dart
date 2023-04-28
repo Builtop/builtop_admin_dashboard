@@ -3,6 +3,8 @@ import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.page.dart';
 import 'package:builtop_admin_dashboard/modules/requests/rfq/rfq.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admin_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admins.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/pendings/pending_users.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/pendings/pending_user_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisors.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/suppliers/suppliers.page.dart';
@@ -10,6 +12,8 @@ import 'package:builtop_admin_dashboard/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
 int getRouteIndex(String route) {
+  print('routeee ${route}');
+  print('routeeeEx ${Strings.pendingUsers.capitalize()}');
   if (route == Strings.supervisors) {
     return 1;
   } else if (route == Strings.suppliers) {
@@ -18,6 +22,10 @@ int getRouteIndex(String route) {
     return 3;
   } else if (route == Strings.supervisorDetails.capitalize()) {
     return 4;
+  } else if (route == Strings.pendingUsers) {
+    return 5;
+  } else if (route == Strings.pendingUsersDetails.capitalize()) {
+    return 6;
   } else {
     return 0;
   }
@@ -34,6 +42,10 @@ Widget getRouteWidget(int index) {
     return RfqPage();
   } else if (index == 4) {
     return SupervisorDetailsPage();
+  } else if (index == 5) {
+    return PendingUsersPage();
+  } else if (index == 6) {
+    return PendingUsersDetailsPage();
   } else {
     return DashboardPage();
   }

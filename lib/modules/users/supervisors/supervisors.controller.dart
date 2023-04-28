@@ -7,6 +7,7 @@ import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor_det
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisors.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisors.service.dart';
 import 'package:builtop_admin_dashboard/routes/app_routes.gr.dart';
+import 'package:builtop_admin_dashboard/services/admin_users.service.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';
@@ -42,7 +43,7 @@ class SupervisorsController extends MahgController {
     if ((context.routeData.queryParams.get('id') == null) ||
         (context.routeData.queryParams.get('id') == '')) return;
 
-    ProcessResult result = await SupervisorsService.getSupervisor(
+    ProcessResult result = await AdminUsersService.getUser(
         context.routeData.queryParams.get('id'));
     if (result.success) {
       try {

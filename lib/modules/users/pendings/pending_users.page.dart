@@ -3,43 +3,36 @@ import 'package:builtop_admin_dashboard/constants/color.dart';
 import 'package:builtop_admin_dashboard/constants/decoration.dart';
 import 'package:builtop_admin_dashboard/constants/icons.dart';
 import 'package:builtop_admin_dashboard/constants/text.dart';
-import 'package:builtop_admin_dashboard/constants/theme.dart';
-import 'package:builtop_admin_dashboard/models/user.dart';
-import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor.model.dart';
-import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor_details.page.dart';
-import 'package:builtop_admin_dashboard/services/admin_users.service.dart';
 import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/widgets/custom_sync_fusion_table.widget.dart';
 import 'package:builtop_admin_dashboard/widgets/custom_text_field_ex.widget.dart';
 import 'package:builtop_admin_dashboard/widgets/svg_icon.dart';
-import 'package:builtop_admin_dashboard/widgets/users_menu_button.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_excel/excel.dart';
 import 'package:flutterx/flutterx.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-import 'supervisors.controller.dart';
+import 'pending_users.controller.dart';
+
 import 'package:intl/intl.dart' as intl;
 
-class SupervisorsPage extends MahgStatefulWidget<SupervisorsController> {
-  const SupervisorsPage({SupervisorsController? controllerEx, Key? key})
+class PendingUsersPage extends MahgStatefulWidget<PendingUsersController> {
+  const PendingUsersPage({PendingUsersController? controllerEx, Key? key})
       : super(controllerEx, key: key);
 
   @override
-  State<SupervisorsPage> createState() => _SupervisorsPageState();
+  State<PendingUsersPage> createState() => _PendingUsersPageState();
 }
 
-class _SupervisorsPageState
-    extends MahgState<SupervisorsPage, SupervisorsController> {
+class _PendingUsersPageState
+    extends MahgState<PendingUsersPage, PendingUsersController> {
   @override
   createController() {
-    return SupervisorsController();
+    return PendingUsersController();
   }
 
-  Widget get getTable => (controller.supervisors == null ||
-          (controller.supervisors?.isEmpty ?? false))
+  Widget get getTable => (controller.pendingUsers == null ||
+          (controller.pendingUsers?.isEmpty ?? false))
       ? const CircularProgressIndicator.adaptive()
       : CustomSyncFusionTable(
           key: UniqueKey(),
@@ -52,7 +45,7 @@ class _SupervisorsPageState
             "createdAt": 'createdAt',
             'actions': 'actions'
           },
-          generalList: controller.supervisors
+          generalList: controller.pendingUsers
                   ?.map((e) => {...e.toJson(), 'actions': e.id})
                   .toList() ??
               [],
@@ -97,33 +90,18 @@ class _SupervisorsPageState
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ConstText.lightText(
-                      text: 'Supervisors',
+                      text: 'Pending Users',
                       fontWeight: FontWeight.bold,
                     ),
                     PopupMenuButton(
                       itemBuilder: (context) => [
                         PopupMenuItem(
-                          child: Text("Add New"),
-                          value: 1,
-                        ),
-                        PopupMenuItem(
                           child: Text("Export"),
                           value: 2,
                         )
                       ],
-                      onSelected: (index) {
-                        if (index == 1) {
-                          context.navigateNamedTo('/supervisorDetails?id=');
-                        }
-                      },
+                      onSelected: (index) {},
                     )
-                    // FxButton(
-                    //   borderRadius: 4,
-                    //   onPressed: () {
-                    //     _exportExcel();
-                    //   },
-                    //   text: 'Export',
-                    // ),
                   ],
                 ),
                 FxBox.h16,
@@ -167,7 +145,7 @@ class _SupervisorsPageState
         children: [
           IconButton(
             onPressed: () async {
-              context.navigateNamedTo('/supervisorDetails?id=$value');
+              context.navigateNamedTo('/pendingUsersDetails?id=$value');
             },
             icon: Icon(Icons.edit),
           ),
@@ -201,10 +179,12 @@ class _SupervisorsPageState
           // ),
           IconButton(
             onPressed: () async {
-              AdminUsersService.deleteUserEx(
-                      context: context, id: value, returnToIndex: 1)
-                  .then((value) =>
-                      controller.getSupervisorsHandler(refresh: true));
+              // UsersMenuButton(
+              //   contextEx: context,
+              //   returnToIndex: 1,
+              //   user: Supervisor.fromJson({"_id": value}),
+              // ).deleteUser().then(
+              //     (value) => controller.getSupervisorsHandler(refresh: true));
             },
             icon: Icon(
               Icons.delete,

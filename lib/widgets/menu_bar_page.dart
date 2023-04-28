@@ -65,6 +65,7 @@ class _MenuBarState extends State<MenuBarPage> {
       Strings.supervisors,
       Strings.suppliers,
       Strings.buyers,
+      Strings.pendingUsers
     ],
   ];
 
@@ -91,6 +92,8 @@ class _MenuBarState extends State<MenuBarPage> {
     gr.SuppliersRoute(),
     gr.RfqRoute(),
     gr.SupervisorDetailsRoute(),
+    gr.PendingUsersRoute(),
+    gr.PendingUsersDetailsRoute(),
   ];
 
   // for change language
@@ -659,6 +662,9 @@ class _MenuBarState extends State<MenuBarPage> {
     List<List<String>> children = const [],
     required bool isopen,
   }) {
+    print('=========================${tabsRouter.currentPath}');
+    print('=========================${upperCase(tabsRouter.currentPath)}');
+
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -801,6 +807,7 @@ class _MenuBarState extends State<MenuBarPage> {
                     mouseCursor: SystemMouseCursors.click,
                     horizontalTitleGap: 0.0,
                     onTap: () {
+                      print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1');
                       isOpen.value = true;
 
                       tabsRouter.setActiveIndex(
@@ -949,6 +956,7 @@ class _MenuBarState extends State<MenuBarPage> {
                     mouseCursor: SystemMouseCursors.click,
                     horizontalTitleGap: 0.0,
                     onTap: () {
+                      print('xxxxxxxxxxxxxxxxxx2');
                       isOpen.value = true;
 
                       tabsRouter.setActiveIndex(getRouteIndex(items1[index]));
@@ -1128,11 +1136,14 @@ class _MenuBarState extends State<MenuBarPage> {
                     style: TextStyle(color: color, fontSize: 15),
                   ),
                   onTap: () {
+                    print('xxxxxxxxxxxxxxx3${items[index]}');
                     if (items[index] == 'Supervisors') {
                       tabsRouter.setActiveIndex(getRouteIndex(items[index]));
                     } else if (items[index] == 'Suppliers') {
                       tabsRouter.setActiveIndex(getRouteIndex(items[index]));
                     } else if (items[index] == 'Rfq') {
+                      tabsRouter.setActiveIndex(getRouteIndex(items[index]));
+                    } else if (items[index] == 'Pending-users') {
                       tabsRouter.setActiveIndex(getRouteIndex(items[index]));
                     } else {}
                     _scaffoldDrawerKey.currentState?.closeDrawer();
@@ -1207,11 +1218,13 @@ class _MenuBarState extends State<MenuBarPage> {
       children: (tabsRouter.currentPath == '/dashboard')
           ? []
           : [
-              if (routeIndex.isBetween(1, 2)) ...[
+              if (routeIndex.isBetween(1, 2) || routeIndex == 5) ...[
                 // const Text(' / ${Strings.uiElements} '),
                 Text('${'Users'} '),
               ] else if (routeIndex == 4) ...[
                 Text('${'Users'} / ${'Supervisors'} '),
+              ] else if (routeIndex == 6) ...[
+                Text('${'Users'} / ${'Pending-users'} '),
               ] else if (routeIndex.isBetween(3, 4)) ...[
                 // const Text(' / ${Strings.forms} '),
                 Text('${'Requests'} '),

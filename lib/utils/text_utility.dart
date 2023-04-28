@@ -45,21 +45,26 @@ String upperCase(String text) {
           '$tempText ${element.substring(0, 1).toUpperCase()}${element.substring(1).toLowerCase()}';
     }
     return tempText.trim();
-  } else if (text == '/order/order-invoice') {
-    String tempText = '';
-    for (String element in text.split('/')[2].split('-')) {
-      tempText =
-          '$tempText ${element.substring(0, 1).toUpperCase()}${element.substring(1).toLowerCase()}';
-    }
-    return tempText.trim();
-  } else if (text.contains('-')) {
-    String tempText = '';
-    for (String element in text.replaceAll('/', '').split('-')) {
-      tempText =
-          '$tempText ${element.substring(0, 1).toUpperCase()}${element.substring(1).toLowerCase()}';
-    }
-    return tempText.trim();
-  } else {
+  }
+  // else if (text == '/pending-users') {
+  //   String tempText = '';
+  //   for (String element in text.split('/')[1].split('-')) {
+  //     tempText =
+  //         '$tempText ${element.substring(0, 1).toUpperCase()}${element.substring(1).toLowerCase()}';
+  //   }
+  //   return tempText.trim();
+  // }
+
+  //  else if (text.contains('-')) {
+  //   String tempText = '';
+  //   for (String element in text.replaceAll('/', '').split('-')) {
+  //     tempText =
+  //         '$tempText ${element.substring(0, 1).toUpperCase()}${element.substring(1).toLowerCase()}';
+  //   }
+  //   return tempText.trim();
+  // }
+
+  else {
     try {
       return text.replaceAll('/', '').substring(0, 1).toUpperCase() +
           text.replaceAll('/', '').substring(1).toLowerCase();

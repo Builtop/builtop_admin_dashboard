@@ -50,6 +50,8 @@ class Strings {
   // static const String adminDetails = 'Admindetails';
   static const String supervisors = 'Supervisors';
   static const String supervisorDetails = 'Supervisordetails';
+  static const String pendingUsers = 'Pending-users';
+  static const String pendingUsersDetails = 'Pendingusersdetails';
   static const String suppliers = 'Suppliers';
   static const String buyers = 'Buyers';
   static const String badge = 'Badge';

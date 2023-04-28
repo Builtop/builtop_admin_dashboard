@@ -56,9 +56,9 @@ class _ListitemWidgetState extends State<ListitemWidget> {
       },
       {
         'id': 3,
-        'producTitle': 'Admins',
-        'value':
-            widget.dashboardController?.dashboardData?.adminsNum.toString(),
+        'producTitle': 'Pending Users',
+        'value': widget.dashboardController?.dashboardData?.pendingUsersnNum
+            .toString(),
         'boxIcon': Icons.shopping_bag_rounded,
         // 'boxColor': '004FC4',
         'boxColor': ['A100DA', '400370'],
