@@ -25,14 +25,10 @@ class _DashboardPageState
   Widget build(BuildContext context) {
     return Column(
       children: [
-        controller.dashboardData == null
-            ? SizedBox(
-                width: 50,
-                height: 50,
-                child: const CircularProgressIndicator.adaptive())
-            : ListitemWidget(
-                dashboardController: controller,
-              ),
+        ListitemWidget(
+          key: UniqueKey(),
+          dashboardController: controller,
+        ),
         FxBox.h24,
         FxBox.h24,
         Responsive.isWeb(context)
@@ -61,21 +57,17 @@ class _DashboardPageState
     );
   }
 
-  Widget getUsersReportWidget({bool isColumn = false}) =>
-      controller.dashboardData == null
-          ? SizedBox(
-              width: 50,
-              height: 50,
-              child: const CircularProgressIndicator.adaptive())
-          : isColumn
-              ? UsersReport(
-                  dashboardController: controller,
-                )
-              : Expanded(
-                  child: UsersReport(
-                    dashboardController: controller,
-                  ),
-                );
+  Widget getUsersReportWidget({bool isColumn = false}) => isColumn
+      ? UsersReport(
+          key: UniqueKey(),
+          dashboardController: controller,
+        )
+      : Expanded(
+          child: UsersReport(
+            key: UniqueKey(),
+            dashboardController: controller,
+          ),
+        );
 
   @override
   DashboardController createController() {

@@ -36,7 +36,7 @@ class _UsersReportState extends State<UsersReport> {
               fontWeight: FontWeight.bold,
             ),
             FxBox.h24,
-            _dateAndPrice(),
+            _colorCodeWidget(),
             FxBox.h40,
             SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -51,25 +51,79 @@ class _UsersReportState extends State<UsersReport> {
     );
   }
 
-  Widget _dateAndPrice() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: const [
-        Text(
-          'November 01 - November 30',
-          softWrap: true,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
+  Widget _colorCodeWidget() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                      color: const Color(0xff0293ee),
+                      borderRadius: BorderRadius.circular(30)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3),
+                  child: ConstText.lightText(text: 'Supervisors'),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Container(
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                      color: const Color(0xff13d38e),
+                      borderRadius: BorderRadius.circular(30)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3),
+                  child: ConstText.lightText(text: 'Pending users'),
+                )
+              ],
+            ),
+          ],
         ),
-        Text(
-          '\$${2730}',
-          softWrap: true,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+        FxBox.h8,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                      color: ColorConst.primary,
+                      borderRadius: BorderRadius.circular(30)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3),
+                  child: ConstText.lightText(text: 'Suppliers'),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Container(
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                      color: const Color(0xfff8b250),
+                      borderRadius: BorderRadius.circular(30)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3),
+                  child: ConstText.lightText(text: 'Buyers'),
+                )
+              ],
+            ),
+          ],
         ),
       ],
     );
@@ -122,25 +176,37 @@ class PieChart2State extends State<PieChartSample2> {
   }
 
   double get supervisorsPrecentage =>
-      ((widget.dashboardController?.dashboardData?.supervisorsNum ?? 0) /
-              (widget.dashboardController?.dashboardData?.usersNum ?? 0))
-          .fixnum() *
-      100;
+      widget.dashboardController?.dashboardData?.supervisorsNum == null
+          ? 0
+          : ((widget.dashboardController?.dashboardData?.supervisorsNum ?? 0) /
+                      (widget.dashboardController?.dashboardData?.usersNum ??
+                          0))
+                  .fixnum() *
+              100;
   double get buyersPrecentage =>
-      ((widget.dashboardController?.dashboardData?.buyersNum ?? 0) /
-              (widget.dashboardController?.dashboardData?.usersNum ?? 0))
-          .fixnum() *
-      100;
+      widget.dashboardController?.dashboardData?.buyersNum == null
+          ? 0
+          : ((widget.dashboardController?.dashboardData?.buyersNum ?? 0) /
+                      (widget.dashboardController?.dashboardData?.usersNum ??
+                          0))
+                  .fixnum() *
+              100;
   double get suppliersPrecentage =>
-      ((widget.dashboardController?.dashboardData?.suppliersNum ?? 0) /
-              (widget.dashboardController?.dashboardData?.usersNum ?? 0))
-          .fixnum() *
-      100;
-  double get pendingUsersPrecentage =>
-      ((widget.dashboardController?.dashboardData?.pendingUsersnNum ?? 0) /
-              (widget.dashboardController?.dashboardData?.usersNum ?? 0))
-          .fixnum() *
-      100;
+      widget.dashboardController?.dashboardData?.supervisorsNum == null
+          ? 0
+          : ((widget.dashboardController?.dashboardData?.suppliersNum ?? 0) /
+                      (widget.dashboardController?.dashboardData?.usersNum ??
+                          0))
+                  .fixnum() *
+              100;
+  double get pendingUsersPrecentage => widget
+              .dashboardController?.dashboardData?.pendingUsersnNum ==
+          null
+      ? 0
+      : ((widget.dashboardController?.dashboardData?.pendingUsersnNum ?? 0) /
+                  (widget.dashboardController?.dashboardData?.usersNum ?? 0))
+              .fixnum() *
+          100;
 
   List<PieChartSectionData> showingSections() {
     return List.generate(4, (i) {
@@ -151,8 +217,8 @@ class PieChart2State extends State<PieChartSample2> {
         case 0:
           return PieChartSectionData(
             color: const Color(0xff0293ee),
-            value: supervisorsPrecentage,
-            title: supervisorsPrecentage.toString(),
+            value: supervisorsPrecentage.fixnum(),
+            title: '${supervisorsPrecentage.fixnum().toString()}%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -162,8 +228,8 @@ class PieChart2State extends State<PieChartSample2> {
         case 1:
           return PieChartSectionData(
             color: const Color(0xff13d38e),
-            value: pendingUsersPrecentage,
-            title: pendingUsersPrecentage.toString(),
+            value: pendingUsersPrecentage.fixnum(),
+            title: '${pendingUsersPrecentage.fixnum().toString()}%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,

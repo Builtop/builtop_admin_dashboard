@@ -1,5 +1,6 @@
 import 'package:builtop_admin_dashboard/constants/numbers.dart';
 import 'package:builtop_admin_dashboard/modules/users/suppliers/supplier.model.dart';
+import 'package:builtop_admin_dashboard/modules/users/suppliers/supplier_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/suppliers/suppliers.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/suppliers/suppliers.service.dart';
 import 'package:cool_alert/cool_alert.dart';
@@ -9,8 +10,14 @@ import 'package:mahg_essential_package/mahg_essential_package.dart';
 class SuppliersController extends MahgController {
   List<Supplier>? suppliers;
   Supplier? supplier;
+  late GlobalKey<FormState> formKey;
+
   @override
-  void init(Widget page) {}
+  void init(Widget page) {
+    if (page is SupplierDetailsPage) {
+      formKey = GlobalKey<FormState>();
+    }
+  }
 
   @override
   Future initLate(Widget page) async {

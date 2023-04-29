@@ -1,15 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/constants/color.dart';
-import 'package:builtop_admin_dashboard/constants/text.dart';
 import 'package:builtop_admin_dashboard/modules/users/pendings/pending_users.controller.dart';
-import 'package:builtop_admin_dashboard/utils/responsive.dart';
-import 'package:builtop_admin_dashboard/widgets/custom_text_field_ex.widget.dart';
 import 'package:builtop_admin_dashboard/widgets/form_fields.widget.dart';
 import 'package:builtop_admin_dashboard/widgets/users_menu_button.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';
-import 'package:intl/intl.dart' as intl;
 
 class PendingUsersDetailsPage
     extends MahgStatefulWidget<PendingUsersController> {
@@ -61,7 +56,7 @@ class _PendingUsersDetailsPageState
                   ),
                   FxBox.h24,
                   FormFieldsWidget(
-                    isUpdate: false,
+                    isUpdate: true,
                     controller: controller,
                   ),
                   Row(

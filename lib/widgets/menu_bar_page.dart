@@ -90,11 +90,13 @@ class _MenuBarState extends State<MenuBarPage> {
     gr.DashboardRoute(controllerEx: null),
     gr.SupervisorsRoute(),
     gr.SuppliersRoute(),
-    gr.RfqRoute(),
-    gr.SupervisorDetailsRoute(),
+    gr.BuyersRoute(),
     gr.PendingUsersRoute(),
+    gr.SupervisorDetailsRoute(),
+    gr.SupplierDetailsRoute(),
+    gr.BuyerDetailsRoute(),
     gr.PendingUsersDetailsRoute(),
-    gr.BuyersRoute()
+    gr.RfqRoute(),
   ];
 
   // for change language
@@ -1221,14 +1223,15 @@ class _MenuBarState extends State<MenuBarPage> {
       children: (tabsRouter.currentPath == '/dashboard')
           ? []
           : [
-              if (routeIndex.isBetween(1, 2) ||
-                  routeIndex == 5 ||
-                  routeIndex == 7) ...[
-                // const Text(' / ${Strings.uiElements} '),
+              if (routeIndex.isBetween(1, 4)) ...[
                 Text('${'Users'} '),
-              ] else if (routeIndex == 4) ...[
+              ] else if (routeIndex == 5) ...[
                 Text('${'Users'} / ${'Supervisors'} '),
               ] else if (routeIndex == 6) ...[
+                Text('${'Users'} / ${'Suppliers'} '),
+              ] else if (routeIndex == 7) ...[
+                Text('${'Users'} / ${'Buyers'} '),
+              ] else if (routeIndex == 8) ...[
                 Text('${'Users'} / ${'Pending-users'} '),
               ] else ...[
                 // const Text(' / Extra Pages '),

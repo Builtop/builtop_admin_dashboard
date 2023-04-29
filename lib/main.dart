@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
                 PointerDeviceKind.unknown
               },
             ),
-            title: 'AdminKit',
+            title: 'Builtop Admin Panel',
           );
         },
         valueListenable: AppConfigService.darkNotifier,

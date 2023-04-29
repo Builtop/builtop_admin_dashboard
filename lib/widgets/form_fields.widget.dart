@@ -1,5 +1,9 @@
 import 'package:builtop_admin_dashboard/constants/text.dart';
 import 'package:builtop_admin_dashboard/models/user.dart';
+import 'package:builtop_admin_dashboard/modules/users/buyers/buyers.controller.dart';
+import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisors.controller.dart';
+import 'package:builtop_admin_dashboard/modules/users/suppliers/supplier.model.dart';
+import 'package:builtop_admin_dashboard/modules/users/suppliers/suppliers.controller.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
 import 'package:builtop_admin_dashboard/widgets/custom_text_field_ex.widget.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +32,17 @@ class FormFieldsWidget extends StatelessWidget {
     '',
     ''
   ];
-  Color get statusColor =>
-      controller.user.status == 'Active' ? Colors.green : Colors.orange;
 
+  User get user => (controller is SupervisorsController)
+      ? controller.supervisor
+      : (controller is SuppliersController)
+          ? controller.supplier
+          : (controller is BuyersController)
+              ? controller.buyer
+              : controller.pendingUser;
+
+  Color get statusColor =>
+      user.status == 'Active' ? Colors.green : Colors.orange;
   @override
   Widget build(BuildContext context) {
     return (Responsive.isWeb(context))
@@ -100,7 +112,7 @@ class FormFieldsWidget extends StatelessWidget {
                             children: [
                               _commonText(_headingList[3], context),
                               FxBox.h4,
-                              _listBox(controller.user.status ?? '',
+                              _listBox(user.status ?? '',
                                   isText: true, color: statusColor)
                             ],
                           ),
@@ -114,7 +126,7 @@ class FormFieldsWidget extends StatelessWidget {
                               FxBox.h4,
                               _listBox(
                                   intl.DateFormat('yyyy-MM-dd HH:mm a')
-                                      .format(controller.user.createdAt!),
+                                      .format(user.createdAt!),
                                   isText: true)
                             ],
                           ),
@@ -201,12 +213,12 @@ class FormFieldsWidget extends StatelessWidget {
                 ? _listBox(hintList[index],
                     controller: controller.emailController)
                 : (index == 3)
-                    ? _listBox(controller.user.status ?? '',
+                    ? _listBox(user.status ?? '',
                         isText: true, color: statusColor)
                     : (index == 4)
                         ? _listBox(
                             intl.DateFormat('yyyy-MM-dd HH:mm a')
-                                .format(controller.user.createdAt!),
+                                .format(user.createdAt!),
                             isText: true)
                         : _listBox(
                             hintList[index],

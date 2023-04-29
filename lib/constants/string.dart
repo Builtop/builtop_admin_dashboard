@@ -53,7 +53,9 @@ class Strings {
   static const String pendingUsers = 'Pending-users';
   static const String pendingUsersDetails = 'Pendingusersdetails';
   static const String suppliers = 'Suppliers';
+  static const String suppliersDetails = 'Supplierdetails';
   static const String buyers = 'Buyers';
+  static const String buyerDetails = 'Buyerdetails';
   static const String badge = 'Badge';
   static const String alertDialog = 'Alert Dialog';
   static const String modal = 'Modal';
