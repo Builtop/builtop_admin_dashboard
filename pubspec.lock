@@ -480,10 +480,10 @@ packages:
     dependency: "direct main"
     description:
       name: mahg_essential_package
-      sha256: d8989e30f01565287445b8bfdff25155ee59c56ac862cd393285d7b87b590288
+      sha256: ccecd126dbce4c07a40591b9dba93cc50fefddae0c5772858c39f6ac272da987
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.6"
+    version: "0.0.7"
   matcher:
     dependency: transitive
     description:

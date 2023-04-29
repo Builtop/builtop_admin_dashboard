@@ -28,21 +28,6 @@ class _SupervisorDetailsPageState
     return SupervisorsController();
   }
 
-  final List<String> _headingList = [
-    'email',
-    'url',
-    'telephone',
-    'status',
-    'createdAt'
-  ];
-  final List<String> _hintList = [
-    'flutter@example.com',
-    'https://flutter.com',
-    '+91 9999999999',
-    '',
-    ''
-  ];
-
   bool get loadingPage => ((context.routeData.queryParams.get('id') != null &&
           context.routeData.queryParams.get('id') != '') &&
       (controller.supervisor == null));
@@ -84,11 +69,10 @@ class _SupervisorDetailsPageState
                       ],
                     ),
                     FxBox.h24,
-                    // add form fields widget
                     FormFieldsWidget(
-                        isUpdate: isUpdate,
-                        user: controller.supervisor ?? Supervisor(),
-                        emailController: controller.emailController),
+                      isUpdate: isUpdate,
+                      controller: controller,
+                    ),
                     Row(
                       children: [
                         FxButton(
@@ -105,132 +89,6 @@ class _SupervisorDetailsPageState
                   ],
                 ),
               ),
-      ),
-    );
-  }
-
-  Color get statusColor =>
-      controller.supervisor?.status == 'Active' ? Colors.green : Colors.orange;
-
-  Widget _responsive(Widget childOne, Widget childTwo) {
-    // return Responsive.isMobile(context)
-    //     ?
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [childOne, FxBox.h4, childTwo],
-    );
-    // : Row(
-    //     children: [
-    //       Expanded(
-    //         flex: 2,
-    //         child: childOne,
-    //       ),
-    //       Expanded(
-    //         flex: 8,
-    //         child: childTwo,
-    //       ),
-    //     ],
-    //   );
-  }
-
-  Widget _textFieldNormal(List<String> headingList, List<String> hintList) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: headingList.length,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        if (index == 3 && !isUpdate) return const SizedBox.shrink();
-        if (index == 4 && !isUpdate) return const SizedBox.shrink();
-
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: _responsive(
-            _commonText(
-              headingList[index],
-            ),
-            (index == 0)
-                ? _listBox(hintList[index],
-                    controller: controller.emailController)
-                : (index == 3)
-                    ? _listBox(controller.supervisor?.status ?? '',
-                        isText: true, color: statusColor)
-                    : (index == 4)
-                        ? _listBox(
-                            intl.DateFormat('yyyy-MM-dd HH:mm a')
-                                .format(controller.supervisor!.createdAt!),
-                            isText: true)
-                        : _listBox(
-                            hintList[index],
-                          ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _listBox(
-    String hintText, {
-    TextEditingController? controller,
-    bool isText = false,
-    Color? color,
-  }) {
-    if (isText) {
-      return ConstText.lightText(text: hintText, color: color);
-    }
-    return SizedBox(
-      // height: 30,
-      child: CustomTextFieldEx(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        controller: controller,
-        border: const OutlineInputBorder(),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 6,
-        ),
-        hintText: hintText,
-        validator: controller != null
-            ? (value) {
-                if (value == null || value.isEmpty) {
-                  return "email is required";
-                }
-                return null;
-              }
-            : null,
-      ),
-    );
-  }
-
-  Widget _passwordTextField() {
-    return _responsive(_commonText('password'), _passWordBox());
-  }
-
-  Widget _passWordBox() {
-    return SizedBox(
-      height: 35,
-      child: CustomTextFieldEx(
-        obscureText: true,
-        controller: controller.passwordController,
-        border: const OutlineInputBorder(),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 6,
-        ),
-      ),
-    );
-  }
-
-  Widget _commonText(String text) {
-    if (text == 'status' && !isUpdate) return const SizedBox.shrink();
-    if (text == 'createdAt' && !isUpdate) return const SizedBox.shrink();
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: Responsive.isMobile(context) ? 8.0 : 0.0,
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontWeight: FontWeight.w600,
-        ),
       ),
     );
   }

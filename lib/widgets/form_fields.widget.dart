@@ -5,16 +5,13 @@ import 'package:builtop_admin_dashboard/widgets/custom_text_field_ex.widget.dart
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:mahg_essential_package/mahg_essential_package.dart';
 
 class FormFieldsWidget extends StatelessWidget {
   final bool isUpdate;
-  final User user;
-  final TextEditingController emailController;
+  final dynamic controller;
   FormFieldsWidget(
-      {required this.isUpdate,
-      required this.user,
-      required this.emailController,
-      super.key});
+      {required this.isUpdate, required this.controller, super.key});
   final List<String> _headingList = [
     'name',
     'email',
@@ -32,7 +29,7 @@ class FormFieldsWidget extends StatelessWidget {
     ''
   ];
   Color get statusColor =>
-      user.status == 'Active' ? Colors.green : Colors.orange;
+      controller.user.status == 'Active' ? Colors.green : Colors.orange;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +57,8 @@ class FormFieldsWidget extends StatelessWidget {
                       children: [
                         _commonText(_headingList[1], context),
                         FxBox.h4,
-                        _listBox(_hintList[1], controller: emailController),
+                        _listBox(_hintList[1],
+                            controller: controller.emailController),
                       ],
                     ),
                   ),
@@ -102,7 +100,7 @@ class FormFieldsWidget extends StatelessWidget {
                             children: [
                               _commonText(_headingList[3], context),
                               FxBox.h4,
-                              _listBox(user.status ?? '',
+                              _listBox(controller.user.status ?? '',
                                   isText: true, color: statusColor)
                             ],
                           ),
@@ -116,7 +114,7 @@ class FormFieldsWidget extends StatelessWidget {
                               FxBox.h4,
                               _listBox(
                                   intl.DateFormat('yyyy-MM-dd HH:mm a')
-                                      .format(user.createdAt!),
+                                      .format(controller.user.createdAt!),
                                   isText: true)
                             ],
                           ),
@@ -200,14 +198,15 @@ class FormFieldsWidget extends StatelessWidget {
           child: _responsive(
             _commonText(headingList[index], context),
             (index == 1)
-                ? _listBox(hintList[index], controller: emailController)
+                ? _listBox(hintList[index],
+                    controller: controller.emailController)
                 : (index == 3)
-                    ? _listBox(user.status ?? '',
+                    ? _listBox(controller.user.status ?? '',
                         isText: true, color: statusColor)
                     : (index == 4)
                         ? _listBox(
                             intl.DateFormat('yyyy-MM-dd HH:mm a')
-                                .format(user.createdAt!),
+                                .format(controller.user.createdAt!),
                             isText: true)
                         : _listBox(
                             hintList[index],
