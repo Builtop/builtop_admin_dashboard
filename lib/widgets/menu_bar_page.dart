@@ -94,6 +94,7 @@ class _MenuBarState extends State<MenuBarPage> {
     gr.SupervisorDetailsRoute(),
     gr.PendingUsersRoute(),
     gr.PendingUsersDetailsRoute(),
+    gr.BuyersRoute()
   ];
 
   // for change language
@@ -1137,15 +1138,17 @@ class _MenuBarState extends State<MenuBarPage> {
                   ),
                   onTap: () {
                     print('xxxxxxxxxxxxxxx3${items[index]}');
-                    if (items[index] == 'Supervisors') {
-                      tabsRouter.setActiveIndex(getRouteIndex(items[index]));
-                    } else if (items[index] == 'Suppliers') {
-                      tabsRouter.setActiveIndex(getRouteIndex(items[index]));
-                    } else if (items[index] == 'Rfq') {
-                      tabsRouter.setActiveIndex(getRouteIndex(items[index]));
-                    } else if (items[index] == 'Pending-users') {
-                      tabsRouter.setActiveIndex(getRouteIndex(items[index]));
-                    } else {}
+
+                    tabsRouter.setActiveIndex(getRouteIndex(items[index]));
+                    // if (items[index] == 'Supervisors') {
+                    //   tabsRouter.setActiveIndex(getRouteIndex(items[index]));
+                    // } else if (items[index] == 'Suppliers') {
+                    //   tabsRouter.setActiveIndex(getRouteIndex(items[index]));
+                    // } else if (items[index] == 'Rfq') {
+                    //   tabsRouter.setActiveIndex(getRouteIndex(items[index]));
+                    // } else if (items[index] == 'Pending-users') {
+                    //   tabsRouter.setActiveIndex(getRouteIndex(items[index]));
+                    // } else {}
                     _scaffoldDrawerKey.currentState?.closeDrawer();
 
                     // } else if (items[index] == 'Login 2') {
@@ -1218,60 +1221,18 @@ class _MenuBarState extends State<MenuBarPage> {
       children: (tabsRouter.currentPath == '/dashboard')
           ? []
           : [
-              if (routeIndex.isBetween(1, 2) || routeIndex == 5) ...[
+              if (routeIndex.isBetween(1, 2) ||
+                  routeIndex == 5 ||
+                  routeIndex == 7) ...[
                 // const Text(' / ${Strings.uiElements} '),
                 Text('${'Users'} '),
               ] else if (routeIndex == 4) ...[
                 Text('${'Users'} / ${'Supervisors'} '),
               ] else if (routeIndex == 6) ...[
                 Text('${'Users'} / ${'Pending-users'} '),
-              ] else if (routeIndex.isBetween(3, 4)) ...[
-                // const Text(' / ${Strings.forms} '),
-                Text('${'Requests'} '),
-              ] else if (routeIndex.isBetween(11, 13)) ...[
-                // const Text(' / ${Strings.charts} '),
-                Text(' / ${'charts'} '),
-              ] else if (routeIndex.isBetween(14, 17)) ...[
-                // const Text(' / ${Strings.tables} '),
-                Text(' / ${'tables'} '),
-              ] else if (routeIndex.isBetween(7, 9)) ...[
-                // const Text(' / ${Strings.emailTemplates} '),
-                Text(' / ${'emailTemplates'} '),
-              ] else if (routeIndex == 38) ...[
-                Text(' / ${'eCommerce'} '),
-              ] else if (routeIndex == 40) ...[
-                Text(' / ${'eCommerce'} '),
-                // const Text(' / ${Strings.eCommerce} '),
-              ] else if (routeIndex == 47) ...[
-                Text(' / ${'eCommerce'} / ${Strings.returnOrder} '),
-              ] else if (routeIndex == 51) ...[
-                Text(' / ${'eCommerce'} / ${Strings.order} '),
-              ] else if (routeIndex == 41) ...[
-                Text(' / ${'eCommerce'} / ${Strings.category} '),
-              ] else if (routeIndex == 43) ...[
-                Text(' / ${'eCommerce'} / ${Strings.vendor} '),
-              ] else if (routeIndex == 42 ||
-                  routeIndex == 44 ||
-                  routeIndex == 45 ||
-                  routeIndex == 46 ||
-                  routeIndex == 48 ||
-                  routeIndex == 49 ||
-                  routeIndex == 50 ||
-                  routeIndex == 52 ||
-                  routeIndex == 53 ||
-                  routeIndex == 54 ||
-                  routeIndex == 56) ...[
-                Text(' / ${'eCommerce'} '),
-              ] else if (routeIndex == 39) ...[
-                Text(' / ${'eCommerce'} / ${Strings.products}'),
-              ] else if (routeIndex == 55) ...[
-                Text(' / ${'eCommerce'} '),
-              ] else if (tabsRouter.currentPath == '/calendar' ||
-                  tabsRouter.currentPath == '/map') ...[
-                const SizedBox.shrink()
               ] else ...[
                 // const Text(' / Extra Pages '),
-                Text(' / ${'extraPages'} '),
+                Text(' / ${'not found page'} '),
               ],
               const Text(' / '),
               // Text(upperCase(tabsRouter.currentPath)),

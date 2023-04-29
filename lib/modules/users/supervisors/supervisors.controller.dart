@@ -88,7 +88,7 @@ class SupervisorsController extends MahgController {
 
   Future<void> addSupervisorHandler() async {
     if (!(formKey.currentState?.validate() ?? false)) return;
-    var data = {'email': emailController.text};
+    var data = {'email': supervisor?.email};
     var result = await LoadingOverlay.showFutureLoadingDialog(
         context: context, future: () => SupervisorsService.addSupervisor(data));
     if (result.result?.success ?? false) {

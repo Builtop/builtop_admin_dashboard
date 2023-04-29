@@ -3,8 +3,10 @@ import 'package:builtop_admin_dashboard/constants/color.dart';
 import 'package:builtop_admin_dashboard/constants/const.dart';
 import 'package:builtop_admin_dashboard/constants/text.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admins.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor.model.dart';
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisors.controller.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
+import 'package:builtop_admin_dashboard/widgets/form_fields.widget.dart';
 import 'package:builtop_admin_dashboard/widgets/users_menu_button.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
@@ -82,103 +84,11 @@ class _SupervisorDetailsPageState
                       ],
                     ),
                     FxBox.h24,
-                    if (Responsive.isWeb(context))
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    _commonText(_headingList[0]),
-                                    FxBox.h4,
-                                    _listBox(_hintList[0],
-                                        controller: controller.emailController),
-                                  ],
-                                ),
-                              ),
-                              FxBox.w16,
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    _commonText(_headingList[1]),
-                                    FxBox.h4,
-                                    _listBox(_hintList[1]),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          FxBox.h16,
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    _commonText(_headingList[2]),
-                                    FxBox.h4,
-                                    _listBox(_hintList[2]),
-                                  ],
-                                ),
-                              ),
-                              FxBox.w16,
-                              Expanded(child: _passwordTextField()),
-                            ],
-                          ),
-                          FxBox.h16,
-                          isUpdate
-                              ? Row(
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          _commonText(_headingList[3]),
-                                          FxBox.h4,
-                                          _listBox(
-                                              controller.supervisor?.status ??
-                                                  '',
-                                              isText: true,
-                                              color: statusColor)
-                                        ],
-                                      ),
-                                    ),
-                                    FxBox.w16,
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          _commonText(_headingList[4]),
-                                          FxBox.h4,
-                                          _listBox(
-                                              intl.DateFormat(
-                                                      'yyyy-MM-dd HH:mm a')
-                                                  .format(controller
-                                                      .supervisor!.createdAt!),
-                                              isText: true)
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : const SizedBox.shrink(),
-                          FxBox.h16,
-                        ],
-                      ),
-                    if (!Responsive.isWeb(context))
-                      Column(
-                        children: [
-                          _textFieldNormal(_headingList, _hintList),
-                          FxBox.h8,
-                          _passwordTextField(),
-                          FxBox.h16,
-                        ],
-                      ),
+                    // add form fields widget
+                    FormFieldsWidget(
+                        isUpdate: isUpdate,
+                        user: controller.supervisor ?? Supervisor(),
+                        emailController: controller.emailController),
                     Row(
                       children: [
                         FxButton(

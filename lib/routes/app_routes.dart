@@ -4,6 +4,7 @@ import 'package:builtop_admin_dashboard/modules/login/login.page.dart';
 import 'package:builtop_admin_dashboard/modules/requests/rfq/rfq.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admin_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admins/admins.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/buyers/buyers.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/pendings/pending_users.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/pendings/pending_user_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor_details.page.dart';
@@ -29,6 +30,7 @@ import 'package:builtop_admin_dashboard/widgets/menu_bar_page.dart';
         AutoRoute(path: 'pending-users', page: PendingUsersPage),
         AutoRoute(path: 'pendingUsersDetails', page: PendingUsersDetailsPage),
         AutoRoute(path: 'suppliers', page: SuppliersPage),
+        AutoRoute(path: 'buyers', page: BuyersPage),
         AutoRoute(path: 'rfq', page: RfqPage),
       ],
     ),
