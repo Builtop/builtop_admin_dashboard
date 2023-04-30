@@ -44,13 +44,16 @@ class _PendingUsersPageState
               columnsWithOptionalWidth: {'actions': 200},
               fieldToColumnName: {
                 "_id": 'id',
-                "email": 'email',
+                "phoneNum": 'phone',
                 "status": 'status',
                 "createdAt": 'createdAt',
                 'actions': 'actions'
               },
               generalList: controller.pendingUsers
-                      ?.map((e) => {...e.toJson(), 'actions': e.id})
+                      ?.map((e) => {
+                            ...e.toJson(),
+                            'actions': e.id,
+                          })
                       .toList() ??
                   [],
               buildCells: (row) {

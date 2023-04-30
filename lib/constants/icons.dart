@@ -4,6 +4,7 @@ class IconlyBroken {
   static const String search = '${_assetPath}search-normal-1.svg';
   static const String notification = '${_assetPath}notification-1.svg';
   static const String users = '${_assetPath}users.svg';
+  static const String profile = '${_assetPath}profile.svg';
   static const String setting = '${_assetPath}setting-2.svg';
   static const String arrowRight3 = '${_assetPath}arrow-right-3.svg';
   static const String home = '${_assetPath}home-2.svg';

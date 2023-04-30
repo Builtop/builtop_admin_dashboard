@@ -14,12 +14,16 @@ class PendingUsersController extends MahgController {
   List<PendingUser>? pendingUsers;
   PendingUser? pendingUser;
   late TextEditingController emailController;
+  late TextEditingController phoneController;
+  late TextEditingController nameController;
   late TextEditingController passwordController;
 
   @override
   void init(Widget page) {
     if (page is PendingUsersDetailsPage) {
       emailController = TextEditingController();
+      nameController = TextEditingController();
+      phoneController = TextEditingController();
       passwordController = TextEditingController();
     }
   }
@@ -44,7 +48,9 @@ class PendingUsersController extends MahgController {
     if (result.success) {
       try {
         pendingUser = PendingUser.fromJson(result.data);
-        emailController.text = pendingUser?.email ?? '';
+        emailController.text = pendingUser?.info?.email ?? '';
+        phoneController.text = pendingUser?.phoneNum ?? '';
+        nameController.text = pendingUser?.info?.name ?? '';
       } catch (err, t) {
         print('ERROR $err');
         print('ERROR TRACE $t');

@@ -37,12 +37,14 @@ class DashboardController extends MahgController {
     }
   }
 
-  // @override
-  // Future<void> onDisplayed(Widget page, bool isDisplayed) async {
-  //   await Future.delayed(Duration(milliseconds: 400));
-  //   if (!AppConfigService.isLogin) {
-  //     context.navigateTo(gr.LoginRoute());
-  //   }
-  //   return super.onDisplayed(page, isDisplayed);
-  // }
+  @override
+  Future<void> onDisplayed(Widget page, bool isDisplayed) async {
+    await Future.delayed(Duration(milliseconds: 400));
+    if (isDisplayed) {
+      if (AppConfigService.user == null) {
+        context.navigateTo(gr.LoginRoute());
+      }
+    }
+    return super.onDisplayed(page, isDisplayed);
+  }
 }

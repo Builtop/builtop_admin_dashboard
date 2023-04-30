@@ -15,7 +15,10 @@ import 'package:mahg_essential_package/mahg_essential_package.dart';
 class SupervisorsController extends MahgController {
   List<Supervisor>? supervisors;
   Supervisor? supervisor;
+
   late TextEditingController emailController;
+  late TextEditingController phoneController;
+  late TextEditingController nameController;
   late TextEditingController passwordController;
   late GlobalKey<FormState> formKey;
 
@@ -23,6 +26,8 @@ class SupervisorsController extends MahgController {
   void init(Widget page) {
     if (page is SupervisorDetailsPage) {
       emailController = TextEditingController();
+      nameController = TextEditingController();
+      phoneController = TextEditingController();
       passwordController = TextEditingController();
       formKey = GlobalKey<FormState>();
     }
@@ -48,7 +53,9 @@ class SupervisorsController extends MahgController {
     if (result.success) {
       try {
         supervisor = Supervisor.fromJson(result.data);
-        emailController.text = supervisor?.email ?? '';
+        emailController.text = supervisor?.info?.email ?? '';
+        phoneController.text = supervisor?.phoneNum ?? '';
+        nameController.text = supervisor?.info?.name ?? '';
       } catch (err, t) {
         print('ERROR $err');
         print('ERROR TRACE $t');
@@ -88,7 +95,11 @@ class SupervisorsController extends MahgController {
 
   Future<void> addSupervisorHandler() async {
     if (!(formKey.currentState?.validate() ?? false)) return;
-    var data = {'email': supervisor?.email};
+    var data = {
+      'email': emailController.text,
+      'name': nameController.text,
+      'phoneNum': phoneController.text,
+    };
     var result = await LoadingOverlay.showFutureLoadingDialog(
         context: context, future: () => SupervisorsService.addSupervisor(data));
     if (result.result?.success ?? false) {

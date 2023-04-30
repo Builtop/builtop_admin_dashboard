@@ -4,27 +4,25 @@ import 'package:builtop_admin_dashboard/constants/icons.dart';
 import 'package:builtop_admin_dashboard/constants/images.dart';
 import 'package:builtop_admin_dashboard/constants/string.dart';
 import 'package:builtop_admin_dashboard/constants/theme.dart';
+import 'package:builtop_admin_dashboard/modules/login/login.controller.dart';
 import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/utils/hover.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
+import 'package:builtop_admin_dashboard/widgets/custom_text_field_ex.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterx/flutterx.dart';
-import 'package:builtop_admin_dashboard/routes/app_routes.gr.dart' as gr;
+import 'package:mahg_essential_package/mahg_essential_package.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends MahgStatefulWidget<LoginController> {
+  const LoginPage({LoginController? controllerEx, Key? key})
+      : super(controllerEx, key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  // /final CheckboxBloc _checkboxBloc = CheckboxBloc();
-
+class _LoginPageState extends MahgState<LoginPage, LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,26 +88,29 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _bottomView() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      //mainAxisSize: MainAxisSize.min,
-      children: [
-        FxBox.h28,
-        labelView('email'),
-        FxBox.h8,
-        _usernameTextBoxWidget(),
-        FxBox.h16,
-        labelView('password'),
-        FxBox.h8,
-        _passwordTextBoxWidget(),
-        FxBox.h16,
-        _loginButton(),
-        FxBox.h20,
-        _forgotPasswordButton(),
-        FxBox.h20,
-        _serviceText(),
-      ],
+    return Form(
+      key: controller.formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        //mainAxisSize: MainAxisSize.min,
+        children: [
+          FxBox.h28,
+          labelView('phone'),
+          FxBox.h8,
+          _phoneTextBoxWidget(),
+          FxBox.h16,
+          labelView('password'),
+          FxBox.h8,
+          _passwordTextBoxWidget(),
+          FxBox.h16,
+          _loginButton(),
+          FxBox.h20,
+          _forgotPasswordButton(),
+          FxBox.h20,
+          _serviceText(),
+        ],
+      ),
     );
   }
 
@@ -139,24 +140,38 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _usernameTextBoxWidget() {
+  Widget _phoneTextBoxWidget() {
     return CustomTextField(
-      hintText: Strings.enterEmail,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      hintText: Strings.enterPhone,
       onChanged: (String value) {},
       textCapitalization: TextCapitalization.none,
       textInputAction: TextInputAction.done,
-      controller: _usernameController,
+      controller: controller.phoneController,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Enter PhoneNumber';
+        }
+        return null;
+      },
     );
   }
 
   Widget _passwordTextBoxWidget() {
     return CustomTextField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       obsecureText: true,
       hintText: Strings.enterPassword,
       onChanged: (String value) {},
       textCapitalization: TextCapitalization.none,
       textInputAction: TextInputAction.done,
-      controller: _passwordController,
+      controller: controller.passwordController,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Enter Password';
+        }
+        return null;
+      },
     );
   }
 
@@ -193,20 +208,13 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loginButton() {
     return FxButton(
-      onPressed: () {
-        signIn();
-      },
+      onPressed: () => controller.onLogin(),
       text: 'signIn',
       borderRadius: 8.0,
       height: 40,
       minWidth: MediaQuery.of(context).size.width,
       color: Theme.of(context).colorScheme.primary,
     );
-  }
-
-  void signIn() {
-    AppConfigService.isLogin = true;
-    context.popRoute();
   }
 
   Widget _forgotPasswordButton() {
@@ -236,6 +244,11 @@ class _LoginPageState extends State<LoginPage> {
         },
       ),
     );
+  }
+
+  @override
+  LoginController createController() {
+    return LoginController();
   }
 }
 
@@ -279,28 +292,29 @@ class CustomText extends StatelessWidget {
 }
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    Key? key,
-    this.controller,
-    this.hintText,
-    this.margin,
-    this.textInputAction,
-    this.focusNode,
-    this.onChanged,
-    this.obsecureText = false,
-    this.onTap,
-    this.onSubmitted,
-    this.keyBoardType,
-    this.textCapitalization = TextCapitalization.none,
-    this.errorText,
-    this.changeColor,
-    this.readOnly = false,
-    this.onIconTap,
-    this.suffixIcon,
-    this.validator,
-    this.maxLength,
-    this.textColor,
-  })  : assert(controller != null),
+  const CustomTextField(
+      {Key? key,
+      this.controller,
+      this.hintText,
+      this.margin,
+      this.textInputAction,
+      this.focusNode,
+      this.onChanged,
+      this.obsecureText = false,
+      this.onTap,
+      this.onSubmitted,
+      this.keyBoardType,
+      this.textCapitalization = TextCapitalization.none,
+      this.errorText,
+      this.changeColor,
+      this.readOnly = false,
+      this.onIconTap,
+      this.suffixIcon,
+      this.validator,
+      this.maxLength,
+      this.textColor,
+      this.autovalidateMode})
+      : assert(controller != null),
         super(key: key);
   final TextEditingController? controller;
   final EdgeInsetsGeometry? margin;
@@ -321,11 +335,13 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final int? maxLength;
   final Color? textColor;
+  final AutovalidateMode? autovalidateMode;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: TextFormField(
+        autovalidateMode: autovalidateMode,
         controller: controller,
         focusNode: focusNode,
         textInputAction: textInputAction,

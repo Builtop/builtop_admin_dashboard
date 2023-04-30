@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:builtop_admin_dashboard/models/user.dart';
+import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor.model.dart';
 import 'package:flutter/material.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';
 
@@ -6,9 +8,6 @@ class AppConfigService {
   final ValueNotifier<String> _language =
       ValueNotifier<String>(AppConfigService.language);
 
-  static bool isLogin = false;
-
-  // static UserData? _user;
   // static List<Locale>? supportedAppLocale;
 
   // static TokenData? _tokendata;
@@ -19,9 +18,9 @@ class AppConfigService {
 
   // static set tokenData(TokenData? v) => _tokendata = v;
 
-  // static void setUserData(Map<String, dynamic> v) {
-  //   _user = UserData.fromJson(v);
-  // }
+  static void setUserData(Map<String, dynamic> v) {
+    ConfigService.setValueMap('user', v);
+  }
 
   static bool get isDark => ConfigService.getValueBool('is_dark');
 
@@ -30,7 +29,9 @@ class AppConfigService {
     ConfigService.setValueBool('is_dark', result);
   }
 
-  // static UserData? get user => _user;
+  static UserEx? get user => ConfigService.getValueMap('user').isEmpty
+      ? null
+      : UserEx.fromJson(ConfigService.getValueMap('user'));
   static String get language => ConfigService.getValueString('language');
   static set language(v) => ConfigService.setValueString('language', v);
   static bool get isArabic {
@@ -39,5 +40,18 @@ class AppConfigService {
     } else {
       return false;
     }
+  }
+}
+
+class UserEx extends User {
+  UserEx();
+
+  UserEx.fromJson(Map<String, dynamic> data) {
+    fromJson(data);
+  }
+  @override
+  Map<String, dynamic> toJson() {
+    // TODO: implement toJson
+    return super.toJson();
   }
 }

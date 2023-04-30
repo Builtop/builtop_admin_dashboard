@@ -57,7 +57,11 @@ class _SupervisorsPageState
                 'actions': 'actions'
               },
               generalList: controller.supervisors
-                      ?.map((e) => {...e.toJson(), 'actions': e.id})
+                      ?.map((e) => {
+                            ...e.toJson(),
+                            'actions': e.id,
+                            'email': e.info?.email
+                          })
                       .toList() ??
                   [],
               buildCells: (row) {

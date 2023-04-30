@@ -72,7 +72,6 @@ class _MenuBarState extends State<MenuBarPage> {
   final List<String> _items = [
     Strings.profile,
     Strings.settings,
-    Strings.lockScreen,
   ];
 
   final List<String> _notificationTitle = [
@@ -521,17 +520,18 @@ class _MenuBarState extends State<MenuBarPage> {
     return FxDropdownButton(
       focusColor: Colors.transparent,
       underline: const SizedBox.shrink(),
-      customButton: const MaterialButton(
+      customButton: MaterialButton(
         height: double.infinity,
         minWidth: 60,
         hoverColor: ColorConst.transparent,
         onPressed: null,
-        child: CircleAvatar(
-          maxRadius: 16,
-          backgroundImage: AssetImage(Images.profileImage),
+        child: SvgIcon(
+          icon: IconlyBroken.profile,
+          size: 22,
+          color: AppConfigService.isDark ? ColorConst.white : ColorConst.black,
         ),
       ),
-      customItemsIndexes: const [3],
+      customItemsIndexes: const [2],
       customItemsHeight: 8,
       onChanged: (value) {
         if (value == 'Profile') {
@@ -570,7 +570,7 @@ class _MenuBarState extends State<MenuBarPage> {
           ),
         ),
       ],
-      itemHeight: 48,
+      itemHeight: 40,
       itemPadding: const EdgeInsets.only(left: 16, right: 16),
       dropdownWidth: 160,
       dropdownPadding: const EdgeInsets.symmetric(vertical: 6),

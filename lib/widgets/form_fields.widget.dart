@@ -56,9 +56,9 @@ class FormFieldsWidget extends StatelessWidget {
                       children: [
                         _commonText(_headingList[0], context),
                         FxBox.h4,
-                        _listBox(
-                          _hintList[0],
-                        ),
+                        _listBox(_hintList[0],
+                            controller: controller.nameController,
+                            validMsg: nameValidMsg),
                       ],
                     ),
                   ),
@@ -70,7 +70,8 @@ class FormFieldsWidget extends StatelessWidget {
                         _commonText(_headingList[1], context),
                         FxBox.h4,
                         _listBox(_hintList[1],
-                            controller: controller.emailController),
+                            controller: controller.emailController,
+                            validMsg: emailValidMsg),
                       ],
                     ),
                   ),
@@ -85,7 +86,9 @@ class FormFieldsWidget extends StatelessWidget {
                       children: [
                         _commonText(_headingList[2], context),
                         FxBox.h4,
-                        _listBox(_hintList[2]),
+                        _listBox(_hintList[2],
+                            controller: controller.phoneController,
+                            validMsg: phoneValidMsg),
                       ],
                     ),
                   ),
@@ -150,6 +153,7 @@ class FormFieldsWidget extends StatelessWidget {
   Widget _listBox(
     String hintText, {
     TextEditingController? controller,
+    String? validMsg,
     bool isText = false,
     Color? color,
   }) {
@@ -171,7 +175,7 @@ class FormFieldsWidget extends StatelessWidget {
         validator: controller != null
             ? (value) {
                 if (value == null || value.isEmpty) {
-                  return "email is required";
+                  return validMsg;
                 }
                 return null;
               }
@@ -209,25 +213,38 @@ class FormFieldsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: _responsive(
             _commonText(headingList[index], context),
-            (index == 1)
+            (index == 0)
                 ? _listBox(hintList[index],
-                    controller: controller.emailController)
-                : (index == 3)
-                    ? _listBox(user.status ?? '',
-                        isText: true, color: statusColor)
-                    : (index == 4)
-                        ? _listBox(
-                            intl.DateFormat('yyyy-MM-dd HH:mm a')
-                                .format(user.createdAt!),
-                            isText: true)
-                        : _listBox(
-                            hintList[index],
-                          ),
+                    controller: controller.nameController,
+                    validMsg: nameValidMsg)
+                : (index == 1)
+                    ? _listBox(hintList[index],
+                        controller: controller.emailController,
+                        validMsg: emailValidMsg)
+                    : (index == 2)
+                        ? _listBox(hintList[index],
+                            controller: controller.phoneController,
+                            validMsg: phoneValidMsg)
+                        : (index == 3)
+                            ? _listBox(user.status ?? '',
+                                isText: true, color: statusColor)
+                            : (index == 4)
+                                ? _listBox(
+                                    intl.DateFormat('yyyy-MM-dd HH:mm a')
+                                        .format(user.createdAt!),
+                                    isText: true)
+                                : _listBox(
+                                    hintList[index],
+                                  ),
           ),
         );
       },
     );
   }
+
+  String get emailValidMsg => "email is required";
+  String get phoneValidMsg => "phone is required";
+  String get nameValidMsg => "name is required";
 
   Widget _responsive(Widget childOne, Widget childTwo) {
     return Column(
