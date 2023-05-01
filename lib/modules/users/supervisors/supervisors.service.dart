@@ -23,4 +23,13 @@ class SupervisorsService {
       return ProcessResult(success: false, errorMessage: e.toString());
     }
   }
+
+  static Future<ProcessResult> editSupervisor(Map<String, dynamic> data) async {
+    try {
+      var result = await _apiService.httpPutEx('${_url}edit-supervisor', data);
+      return result;
+    } catch (e) {
+      return ProcessResult(success: false, errorMessage: e.toString());
+    }
+  }
 }

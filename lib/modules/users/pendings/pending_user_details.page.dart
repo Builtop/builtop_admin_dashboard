@@ -42,7 +42,7 @@ class _PendingUsersDetailsPageState
                     children: [
                       Expanded(
                         child: Text(
-                          controller.pendingUser!.id!,
+                          'Edit Pending User',
                           style: const TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w600),
                         ),

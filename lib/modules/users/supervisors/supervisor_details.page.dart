@@ -54,13 +54,16 @@ class _SupervisorDetailsPageState
                       children: [
                         Expanded(
                           child: Text(
-                            controller.supervisor?.id ?? 'New Supervisor',
+                            controller.supervisor != null
+                                ? 'Edit Supervisor'
+                                : 'New Supervisor',
                             style: const TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.w600),
                           ),
                         ),
                         isUpdate
                             ? UsersMenuButton(
+                                canChangePassword: true,
                                 contextEx: context,
                                 returnToIndex: 1,
                                 user: controller.supervisor!,
@@ -79,7 +82,7 @@ class _SupervisorDetailsPageState
                           borderRadius: 4,
                           onPressed: controller.supervisor?.id == null
                               ? () => controller.addSupervisorHandler()
-                              : () {},
+                              : () => controller.editSupervisorHandler(),
                           text: controller.supervisor?.id == null
                               ? 'Add New'
                               : 'Update',

@@ -27,7 +27,7 @@ class FormFieldsWidget extends StatelessWidget {
     'password'
   ];
   final List<String> _hintList = [
-    'ahmed gamal',
+    'your name',
     'test@test.com',
     '+91 9999999999',
     '',

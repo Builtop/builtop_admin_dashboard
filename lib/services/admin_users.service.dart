@@ -49,6 +49,20 @@ class AdminUsersService {
     }
   }
 
+  static Future<ProcessResult> changePassword(String id,
+      {required String currentPassword, required String newPassword}) async {
+    try {
+      var result = await _apiService.httpPutEx('${_url}change-password', {
+        "_id": id,
+        "currentPassword": currentPassword,
+        "newPassword": newPassword
+      });
+      return result;
+    } catch (e) {
+      return ProcessResult(success: false, errorMessage: e.toString());
+    }
+  }
+
   static Future<ProcessResult> _deleteUser(String id) async {
     try {
       var result = await _apiService.httpDeleteDynamicEx('${_url}user/$id');

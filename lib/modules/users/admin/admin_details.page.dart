@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/constants/color.dart';
 import 'package:builtop_admin_dashboard/modules/users/admin/admins.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor.model.dart';
 import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
 import 'package:builtop_admin_dashboard/widgets/form_fields.widget.dart';
+import 'package:builtop_admin_dashboard/widgets/users_menu_button.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';
@@ -35,17 +37,24 @@ class _AdminDetailsPageState
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Form(
+          key: controller.formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: const [
+                children: [
                   Expanded(
                     child: Text(
                       'Edit Admin',
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
                     ),
+                  ),
+                  UsersMenuButton(
+                    canChangePasswordOnly: true,
+                    contextEx: context,
+                    returnToIndex: 0,
+                    user: UserEx()..id = AppConfigService.user?.id,
                   ),
                 ],
               ),

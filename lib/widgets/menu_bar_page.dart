@@ -1235,6 +1235,8 @@ class _MenuBarState extends State<MenuBarPage> {
                 Text('${'Users'} / ${'Buyers'} '),
               ] else if (routeIndex == 8) ...[
                 Text('${'Users'} / ${'Pending-users'} '),
+              ] else if (routeIndex == 10) ...[
+                Text('${'Admin'} '),
               ] else ...[
                 // const Text(' / Extra Pages '),
                 Text(' / ${'not found page'} '),

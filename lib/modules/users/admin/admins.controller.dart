@@ -13,6 +13,7 @@ class AdminsController extends MahgController {
   late TextEditingController phoneController;
   late TextEditingController nameController;
   late TextEditingController passwordController;
+  late GlobalKey<FormState> formKey;
 
   @override
   void init(Widget page) {
@@ -24,17 +25,41 @@ class AdminsController extends MahgController {
       phoneController =
           TextEditingController(text: AppConfigService.user?.phoneNum);
       passwordController = TextEditingController();
+      formKey = GlobalKey<FormState>();
     }
   }
 
   @override
   Future initLate(Widget page) async {}
 
+  Map<String, dynamic> getChangedValues() {
+    var data = {"_id": AppConfigService.user?.id};
+    if (AppConfigService.user?.info?.email != emailController.text) {
+      data['email'] = emailController.text;
+    }
+    if (AppConfigService.user?.phoneNum != phoneController.text) {
+      data['phoneNum'] = phoneController.text;
+    }
+    if (AppConfigService.user?.info?.name != nameController.text) {
+      data['name'] = nameController.text;
+    }
+    return data;
+  }
+
   Future<void> editAdminHandler() async {
-    var data = {"_id": AppConfigService.user?.id, "name": nameController.text};
+    if (!(formKey.currentState?.validate() ?? false)) return;
+    if (getChangedValues().keys.length == 1) {
+      CoolAlert.show(
+          width: NumbersConst.dialogWidth,
+          context: context,
+          type: CoolAlertType.info,
+          text: 'No Data Changed');
+      return;
+    }
 
     var result = await LoadingOverlay.showFutureLoadingDialog(
-        context: context, future: () => AdminsService.editAdmin(data));
+        context: context,
+        future: () => AdminsService.editAdmin(getChangedValues()));
 
     if (result.result?.success ?? false) {
       CoolAlert.show(

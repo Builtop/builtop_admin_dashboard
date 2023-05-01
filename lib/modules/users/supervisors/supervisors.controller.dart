@@ -43,6 +43,55 @@ class SupervisorsController extends MahgController {
     }
   }
 
+  Future<void> editSupervisorHandler() async {
+    if (!(formKey.currentState?.validate() ?? false)) return;
+
+    if (getChangedValues().keys.length == 1) {
+      CoolAlert.show(
+          width: NumbersConst.dialogWidth,
+          context: context,
+          type: CoolAlertType.info,
+          text: 'No Data Changed');
+      return;
+    }
+
+    var result = await LoadingOverlay.showFutureLoadingDialog(
+        context: context,
+        future: () => SupervisorsService.editSupervisor(getChangedValues()));
+
+    if (result.result?.success ?? false) {
+      CoolAlert.show(
+              width: NumbersConst.dialogWidth,
+              context: context,
+              type: CoolAlertType.success,
+              text: 'Data Edit Successfully')
+          .then((value) {
+        autoTabRouter?.setActiveIndex(1);
+      });
+    } else {
+      CoolAlert.show(
+              width: NumbersConst.dialogWidth,
+              context: context,
+              type: CoolAlertType.error,
+              text: result.result?.errorMessage)
+          .then((value) => autoTabRouter?.setActiveIndex(1));
+    }
+  }
+
+  Map<String, dynamic> getChangedValues() {
+    var data = {"_id": supervisor?.id};
+    if (supervisor?.info?.email != emailController.text) {
+      data['email'] = emailController.text;
+    }
+    if (supervisor?.phoneNum != phoneController.text) {
+      data['phoneNum'] = phoneController.text;
+    }
+    if (supervisor?.info?.name != nameController.text) {
+      data['name'] = nameController.text;
+    }
+    return data;
+  }
+
   Future<void> getSupervisorHandler() async {
     await Future.delayed(Duration(milliseconds: 400));
     if ((context.routeData.queryParams.get('id') == null) ||
