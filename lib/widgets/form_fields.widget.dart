@@ -1,9 +1,11 @@
 import 'package:builtop_admin_dashboard/constants/text.dart';
 import 'package:builtop_admin_dashboard/models/user.dart';
 import 'package:builtop_admin_dashboard/modules/users/buyers/buyers.controller.dart';
+import 'package:builtop_admin_dashboard/modules/users/pendings/pending_users.controller.dart';
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisors.controller.dart';
 import 'package:builtop_admin_dashboard/modules/users/suppliers/supplier.model.dart';
 import 'package:builtop_admin_dashboard/modules/users/suppliers/suppliers.controller.dart';
+import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
 import 'package:builtop_admin_dashboard/widgets/custom_text_field_ex.widget.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +41,9 @@ class FormFieldsWidget extends StatelessWidget {
           ? controller.supplier
           : (controller is BuyersController)
               ? controller.buyer
-              : controller.pendingUser;
+              : (controller is PendingUsersController)
+                  ? controller.pendingUser
+                  : AppConfigService.user;
 
   Color get statusColor =>
       user.status == 'Active' ? Colors.green : Colors.orange;

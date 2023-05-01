@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/constants/color.dart';
 import 'package:builtop_admin_dashboard/constants/const.dart';
 import 'package:builtop_admin_dashboard/constants/text.dart';
-import 'package:builtop_admin_dashboard/modules/users/admins/admins.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/admin/admins.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor.model.dart';
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisors.controller.dart';
 import 'package:builtop_admin_dashboard/utils/responsive.dart';

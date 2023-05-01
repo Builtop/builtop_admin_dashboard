@@ -1,8 +1,8 @@
 import 'package:builtop_admin_dashboard/constants/string.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.page.dart';
 import 'package:builtop_admin_dashboard/modules/requests/rfq/rfq.page.dart';
-import 'package:builtop_admin_dashboard/modules/users/admins/admin_details.page.dart';
-import 'package:builtop_admin_dashboard/modules/users/admins/admins.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/admin/admin_details.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/admin/admins.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/buyers/buyer_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/buyers/buyers.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/pendings/pending_users.page.dart';
@@ -34,6 +34,8 @@ int getRouteIndex(String route) {
     return 8;
   } else if (route == Strings.rfq) {
     return 9;
+  } else if (route == Strings.adminDetails) {
+    return 10;
   } else {
     return 0;
   }
@@ -60,6 +62,8 @@ Widget getRouteWidget(int index) {
     return PendingUsersDetailsPage();
   } else if (index == 9) {
     return RfqPage();
+  } else if (index == 10) {
+    return AdminDetailsPage();
   } else {
     return DashboardPage();
   }

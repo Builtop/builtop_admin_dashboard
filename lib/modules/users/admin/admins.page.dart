@@ -4,7 +4,7 @@ import 'package:builtop_admin_dashboard/constants/decoration.dart';
 import 'package:builtop_admin_dashboard/constants/icons.dart';
 import 'package:builtop_admin_dashboard/constants/text.dart';
 import 'package:builtop_admin_dashboard/constants/theme.dart';
-import 'package:builtop_admin_dashboard/modules/users/admins/admin_details.page.dart';
+import 'package:builtop_admin_dashboard/modules/users/admin/admin_details.page.dart';
 import 'package:builtop_admin_dashboard/services/app_config_service.dart';
 import 'package:builtop_admin_dashboard/widgets/custom_sync_fusion_table.widget.dart';
 import 'package:builtop_admin_dashboard/widgets/svg_icon.dart';

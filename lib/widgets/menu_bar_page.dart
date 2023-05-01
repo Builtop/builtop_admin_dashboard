@@ -96,6 +96,7 @@ class _MenuBarState extends State<MenuBarPage> {
     gr.BuyerDetailsRoute(),
     gr.PendingUsersDetailsRoute(),
     gr.RfqRoute(),
+    gr.AdminDetailsRoute()
   ];
 
   // for change language
@@ -536,7 +537,8 @@ class _MenuBarState extends State<MenuBarPage> {
       onChanged: (value) {
         if (value == 'Profile') {
           // context.router.push(const MenuBar());
-          tabsRouter.setActiveIndex(getRouteIndex(Strings.userProfile));
+          context.navigateNamedTo('/adminDetails');
+
           _scaffoldDrawerKey.currentState?.closeDrawer();
         }
       },
