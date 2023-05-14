@@ -1,4 +1,4 @@
-import 'package:builtop_admin_dashboard/models/user.dart';
+import 'package:builtop_admin_dashboard/models/user.model.dart';
 
 class Admin extends User {
   Admin();

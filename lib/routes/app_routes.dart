@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.page.dart';
 import 'package:builtop_admin_dashboard/modules/login/login.page.dart';
+import 'package:builtop_admin_dashboard/modules/lookups/city/city.page.dart';
+import 'package:builtop_admin_dashboard/modules/lookups/country/country.page.dart';
 import 'package:builtop_admin_dashboard/modules/requests/rfq/rfq.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admin/admin_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admin/admins.page.dart';
@@ -37,6 +39,8 @@ import 'package:builtop_admin_dashboard/widgets/menu_bar_page.dart';
         AutoRoute(path: 'buyerDetails', page: BuyerDetailsPage),
         AutoRoute(path: 'rfq', page: RfqPage),
         AutoRoute(path: 'adminDetails', page: AdminDetailsPage),
+        AutoRoute(path: 'countries', page: CountryPage),
+        AutoRoute(path: 'cities', page: CityPage),
       ],
     ),
   ],

@@ -4,7 +4,7 @@ import 'package:builtop_admin_dashboard/constants/decoration.dart';
 import 'package:builtop_admin_dashboard/constants/icons.dart';
 import 'package:builtop_admin_dashboard/constants/text.dart';
 import 'package:builtop_admin_dashboard/constants/theme.dart';
-import 'package:builtop_admin_dashboard/models/user.dart';
+import 'package:builtop_admin_dashboard/models/user.model.dart';
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor.model.dart';
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor_details.page.dart';
 import 'package:builtop_admin_dashboard/services/admin_users.service.dart';

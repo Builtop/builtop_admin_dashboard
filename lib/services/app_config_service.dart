@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:builtop_admin_dashboard/models/user.dart';
+import 'package:builtop_admin_dashboard/models/user.model.dart';
 import 'package:builtop_admin_dashboard/modules/users/supervisors/supervisor.model.dart';
 import 'package:flutter/material.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';

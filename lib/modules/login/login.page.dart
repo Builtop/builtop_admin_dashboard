@@ -28,54 +28,48 @@ class _LoginPageState extends MahgState<LoginPage, LoginController> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
+          alignment: Alignment.center,
           children: [
-            SelectionArea(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Image.asset(
-                    Images.authBG,
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.cover,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    // mainAxisSize: MainAxisSize.min,
-                    children: [
-                      FxBox.h20,
-                      Center(
-                        child: Container(
-                          constraints: const BoxConstraints(
-                            maxWidth: 460,
-                          ),
-                          padding: Responsive.isMobile(context)
-                              ? const EdgeInsets.all(32)
-                              : const EdgeInsets.all(40),
-                          decoration: BoxDecoration(
-                            color: isDark ? ColorConst.black : ColorConst.white,
-                            border: Border.all(
-                              color:
-                                  isDark ? ColorConst.black : ColorConst.white,
-                            ),
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: Column(
-                            children: [
-                              _logoView(),
-                              FxBox.h16,
-                              headerView('signIn', 'signInText', context),
-                              _bottomView(),
-                            ],
-                          ),
-                        ),
+            Image.asset(
+              Images.authBG,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.cover,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisSize: MainAxisSize.min,
+              children: [
+                FxBox.h20,
+                Center(
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      maxWidth: 460,
+                    ),
+                    padding: Responsive.isMobile(context)
+                        ? const EdgeInsets.all(32)
+                        : const EdgeInsets.all(40),
+                    decoration: BoxDecoration(
+                      color: isDark ? ColorConst.black : ColorConst.white,
+                      border: Border.all(
+                        color: isDark ? ColorConst.black : ColorConst.white,
                       ),
-                      FxBox.h20,
-                    ],
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Column(
+                      children: [
+                        _logoView(),
+                        FxBox.h16,
+                        headerView(
+                            'signIn', 'Welcome To Builtop Dashboard', context),
+                        _bottomView(),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+                FxBox.h20,
+              ],
             ),
           ],
         ),
@@ -84,7 +78,7 @@ class _LoginPageState extends MahgState<LoginPage, LoginController> {
   }
 
   Widget _logoView() {
-    return SvgPicture.asset(IconlyBroken.adminKit);
+    return Image.asset(Images.builtopSmLogo);
   }
 
   Widget _bottomView() {
@@ -218,7 +212,7 @@ class _LoginPageState extends MahgState<LoginPage, LoginController> {
   }
 
   Widget _forgotPasswordButton() {
-    return GestureDetector(
+    return InkWell(
       onTap: () {},
       child: FxHover(
         builder: (isHover) {

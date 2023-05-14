@@ -53,6 +53,9 @@ class _MenuBarState extends State<MenuBarPage> {
   Map<String, String> requestsData = {
     Strings.requests: IconlyBroken.requests,
   };
+  Map<String, String> lookupsData = {
+    Strings.lookups: IconlyBroken.archive,
+  };
 
   List<List<String>> requestsDataList = [
     [
@@ -67,6 +70,9 @@ class _MenuBarState extends State<MenuBarPage> {
       Strings.buyers,
       Strings.pendingUsers
     ],
+  ];
+  List<List<String>> lookupsExpandList = [
+    [Strings.countries, Strings.cities],
   ];
 
   final List<String> _items = [
@@ -96,20 +102,14 @@ class _MenuBarState extends State<MenuBarPage> {
     gr.BuyerDetailsRoute(),
     gr.PendingUsersDetailsRoute(),
     gr.RfqRoute(),
-    gr.AdminDetailsRoute()
+    gr.AdminDetailsRoute(),
+    gr.CountryRoute(),
+    gr.CityRoute(),
   ];
 
   // for change language
   final ValueNotifier<String> _language =
       ValueNotifier<String>(AppConfigService.language);
-
-  @override
-  void initState() {
-    init();
-    super.initState();
-  }
-
-  void init() {}
 
   @override
   Widget build(BuildContext context) {
@@ -248,7 +248,7 @@ class _MenuBarState extends State<MenuBarPage> {
                       height: double.infinity,
                       color: ColorConst.transparent,
                       child: Image.asset(
-                          isDark ? Images.lgDarkLogo : Images.lgLightLogo),
+                          isDark ? Images.builtopSmLogo : Images.builtopSmLogo),
                     ),
                   );
                 }
@@ -631,6 +631,13 @@ class _MenuBarState extends State<MenuBarPage> {
                       items: usersData,
                       isExpanded: true,
                       children: usersExpandList,
+                      isopen: value,
+                    ),
+                    _menuList(
+                      tabsRouter: tabsRouter,
+                      items: lookupsData,
+                      isExpanded: true,
+                      children: lookupsExpandList,
                       isopen: value,
                     ),
 
@@ -1142,51 +1149,11 @@ class _MenuBarState extends State<MenuBarPage> {
                   ),
                   onTap: () {
                     print('xxxxxxxxxxxxxxx3${items[index]}');
+                    print('index : ${getRouteIndex(items[index])}');
 
                     tabsRouter.setActiveIndex(getRouteIndex(items[index]));
-                    // if (items[index] == 'Supervisors') {
-                    //   tabsRouter.setActiveIndex(getRouteIndex(items[index]));
-                    // } else if (items[index] == 'Suppliers') {
-                    //   tabsRouter.setActiveIndex(getRouteIndex(items[index]));
-                    // } else if (items[index] == 'Rfq') {
-                    //   tabsRouter.setActiveIndex(getRouteIndex(items[index]));
-                    // } else if (items[index] == 'Pending-users') {
-                    //   tabsRouter.setActiveIndex(getRouteIndex(items[index]));
-                    // } else {}
+
                     _scaffoldDrawerKey.currentState?.closeDrawer();
-
-                    // } else if (items[index] == 'Login 2') {
-                    //   context.router.push(const LoginTwo());
-                    // } else if (items[index] == 'Register 1') {
-                    //   context.router.push(const RegisterOne());
-                    // } else if (items[index] == 'Register 2') {
-                    //   context.router.push(const RegisterTwo());
-                    // } else if (items[index] == 'Recover Password 1') {
-                    //   context.router.push(const RecoverPasswordOne());
-                    // } else if (items[index] == 'Recover Password 2') {
-                    //   context.router.push(const RecoverPasswordTwo());
-                    // } else if (items[index] == 'Lock Screen 1') {
-                    //   context.router.push(const LockScreenOne());
-                    // } else if (items[index] == 'Lock Screen 2') {
-                    //   context.router.push(const LockScreenTwo());
-                    // } else if (items[index] == 'Error 404') {
-                    //   context.router.push(const Error404());
-                    // } else if (items[index] == 'Error 500') {
-                    //   context.router.push(const Error500());
-                    // } else if (items[index] == 'Maintenence') {
-                    //   context.router.push(const Maintenance());
-                    // } else if (items[index] == 'Coming Soon') {
-                    //   context.router.push(const ComingSoon());
-                    // } else if (items[index] == 'Landing Page') {
-                    //   context.router.push(const ECLandingRoute());
-                    // } else {
-                    //   if (items[index].contains('Landing Page')) {
-                    //     isOpen.value = false;
-                    //   }
-
-                    //   tabsRouter.setActiveIndex(getRouteIndex(items[index]));
-                    // }
-                    // _scaffoldDrawerKey.currentState?.closeDrawer();
                   },
                 ),
               ),
@@ -1237,6 +1204,8 @@ class _MenuBarState extends State<MenuBarPage> {
                 Text('${'Users'} / ${'Pending-users'} '),
               ] else if (routeIndex == 10) ...[
                 Text('${'Admin'} '),
+              ] else if (routeIndex == 11 || routeIndex == 12) ...[
+                Text('${'Lookups'} '),
               ] else ...[
                 // const Text(' / Extra Pages '),
                 Text(' / ${'not found page'} '),

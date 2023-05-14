@@ -11,41 +11,45 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i14;
-import 'package:flutter/material.dart' as _i15;
+import 'package:auto_route/auto_route.dart' as _i16;
+import 'package:flutter/material.dart' as _i17;
 
-import '../modules/dashboard/dashboard.controller.dart' as _i17;
+import '../modules/dashboard/dashboard.controller.dart' as _i19;
 import '../modules/dashboard/dashboard.page.dart' as _i3;
-import '../modules/login/login.controller.dart' as _i16;
+import '../modules/login/login.controller.dart' as _i18;
 import '../modules/login/login.page.dart' as _i1;
-import '../modules/requests/rfq/rfq.controller.dart' as _i22;
+import '../modules/lookups/city/city.controller.dart' as _i27;
+import '../modules/lookups/city/city.page.dart' as _i15;
+import '../modules/lookups/country/country.controller.dart' as _i26;
+import '../modules/lookups/country/country.page.dart' as _i14;
+import '../modules/requests/rfq/rfq.controller.dart' as _i24;
 import '../modules/requests/rfq/rfq.page.dart' as _i12;
 import '../modules/users/admin/admin_details.page.dart' as _i13;
-import '../modules/users/admin/admins.controller.dart' as _i23;
+import '../modules/users/admin/admins.controller.dart' as _i25;
 import '../modules/users/buyers/buyer_details.page.dart' as _i11;
-import '../modules/users/buyers/buyers.controller.dart' as _i21;
+import '../modules/users/buyers/buyers.controller.dart' as _i23;
 import '../modules/users/buyers/buyers.page.dart' as _i10;
 import '../modules/users/pendings/pending_user_details.page.dart' as _i7;
-import '../modules/users/pendings/pending_users.controller.dart' as _i19;
+import '../modules/users/pendings/pending_users.controller.dart' as _i21;
 import '../modules/users/pendings/pending_users.page.dart' as _i6;
 import '../modules/users/supervisors/supervisor_details.page.dart' as _i5;
-import '../modules/users/supervisors/supervisors.controller.dart' as _i18;
+import '../modules/users/supervisors/supervisors.controller.dart' as _i20;
 import '../modules/users/supervisors/supervisors.page.dart' as _i4;
 import '../modules/users/suppliers/supplier_details.page.dart' as _i9;
-import '../modules/users/suppliers/suppliers.controller.dart' as _i20;
+import '../modules/users/suppliers/suppliers.controller.dart' as _i22;
 import '../modules/users/suppliers/suppliers.page.dart' as _i8;
 import '../widgets/menu_bar_page.dart' as _i2;
 
-class AppRouter extends _i14.RootStackRouter {
-  AppRouter([_i15.GlobalKey<_i15.NavigatorState>? navigatorKey])
+class AppRouter extends _i16.RootStackRouter {
+  AppRouter([_i17.GlobalKey<_i17.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i14.PageFactory> pagesMap = {
+  final Map<String, _i16.PageFactory> pagesMap = {
     LoginRoute.name: (routeData) {
       final args = routeData.argsAs<LoginRouteArgs>(
           orElse: () => const LoginRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i1.LoginPage(
           controllerEx: args.controllerEx,
@@ -56,7 +60,7 @@ class AppRouter extends _i14.RootStackRouter {
     MenuBarRoute.name: (routeData) {
       final args = routeData.argsAs<MenuBarRouteArgs>(
           orElse: () => const MenuBarRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i2.MenuBarPage(
           key: args.key,
@@ -67,7 +71,7 @@ class AppRouter extends _i14.RootStackRouter {
     DashboardRoute.name: (routeData) {
       final args = routeData.argsAs<DashboardRouteArgs>(
           orElse: () => const DashboardRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i3.DashboardPage(
           controllerEx: args.controllerEx,
@@ -78,7 +82,7 @@ class AppRouter extends _i14.RootStackRouter {
     SupervisorsRoute.name: (routeData) {
       final args = routeData.argsAs<SupervisorsRouteArgs>(
           orElse: () => const SupervisorsRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i4.SupervisorsPage(
           controllerEx: args.controllerEx,
@@ -89,7 +93,7 @@ class AppRouter extends _i14.RootStackRouter {
     SupervisorDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<SupervisorDetailsRouteArgs>(
           orElse: () => const SupervisorDetailsRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i5.SupervisorDetailsPage(
           controllerEx: args.controllerEx,
@@ -100,7 +104,7 @@ class AppRouter extends _i14.RootStackRouter {
     PendingUsersRoute.name: (routeData) {
       final args = routeData.argsAs<PendingUsersRouteArgs>(
           orElse: () => const PendingUsersRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i6.PendingUsersPage(
           controllerEx: args.controllerEx,
@@ -111,7 +115,7 @@ class AppRouter extends _i14.RootStackRouter {
     PendingUsersDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<PendingUsersDetailsRouteArgs>(
           orElse: () => const PendingUsersDetailsRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i7.PendingUsersDetailsPage(
           controllerEx: args.controllerEx,
@@ -122,7 +126,7 @@ class AppRouter extends _i14.RootStackRouter {
     SuppliersRoute.name: (routeData) {
       final args = routeData.argsAs<SuppliersRouteArgs>(
           orElse: () => const SuppliersRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i8.SuppliersPage(
           controllerEx: args.controllerEx,
@@ -133,7 +137,7 @@ class AppRouter extends _i14.RootStackRouter {
     SupplierDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<SupplierDetailsRouteArgs>(
           orElse: () => const SupplierDetailsRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i9.SupplierDetailsPage(
           controllerEx: args.controllerEx,
@@ -144,7 +148,7 @@ class AppRouter extends _i14.RootStackRouter {
     BuyersRoute.name: (routeData) {
       final args = routeData.argsAs<BuyersRouteArgs>(
           orElse: () => const BuyersRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i10.BuyersPage(
           controllerEx: args.controllerEx,
@@ -155,7 +159,7 @@ class AppRouter extends _i14.RootStackRouter {
     BuyerDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<BuyerDetailsRouteArgs>(
           orElse: () => const BuyerDetailsRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i11.BuyerDetailsPage(
           controllerEx: args.controllerEx,
@@ -166,7 +170,7 @@ class AppRouter extends _i14.RootStackRouter {
     RfqRoute.name: (routeData) {
       final args =
           routeData.argsAs<RfqRouteArgs>(orElse: () => const RfqRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i12.RfqPage(
           controllerEx: args.controllerEx,
@@ -177,9 +181,31 @@ class AppRouter extends _i14.RootStackRouter {
     AdminDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<AdminDetailsRouteArgs>(
           orElse: () => const AdminDetailsRouteArgs());
-      return _i14.MaterialPageX<dynamic>(
+      return _i16.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i13.AdminDetailsPage(
+          controllerEx: args.controllerEx,
+          key: args.key,
+        ),
+      );
+    },
+    CountryRoute.name: (routeData) {
+      final args = routeData.argsAs<CountryRouteArgs>(
+          orElse: () => const CountryRouteArgs());
+      return _i16.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i14.CountryPage(
+          controllerEx: args.controllerEx,
+          key: args.key,
+        ),
+      );
+    },
+    CityRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<CityRouteArgs>(orElse: () => const CityRouteArgs());
+      return _i16.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i15.CityPage(
           controllerEx: args.controllerEx,
           key: args.key,
         ),
@@ -188,75 +214,85 @@ class AppRouter extends _i14.RootStackRouter {
   };
 
   @override
-  List<_i14.RouteConfig> get routes => [
-        _i14.RouteConfig(
+  List<_i16.RouteConfig> get routes => [
+        _i16.RouteConfig(
           LoginRoute.name,
           path: 'login',
         ),
-        _i14.RouteConfig(
+        _i16.RouteConfig(
           MenuBarRoute.name,
           path: '/',
           children: [
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               '#redirect',
               path: '',
               parent: MenuBarRoute.name,
               redirectTo: 'dashboard',
               fullMatch: true,
             ),
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               DashboardRoute.name,
               path: 'dashboard',
               parent: MenuBarRoute.name,
             ),
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               SupervisorsRoute.name,
               path: 'supervisors',
               parent: MenuBarRoute.name,
             ),
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               SupervisorDetailsRoute.name,
               path: 'supervisorDetails',
               parent: MenuBarRoute.name,
             ),
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               PendingUsersRoute.name,
               path: 'pending-users',
               parent: MenuBarRoute.name,
             ),
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               PendingUsersDetailsRoute.name,
               path: 'pendingUsersDetails',
               parent: MenuBarRoute.name,
             ),
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               SuppliersRoute.name,
               path: 'suppliers',
               parent: MenuBarRoute.name,
             ),
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               SupplierDetailsRoute.name,
               path: 'supplierDetails',
               parent: MenuBarRoute.name,
             ),
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               BuyersRoute.name,
               path: 'buyers',
               parent: MenuBarRoute.name,
             ),
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               BuyerDetailsRoute.name,
               path: 'buyerDetails',
               parent: MenuBarRoute.name,
             ),
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               RfqRoute.name,
               path: 'rfq',
               parent: MenuBarRoute.name,
             ),
-            _i14.RouteConfig(
+            _i16.RouteConfig(
               AdminDetailsRoute.name,
               path: 'adminDetails',
+              parent: MenuBarRoute.name,
+            ),
+            _i16.RouteConfig(
+              CountryRoute.name,
+              path: 'countries',
+              parent: MenuBarRoute.name,
+            ),
+            _i16.RouteConfig(
+              CityRoute.name,
+              path: 'cities',
               parent: MenuBarRoute.name,
             ),
           ],
@@ -266,10 +302,10 @@ class AppRouter extends _i14.RootStackRouter {
 
 /// generated route for
 /// [_i1.LoginPage]
-class LoginRoute extends _i14.PageRouteInfo<LoginRouteArgs> {
+class LoginRoute extends _i16.PageRouteInfo<LoginRouteArgs> {
   LoginRoute({
-    _i16.LoginController? controllerEx,
-    _i15.Key? key,
+    _i18.LoginController? controllerEx,
+    _i17.Key? key,
   }) : super(
           LoginRoute.name,
           path: 'login',
@@ -288,9 +324,9 @@ class LoginRouteArgs {
     this.key,
   });
 
-  final _i16.LoginController? controllerEx;
+  final _i18.LoginController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -300,11 +336,11 @@ class LoginRouteArgs {
 
 /// generated route for
 /// [_i2.MenuBarPage]
-class MenuBarRoute extends _i14.PageRouteInfo<MenuBarRouteArgs> {
+class MenuBarRoute extends _i16.PageRouteInfo<MenuBarRouteArgs> {
   MenuBarRoute({
-    _i15.Key? key,
-    _i15.Widget Function()? body,
-    List<_i14.PageRouteInfo>? children,
+    _i17.Key? key,
+    _i17.Widget Function()? body,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           MenuBarRoute.name,
           path: '/',
@@ -324,9 +360,9 @@ class MenuBarRouteArgs {
     this.body,
   });
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
-  final _i15.Widget Function()? body;
+  final _i17.Widget Function()? body;
 
   @override
   String toString() {
@@ -336,10 +372,10 @@ class MenuBarRouteArgs {
 
 /// generated route for
 /// [_i3.DashboardPage]
-class DashboardRoute extends _i14.PageRouteInfo<DashboardRouteArgs> {
+class DashboardRoute extends _i16.PageRouteInfo<DashboardRouteArgs> {
   DashboardRoute({
-    _i17.DashboardController? controllerEx,
-    _i15.Key? key,
+    _i19.DashboardController? controllerEx,
+    _i17.Key? key,
   }) : super(
           DashboardRoute.name,
           path: 'dashboard',
@@ -358,9 +394,9 @@ class DashboardRouteArgs {
     this.key,
   });
 
-  final _i17.DashboardController? controllerEx;
+  final _i19.DashboardController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -370,10 +406,10 @@ class DashboardRouteArgs {
 
 /// generated route for
 /// [_i4.SupervisorsPage]
-class SupervisorsRoute extends _i14.PageRouteInfo<SupervisorsRouteArgs> {
+class SupervisorsRoute extends _i16.PageRouteInfo<SupervisorsRouteArgs> {
   SupervisorsRoute({
-    _i18.SupervisorsController? controllerEx,
-    _i15.Key? key,
+    _i20.SupervisorsController? controllerEx,
+    _i17.Key? key,
   }) : super(
           SupervisorsRoute.name,
           path: 'supervisors',
@@ -392,9 +428,9 @@ class SupervisorsRouteArgs {
     this.key,
   });
 
-  final _i18.SupervisorsController? controllerEx;
+  final _i20.SupervisorsController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -405,10 +441,10 @@ class SupervisorsRouteArgs {
 /// generated route for
 /// [_i5.SupervisorDetailsPage]
 class SupervisorDetailsRoute
-    extends _i14.PageRouteInfo<SupervisorDetailsRouteArgs> {
+    extends _i16.PageRouteInfo<SupervisorDetailsRouteArgs> {
   SupervisorDetailsRoute({
-    _i18.SupervisorsController? controllerEx,
-    _i15.Key? key,
+    _i20.SupervisorsController? controllerEx,
+    _i17.Key? key,
   }) : super(
           SupervisorDetailsRoute.name,
           path: 'supervisorDetails',
@@ -427,9 +463,9 @@ class SupervisorDetailsRouteArgs {
     this.key,
   });
 
-  final _i18.SupervisorsController? controllerEx;
+  final _i20.SupervisorsController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -439,10 +475,10 @@ class SupervisorDetailsRouteArgs {
 
 /// generated route for
 /// [_i6.PendingUsersPage]
-class PendingUsersRoute extends _i14.PageRouteInfo<PendingUsersRouteArgs> {
+class PendingUsersRoute extends _i16.PageRouteInfo<PendingUsersRouteArgs> {
   PendingUsersRoute({
-    _i19.PendingUsersController? controllerEx,
-    _i15.Key? key,
+    _i21.PendingUsersController? controllerEx,
+    _i17.Key? key,
   }) : super(
           PendingUsersRoute.name,
           path: 'pending-users',
@@ -461,9 +497,9 @@ class PendingUsersRouteArgs {
     this.key,
   });
 
-  final _i19.PendingUsersController? controllerEx;
+  final _i21.PendingUsersController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -474,10 +510,10 @@ class PendingUsersRouteArgs {
 /// generated route for
 /// [_i7.PendingUsersDetailsPage]
 class PendingUsersDetailsRoute
-    extends _i14.PageRouteInfo<PendingUsersDetailsRouteArgs> {
+    extends _i16.PageRouteInfo<PendingUsersDetailsRouteArgs> {
   PendingUsersDetailsRoute({
-    _i19.PendingUsersController? controllerEx,
-    _i15.Key? key,
+    _i21.PendingUsersController? controllerEx,
+    _i17.Key? key,
   }) : super(
           PendingUsersDetailsRoute.name,
           path: 'pendingUsersDetails',
@@ -496,9 +532,9 @@ class PendingUsersDetailsRouteArgs {
     this.key,
   });
 
-  final _i19.PendingUsersController? controllerEx;
+  final _i21.PendingUsersController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -508,10 +544,10 @@ class PendingUsersDetailsRouteArgs {
 
 /// generated route for
 /// [_i8.SuppliersPage]
-class SuppliersRoute extends _i14.PageRouteInfo<SuppliersRouteArgs> {
+class SuppliersRoute extends _i16.PageRouteInfo<SuppliersRouteArgs> {
   SuppliersRoute({
-    _i20.SuppliersController? controllerEx,
-    _i15.Key? key,
+    _i22.SuppliersController? controllerEx,
+    _i17.Key? key,
   }) : super(
           SuppliersRoute.name,
           path: 'suppliers',
@@ -530,9 +566,9 @@ class SuppliersRouteArgs {
     this.key,
   });
 
-  final _i20.SuppliersController? controllerEx;
+  final _i22.SuppliersController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -543,10 +579,10 @@ class SuppliersRouteArgs {
 /// generated route for
 /// [_i9.SupplierDetailsPage]
 class SupplierDetailsRoute
-    extends _i14.PageRouteInfo<SupplierDetailsRouteArgs> {
+    extends _i16.PageRouteInfo<SupplierDetailsRouteArgs> {
   SupplierDetailsRoute({
-    _i20.SuppliersController? controllerEx,
-    _i15.Key? key,
+    _i22.SuppliersController? controllerEx,
+    _i17.Key? key,
   }) : super(
           SupplierDetailsRoute.name,
           path: 'supplierDetails',
@@ -565,9 +601,9 @@ class SupplierDetailsRouteArgs {
     this.key,
   });
 
-  final _i20.SuppliersController? controllerEx;
+  final _i22.SuppliersController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -577,10 +613,10 @@ class SupplierDetailsRouteArgs {
 
 /// generated route for
 /// [_i10.BuyersPage]
-class BuyersRoute extends _i14.PageRouteInfo<BuyersRouteArgs> {
+class BuyersRoute extends _i16.PageRouteInfo<BuyersRouteArgs> {
   BuyersRoute({
-    _i21.BuyersController? controllerEx,
-    _i15.Key? key,
+    _i23.BuyersController? controllerEx,
+    _i17.Key? key,
   }) : super(
           BuyersRoute.name,
           path: 'buyers',
@@ -599,9 +635,9 @@ class BuyersRouteArgs {
     this.key,
   });
 
-  final _i21.BuyersController? controllerEx;
+  final _i23.BuyersController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -611,10 +647,10 @@ class BuyersRouteArgs {
 
 /// generated route for
 /// [_i11.BuyerDetailsPage]
-class BuyerDetailsRoute extends _i14.PageRouteInfo<BuyerDetailsRouteArgs> {
+class BuyerDetailsRoute extends _i16.PageRouteInfo<BuyerDetailsRouteArgs> {
   BuyerDetailsRoute({
-    _i21.BuyersController? controllerEx,
-    _i15.Key? key,
+    _i23.BuyersController? controllerEx,
+    _i17.Key? key,
   }) : super(
           BuyerDetailsRoute.name,
           path: 'buyerDetails',
@@ -633,9 +669,9 @@ class BuyerDetailsRouteArgs {
     this.key,
   });
 
-  final _i21.BuyersController? controllerEx;
+  final _i23.BuyersController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -645,10 +681,10 @@ class BuyerDetailsRouteArgs {
 
 /// generated route for
 /// [_i12.RfqPage]
-class RfqRoute extends _i14.PageRouteInfo<RfqRouteArgs> {
+class RfqRoute extends _i16.PageRouteInfo<RfqRouteArgs> {
   RfqRoute({
-    _i22.RfqController? controllerEx,
-    _i15.Key? key,
+    _i24.RfqController? controllerEx,
+    _i17.Key? key,
   }) : super(
           RfqRoute.name,
           path: 'rfq',
@@ -667,9 +703,9 @@ class RfqRouteArgs {
     this.key,
   });
 
-  final _i22.RfqController? controllerEx;
+  final _i24.RfqController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -679,10 +715,10 @@ class RfqRouteArgs {
 
 /// generated route for
 /// [_i13.AdminDetailsPage]
-class AdminDetailsRoute extends _i14.PageRouteInfo<AdminDetailsRouteArgs> {
+class AdminDetailsRoute extends _i16.PageRouteInfo<AdminDetailsRouteArgs> {
   AdminDetailsRoute({
-    _i23.AdminsController? controllerEx,
-    _i15.Key? key,
+    _i25.AdminsController? controllerEx,
+    _i17.Key? key,
   }) : super(
           AdminDetailsRoute.name,
           path: 'adminDetails',
@@ -701,12 +737,80 @@ class AdminDetailsRouteArgs {
     this.key,
   });
 
-  final _i23.AdminsController? controllerEx;
+  final _i25.AdminsController? controllerEx;
 
-  final _i15.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
     return 'AdminDetailsRouteArgs{controllerEx: $controllerEx, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i14.CountryPage]
+class CountryRoute extends _i16.PageRouteInfo<CountryRouteArgs> {
+  CountryRoute({
+    _i26.CountryController? controllerEx,
+    _i17.Key? key,
+  }) : super(
+          CountryRoute.name,
+          path: 'countries',
+          args: CountryRouteArgs(
+            controllerEx: controllerEx,
+            key: key,
+          ),
+        );
+
+  static const String name = 'CountryRoute';
+}
+
+class CountryRouteArgs {
+  const CountryRouteArgs({
+    this.controllerEx,
+    this.key,
+  });
+
+  final _i26.CountryController? controllerEx;
+
+  final _i17.Key? key;
+
+  @override
+  String toString() {
+    return 'CountryRouteArgs{controllerEx: $controllerEx, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i15.CityPage]
+class CityRoute extends _i16.PageRouteInfo<CityRouteArgs> {
+  CityRoute({
+    _i27.CityController? controllerEx,
+    _i17.Key? key,
+  }) : super(
+          CityRoute.name,
+          path: 'cities',
+          args: CityRouteArgs(
+            controllerEx: controllerEx,
+            key: key,
+          ),
+        );
+
+  static const String name = 'CityRoute';
+}
+
+class CityRouteArgs {
+  const CityRouteArgs({
+    this.controllerEx,
+    this.key,
+  });
+
+  final _i27.CityController? controllerEx;
+
+  final _i17.Key? key;
+
+  @override
+  String toString() {
+    return 'CityRouteArgs{controllerEx: $controllerEx, key: $key}';
   }
 }

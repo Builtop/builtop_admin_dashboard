@@ -1,6 +1,6 @@
 import 'package:builtop_admin_dashboard/constants/const.dart';
 import 'package:builtop_admin_dashboard/constants/numbers.dart';
-import 'package:builtop_admin_dashboard/models/user.dart';
+import 'package:builtop_admin_dashboard/models/user.model.dart';
 import 'package:builtop_admin_dashboard/services/admin_users.service.dart';
 import 'package:builtop_admin_dashboard/widgets/dialogs/change_password_dialog.widget.dart';
 import 'package:cool_alert/cool_alert.dart';

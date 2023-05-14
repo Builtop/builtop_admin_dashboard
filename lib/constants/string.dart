@@ -4,6 +4,8 @@ class Strings {
   static const String view = 'View';
   static const String edit = 'Edit';
   static const String delete = 'Delete';
+  static const String countries = 'Countries';
+  static const String cities = 'Cities';
   static const String fdash = 'AdminKit';
   static const String lightMode = 'Light Mode';
 
@@ -35,6 +37,7 @@ class Strings {
   static const String tables = 'Tables';
   static const String authentication = 'Authentication';
   static const String requests = 'Requests';
+  static const String lookups = 'Lookups';
   static const String emailTemplates = 'Email Templates';
   static const String userProfile = 'User Profile';
   static const String selectedmenuIndex = 'selectedindex';
@@ -158,7 +161,7 @@ class Strings {
   static const String forgotPassword = 'Forgot your password';
   static const String privacy = 'Privacy';
   static const String terms = 'Terms';
-  static const String sarvadhi2022 = '© 2022 Sarvadhi';
+  static const String sarvadhi2022 = '© 2022 VD';
 
   // Register
   static const String freeRegister = 'Free Register';
