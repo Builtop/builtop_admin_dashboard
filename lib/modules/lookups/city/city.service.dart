@@ -19,7 +19,7 @@ class CityService {
   static Future<ProcessResult> addCity(
       Map<String, dynamic> data, String countryId) async {
     try {
-      var result = await _apiService.httpPostEx('${_url}city/countryId', data);
+      var result = await _apiService.httpPostEx('${_url}city/$countryId', data);
       return result;
     } catch (e) {
       return ProcessResult(success: false, errorMessage: e.toString());
@@ -27,9 +27,11 @@ class CityService {
   }
 
   static Future<ProcessResult> editCity(
-      Map<String, dynamic> data, String id) async {
+    Map<String, dynamic> data,
+  ) async {
     try {
-      var result = await _apiService.httpPutEx('${_url}city/id', data);
+      var result =
+          await _apiService.httpPutEx('${_url}city/${data["_id"]}', data);
       return result;
     } catch (e) {
       return ProcessResult(success: false, errorMessage: e.toString());

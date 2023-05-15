@@ -248,8 +248,9 @@ class _MenuBarState extends State<MenuBarPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 61),
                       height: double.infinity,
                       color: ColorConst.transparent,
-                      child: Image.asset(
-                          isDark ? Images.builtopSmLogo : Images.builtopSmLogo),
+                      child: Image.asset(isDark
+                          ? Images.builtopSmLogoWh
+                          : Images.builtopSmLogo),
                     ),
                   );
                 }

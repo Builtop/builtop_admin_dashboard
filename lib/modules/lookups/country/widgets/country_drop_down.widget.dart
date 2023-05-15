@@ -21,8 +21,6 @@ class CountryDropDown extends StatefulWidget {
 }
 
 class _CountryDropDownState extends State<CountryDropDown> {
-  late TextEditingController textEdittingController;
-
   List<Country>? countryList;
 
   @override
@@ -35,6 +33,7 @@ class _CountryDropDownState extends State<CountryDropDown> {
   void init() async {
     var result = await CountryService.getCountries();
     if (result.success) {
+      print(widget.selectedValue);
       countryList =
           List<Country>.from(result.data.map((e) => Country.fromJson(e)));
     }
@@ -57,7 +56,7 @@ class _CountryDropDownState extends State<CountryDropDown> {
               ? ConstText.mediumText(text: 'No Countries Found')
               : DropdownButtonHideUnderline(
                   child: CustomDropdown.search(
-                  selectedValue: widget.selectedValue,
+                  selectedValue: {"name": widget.selectedValue},
                   fieldSuffixIcon: Icon(
                     Icons.keyboard_arrow_down_outlined,
                     color: isDark ? Colors.white : null,

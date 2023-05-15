@@ -6,7 +6,6 @@ import 'package:builtop_admin_dashboard/modules/lookups/country/widgets/country_
 import 'package:builtop_admin_dashboard/utils/responsive.dart';
 import 'package:builtop_admin_dashboard/widgets/app_text_trans.dart';
 import 'package:builtop_admin_dashboard/widgets/custom_text_field_ex.widget.dart';
-import 'package:builtop_admin_dashboard/widgets/users_menu_button.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';
@@ -68,9 +67,15 @@ class _CityDetailsPageState extends MahgState<CityDetailsPage, CityController> {
                                         PopupMenuItem(
                                           child: Text(
                                             "InActive",
-                                            style: TextStyle(color: Colors.red),
                                           ),
                                           value: 1,
+                                        ),
+                                        PopupMenuItem(
+                                          child: Text(
+                                            "Delete",
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                          value: 3,
                                         )
                                       ]
                                     : [
@@ -81,14 +86,29 @@ class _CityDetailsPageState extends MahgState<CityDetailsPage, CityController> {
                                                 TextStyle(color: Colors.green),
                                           ),
                                           value: 2,
+                                        ),
+                                        PopupMenuItem(
+                                          child: Text(
+                                            "Delete",
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                          value: 3,
                                         )
                                       ],
-                                onSelected: (index) {
+                                onSelected: (index) async {
                                   if (index == 1) {
-                                    // Inactive city
+                                    await controller
+                                        .changeCityStatusHandler('InActive');
                                   }
                                   if (index == 2) {
-                                    // active city
+                                    await controller
+                                        .changeCityStatusHandler('Active');
+                                  }
+
+                                  if (index == 3) {
+                                    await controller.deleteCityHandler(
+                                        controller.city?.id ?? "",
+                                        returnHome: true);
                                   }
                                 },
                               )
@@ -97,18 +117,33 @@ class _CityDetailsPageState extends MahgState<CityDetailsPage, CityController> {
                     ),
                     FxBox.h24,
                     AppTextTrans(
-                        hintText: 'Name',
-                        border: const OutlineInputBorder(),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
-                        ),
-                        data: {},
-                        onChangedEx: (value) {}),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      // isRequired: true,
+                      hintText: 'Name',
+                      border: const OutlineInputBorder(),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      data: controller.city?.name ?? {},
+                      onChangedEx: (value) {
+                        controller.city?.name = value;
+                      },
+                      validateMessage: "You Must Write Name",
+                      validator: (val) {
+                        if (val!.isEmpty || val == '') {
+                          return 'You Must Write Name';
+                        }
+                        return null;
+                      },
+                    ),
                     FxBox.h16,
                     CountryDropDown(
+                        key: UniqueKey(),
                         selectedValue: controller.city?.country?.name,
-                        (country) {}),
+                        (country) {
+                      controller.city?.country = country;
+                    }),
                     FxBox.h16,
                     locationWidget,
                     isUpdate
@@ -125,8 +160,9 @@ class _CityDetailsPageState extends MahgState<CityDetailsPage, CityController> {
                       children: [
                         FxButton(
                           borderRadius: 4,
-                          onPressed:
-                              controller.city?.id == null ? () {} : () {},
+                          onPressed: controller.city?.id == null
+                              ? () => controller.addNewCityHandler()
+                              : () => controller.editCityHandler(),
                           text: controller.city?.id == null
                               ? 'Add New'
                               : 'Update',
@@ -194,7 +230,7 @@ class _CityDetailsPageState extends MahgState<CityDetailsPage, CityController> {
           FxBox.h4,
           CustomTextFieldEx(
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            controller: TextEditingController(),
+            controller: controller.lngController,
             border: const OutlineInputBorder(),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 12,
@@ -221,7 +257,7 @@ class _CityDetailsPageState extends MahgState<CityDetailsPage, CityController> {
           FxBox.h4,
           CustomTextFieldEx(
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            controller: TextEditingController(),
+            controller: controller.latController,
             border: const OutlineInputBorder(),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 12,

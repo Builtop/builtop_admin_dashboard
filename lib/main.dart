@@ -59,6 +59,26 @@ class _MyAppState extends State<MyApp> {
               DefaultCupertinoLocalizations.delegate,
               localizationDelegate
             ],
+            localeResolutionCallback: (locale, supportedLocales) {
+              AppConfigService.supportedAppLocale ??= [];
+              AppConfigService.supportedAppLocale = supportedLocales.toList();
+              var lang = AppConfigService.language;
+              if (AppConfigService.language == '') {
+                for (Locale supportedLocale in supportedLocales) {
+                  if (supportedLocale.languageCode == locale?.languageCode ||
+                      supportedLocale.countryCode == locale?.countryCode) {
+                    AppConfigService.language = supportedLocale.languageCode;
+                    lang = supportedLocale.languageCode;
+                    return supportedLocale;
+                  }
+                }
+              } else {
+                var local = supportedLocales
+                    .where((element) => element.languageCode == lang)
+                    .first;
+                return local;
+              }
+            },
             routerDelegate: AutoRouterDelegate(appRouter,
                 navigatorObservers: () => [defaultLifecycleObserver]),
             routeInformationParser: appRouter.defaultRouteParser(),

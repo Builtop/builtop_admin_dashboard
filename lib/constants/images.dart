@@ -4,6 +4,9 @@ class Images {
 
   static const String builtopSmLogo = '${_assetPath}builtop_small_logo.png';
   static const String builtopBgLogo = '${_assetPath}builtop_big_logo.png';
+  static const String builtopSmLogoWh =
+      '${_assetPath}builtop_small_logo_wh.png';
+  static const String builtopBgLogoWh = '${_assetPath}builtop_big_logo_wh.png';
   static const String smLogo = '${_assetPath}logo-sm.png';
   static const String smLogoOld = '${_assetPath}logo-sm-old.png';
   static const String lgLightLogo = '${_assetPath}logo-light-lg.png';

@@ -78,7 +78,7 @@ class _LoginPageState extends MahgState<LoginPage, LoginController> {
   }
 
   Widget _logoView() {
-    return Image.asset(Images.builtopSmLogo);
+    return Image.asset(isDark ? Images.builtopSmLogoWh : Images.builtopSmLogo);
   }
 
   Widget _bottomView() {

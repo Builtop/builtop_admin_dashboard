@@ -55,7 +55,8 @@ class _CityPageState extends MahgState<CityPage, CityController> {
                       ?.map((e) => {
                             ...e.toJson(),
                             'actions': e.id,
-                            'createdUser': e.createdUser?.email
+                            'createdUser': e.createdUser?.email,
+                            'name': e.name?[AppConfigService.language]
                           })
                       .toList() ??
                   [],

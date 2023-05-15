@@ -29,6 +29,7 @@ class AppConfigService {
     ConfigService.setValueBool('is_dark', result);
   }
 
+  static List<Locale>? supportedAppLocale;
   static UserEx? get user => ConfigService.getValueMap('user').isEmpty
       ? null
       : UserEx.fromJson(ConfigService.getValueMap('user'));

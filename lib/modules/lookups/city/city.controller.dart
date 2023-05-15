@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:builtop_admin_dashboard/constants/const.dart';
 import 'package:builtop_admin_dashboard/constants/numbers.dart';
+import 'package:builtop_admin_dashboard/models/created_user.model.dart';
+import 'package:builtop_admin_dashboard/models/lat_lng.model.dart';
 import 'package:builtop_admin_dashboard/modules/lookups/city/city.model.dart';
 import 'package:builtop_admin_dashboard/modules/lookups/city/city.page.dart';
 import 'package:builtop_admin_dashboard/modules/lookups/city/city.service.dart';
@@ -15,10 +17,15 @@ class CityController extends MahgController {
   City? city;
 
   late GlobalKey<FormState> formKey;
+  late TextEditingController latController;
+  late TextEditingController lngController;
 
   @override
   void init(Widget page) {
     if (page is CityDetailsPage) {
+      latController = TextEditingController();
+      lngController = TextEditingController();
+
       formKey = GlobalKey<FormState>();
     }
   }
@@ -56,18 +63,136 @@ class CityController extends MahgController {
     }
   }
 
+  Future<void> changeCityStatusHandler(String status) async {
+    try {
+      city?.status = status;
+      var result = await LoadingOverlay.showFutureLoadingDialog(
+          context: context,
+          future: () => CityService.editCity(city?.toJson() ?? {}));
+
+      if (result.result?.success ?? false) {
+        CoolAlert.show(
+                width: NumbersConst.dialogWidth,
+                context: context,
+                type: CoolAlertType.success,
+                text: 'Status Changed Successfully')
+            .then((value) => autoTabRouter?.setActiveIndex(12));
+      } else {
+        CoolAlert.show(
+            width: NumbersConst.dialogWidth,
+            context: context,
+            type: CoolAlertType.error,
+            text: result.result?.errorMessage);
+      }
+    } catch (e) {
+      CoolAlert.show(
+              width: NumbersConst.dialogWidth,
+              context: context,
+              type: CoolAlertType.error,
+              text: e.toString())
+          .then((value) => autoTabRouter?.setActiveIndex(12));
+    }
+  }
+
+  void editCityHandler() async {
+    if (formKey.currentState?.validate() ?? false) {
+      city?.latlng ??= Latlng();
+
+      if (latController.text != '') {
+        city?.latlng?.lat = latController.text;
+      }
+      if (lngController.text != '') {
+        city?.latlng?.lng = lngController.text;
+      }
+
+      try {
+        var result = await LoadingOverlay.showFutureLoadingDialog(
+            context: context,
+            future: () => CityService.editCity(city?.toJson() ?? {}));
+
+        if (result.result?.success ?? false) {
+          CoolAlert.show(
+                  width: NumbersConst.dialogWidth,
+                  context: context,
+                  type: CoolAlertType.success,
+                  text: 'City Updated Successfully')
+              .then((value) => autoTabRouter?.setActiveIndex(12));
+        } else {
+          CoolAlert.show(
+              width: NumbersConst.dialogWidth,
+              context: context,
+              type: CoolAlertType.error,
+              text: result.result?.errorMessage);
+        }
+      } catch (e) {
+        CoolAlert.show(
+                width: NumbersConst.dialogWidth,
+                context: context,
+                type: CoolAlertType.error,
+                text: e.toString())
+            .then((value) => autoTabRouter?.setActiveIndex(12));
+      }
+    }
+  }
+
+  void addNewCityHandler() async {
+    if (formKey.currentState?.validate() ?? false) {
+      city?.latlng ??= Latlng();
+      city?.latlng?.lat = latController.text;
+      city?.latlng?.lng = lngController.text;
+      city?.status = 'Active';
+      // todo remove created user
+      city?.createdUser = CreatedUser.fromJson({
+        "_id": "644e56ddc4ee8a159cd1d484",
+        "email": 'test@mail.com',
+        "phoneNum": "0233445664"
+      });
+      try {
+        var result = await LoadingOverlay.showFutureLoadingDialog(
+            context: context,
+            future: () => CityService.addCity(
+                city?.toJson() ?? {}, city?.country?.id ?? ''));
+
+        if (result.result?.success ?? false) {
+          CoolAlert.show(
+                  width: NumbersConst.dialogWidth,
+                  context: context,
+                  type: CoolAlertType.success,
+                  text: 'City Added Successfully')
+              .then((value) => autoTabRouter?.setActiveIndex(12));
+        } else {
+          CoolAlert.show(
+              width: NumbersConst.dialogWidth,
+              context: context,
+              type: CoolAlertType.error,
+              text: result.result?.errorMessage);
+        }
+      } catch (e) {
+        CoolAlert.show(
+                width: NumbersConst.dialogWidth,
+                context: context,
+                type: CoolAlertType.error,
+                text: e.toString())
+            .then((value) => autoTabRouter?.setActiveIndex(12));
+      }
+    }
+  }
+
   Future<void> getCityHandler() async {
     await Future.delayed(Duration(milliseconds: 400));
     if ((context.routeData.queryParams.get('id') == null) ||
-        (context.routeData.queryParams.get('id') == '')) return;
+        (context.routeData.queryParams.get('id') == '')) {
+      city ??= City();
+      return;
+    }
 
     ProcessResult result =
         await CityService.getCityById(context.routeData.queryParams.get('id'));
     if (result.success) {
       try {
         city = City.fromJson(result.data);
-        // emailController.text = supervisor?.info?.email ?? '';
-        // phoneController.text = supervisor?.phoneNum ?? '';
+        latController.text = city?.latlng?.lat ?? '';
+        lngController.text = city?.latlng?.lng ?? '';
         // nameController.text = supervisor?.info?.name ?? '';
       } catch (err, t) {
         print('ERROR $err');
@@ -83,7 +208,7 @@ class CityController extends MahgController {
     }
   }
 
-  Future<void> deleteCityHandler(String id) async {
+  Future<void> deleteCityHandler(String id, {bool returnHome = false}) async {
     try {
       bool? confirm;
       await CoolAlert.show(
@@ -111,7 +236,13 @@ class CityController extends MahgController {
                   context: context,
                   type: CoolAlertType.success,
                   text: 'City Deleted Successfully')
-              .then((value) => getCitiesHandler(refresh: true));
+              .then((value) {
+            if (returnHome) {
+              autoTabRouter?.setActiveIndex(12);
+            } else {
+              getCitiesHandler(refresh: true);
+            }
+          });
         } else {
           if (!context.mounted) return;
 
