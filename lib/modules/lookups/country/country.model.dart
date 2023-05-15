@@ -4,7 +4,7 @@ import 'package:mahg_essential_package/mahg_essential_package.dart';
 
 class Country {
   String? id;
-  String? name;
+  Map<String, String>? name;
   Latlng? latlng;
   CreatedUser? createdUser;
   String? image;
@@ -15,7 +15,7 @@ class Country {
 
   Country.fromJson(Map<String, dynamic> data) {
     id = data['_id'];
-    name = data['name'];
+    name = data['name'] != null ? Map<String, String>.from(data['name']) : null;
     latlng = data['latlng'] != null ? Latlng.fromJson(data['latlng']) : null;
     createdUser = data['createdUser'] != null
         ? CreatedUser.fromJson(data['createdUser'])

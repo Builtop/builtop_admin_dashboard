@@ -105,6 +105,7 @@ class _MenuBarState extends State<MenuBarPage> {
     gr.AdminDetailsRoute(),
     gr.CountryRoute(),
     gr.CityRoute(),
+    gr.CityDetailsRoute(),
   ];
 
   // for change language
@@ -817,7 +818,7 @@ class _MenuBarState extends State<MenuBarPage> {
                           )
                         : null,
                     mouseCursor: SystemMouseCursors.click,
-                    horizontalTitleGap: 0.0,
+                    horizontalTitleGap: 24,
                     onTap: () {
                       print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx1');
                       isOpen.value = true;
@@ -1206,6 +1207,8 @@ class _MenuBarState extends State<MenuBarPage> {
                 Text('${'Admin'} '),
               ] else if (routeIndex == 11 || routeIndex == 12) ...[
                 Text('${'Lookups'} '),
+              ] else if (routeIndex == 13) ...[
+                Text('${'Cities'} '),
               ] else ...[
                 // const Text(' / Extra Pages '),
                 Text(' / ${'not found page'} '),

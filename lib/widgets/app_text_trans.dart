@@ -1,3 +1,5 @@
+import 'package:builtop_admin_dashboard/constants/color.dart';
+import 'package:builtop_admin_dashboard/constants/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -8,12 +10,19 @@ class AppTextTrans extends StatefulWidget {
   final void Function(Map<String, String>) onChangedEx;
   final List<TextInputFormatter>? formatters;
   final AutovalidateMode? autovalidateMode;
+  final String? hintText;
 
+  final InputBorder? border;
+  final InputBorder? errorBorder;
+  final InputBorder? enabledBorder;
+  final InputBorder? focusedBorder;
+  final InputBorder? disabledBorder;
   final TextInputAction? textInputAction;
   final String? Function(String?)? validator;
   final String? regExp;
   final String? validateMessage;
   final double? labelSize;
+  final EdgeInsetsGeometry? contentPadding;
 
   final TextInputType? keyboardType;
   final String? labelText;
@@ -40,6 +49,13 @@ class AppTextTrans extends StatefulWidget {
       this.textInputAction,
       this.keyboardType,
       this.focusNode,
+      this.border,
+      this.hintText,
+      this.enabledBorder,
+      this.errorBorder,
+      this.disabledBorder,
+      this.focusedBorder,
+      this.contentPadding,
       this.validator,
       this.isRequired = false,
       this.validateMessage,
@@ -111,6 +127,34 @@ class _AppTextTransState extends State<AppTextTrans> {
           children: [
             Expanded(
               child: TextFormField(
+                decoration: InputDecoration(
+                  hintText: widget.hintText,
+                  border: widget.border,
+                  labelText: widget.labelInHeader
+                      ? null
+                      : widget.isRequired
+                          ? '${widget.labelText}*'
+                          : widget.labelText,
+                  helperText: widget.description,
+                  labelStyle: TextStyle(fontSize: widget.labelSize),
+                  errorBorder: widget.errorBorder,
+                  enabledBorder: widget.enabledBorder?.copyWith(
+                    borderSide: BorderSide(
+                      color: !isDark
+                          ? ColorConst.dark
+                          : ColorConst.white.withOpacity(0.5),
+                    ),
+                  ),
+                  focusedBorder: widget.focusedBorder?.copyWith(
+                    borderSide: BorderSide(
+                      color: !isDark
+                          ? ColorConst.dark
+                          : ColorConst.white.withOpacity(0.5),
+                    ),
+                  ),
+                  disabledBorder: widget.disabledBorder,
+                  contentPadding: widget.contentPadding,
+                ),
                 inputFormatters: widget.formatters,
                 autovalidateMode: widget.autovalidateMode,
                 textDirection: widget.textDirection,
@@ -141,24 +185,24 @@ class _AppTextTransState extends State<AppTextTrans> {
                 enabled: widget.enabled,
                 style: widget.textStyle,
                 enableSuggestions: true,
-                decoration: widget.decoration?.copyWith(
-                      labelText: widget.labelInHeader
-                          ? null
-                          : widget.isRequired
-                              ? '${widget.labelText}*'
-                              : widget.labelText,
-                      helperText: widget.description,
-                      labelStyle: TextStyle(fontSize: widget.labelSize),
-                    ) ??
-                    InputDecoration(
-                      helperText: widget.description,
-                      labelText: widget.labelInHeader
-                          ? null
-                          : widget.isRequired
-                              ? '${widget.labelText}*'
-                              : widget.labelText,
-                      labelStyle: TextStyle(fontSize: widget.labelSize),
-                    ),
+                // decoration: widget.decoration?.copyWith(
+                //       labelText: widget.labelInHeader
+                //           ? null
+                //           : widget.isRequired
+                //               ? '${widget.labelText}*'
+                //               : widget.labelText,
+                //       helperText: widget.description,
+                //       labelStyle: TextStyle(fontSize: widget.labelSize),
+                //     ) ??
+                //     InputDecoration(
+                //       helperText: widget.description,
+                //       labelText: widget.labelInHeader
+                //           ? null
+                //           : widget.isRequired
+                //               ? '${widget.labelText}*'
+                //               : widget.labelText,
+                //       labelStyle: TextStyle(fontSize: widget.labelSize),
+                //     ),
               ),
             ),
             !widget.labelInHeader
@@ -175,16 +219,17 @@ class _AppTextTransState extends State<AppTextTrans> {
 
   Widget toggleBtnsWidget() {
     return ToggleButtons(
+      direction: Axis.vertical,
       constraints: BoxConstraints(
-        minHeight: 30,
+        minHeight: 22,
         minWidth: 30,
       ),
-      direction: (((widget.maxLines ?? 0) > 1) && (!widget.labelInHeader))
-          ? Axis.vertical
-          : Axis.horizontal,
+      // direction: (((widget.maxLines ?? 0) > 1) && (!widget.labelInHeader))
+      //     ? Axis.vertical
+      //     : Axis.horizontal,
       // color: Colors.white,
       selectedColor: Colors.white,
-      fillColor: Colors.green,
+      fillColor: ColorConst.primary,
       children: myOptions
           .map((e) => Text(
                 e['label'].toString(),

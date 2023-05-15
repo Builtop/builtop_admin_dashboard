@@ -1,6 +1,7 @@
 import 'package:builtop_admin_dashboard/constants/string.dart';
 import 'package:builtop_admin_dashboard/modules/dashboard/dashboard.page.dart';
 import 'package:builtop_admin_dashboard/modules/lookups/city/city.page.dart';
+import 'package:builtop_admin_dashboard/modules/lookups/city/city_details.page.dart';
 import 'package:builtop_admin_dashboard/modules/lookups/country/country.page.dart';
 import 'package:builtop_admin_dashboard/modules/requests/rfq/rfq.page.dart';
 import 'package:builtop_admin_dashboard/modules/users/admin/admin_details.page.dart';
@@ -42,6 +43,8 @@ int getRouteIndex(String route) {
     return 11;
   } else if (route.capitalize() == Strings.cities.capitalize()) {
     return 12;
+  } else if (route == Strings.cityDetails.capitalize()) {
+    return 13;
   } else {
     return 0;
   }
@@ -74,6 +77,8 @@ Widget getRouteWidget(int index) {
     return CountryPage();
   } else if (index == 12) {
     return CityPage();
+  } else if (index == 13) {
+    return CityDetailsPage();
   } else {
     return DashboardPage();
   }

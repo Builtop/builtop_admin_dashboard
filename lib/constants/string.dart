@@ -6,6 +6,8 @@ class Strings {
   static const String delete = 'Delete';
   static const String countries = 'Countries';
   static const String cities = 'Cities';
+  static const String cityDetails = 'Citydetails';
+
   static const String fdash = 'AdminKit';
   static const String lightMode = 'Light Mode';
 

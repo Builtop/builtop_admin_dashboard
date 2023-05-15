@@ -46,4 +46,15 @@ class CityService {
       return ProcessResult(success: false, errorMessage: e.toString());
     }
   }
+
+  static Future<ProcessResult> getCityById(String id) async {
+    try {
+      var result = await _apiService.httpGetDynamic(
+        '${_url}city/$id',
+      );
+      return result;
+    } catch (e) {
+      return ProcessResult(success: false, errorMessage: e.toString());
+    }
+  }
 }

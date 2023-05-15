@@ -72,6 +72,18 @@ class _CityPageState extends MahgState<CityPage, CityController> {
                             child: Text(intl.DateFormat('yyyy-MM-dd HH:mm a')
                                 .format(e.value))));
                   }
+                  if (e.columnName == 'status') {
+                    return Container(
+                        decoration: DecorationEx.getBorderDecoration(),
+                        child: Center(
+                            child: Text(
+                          e.value.toString(),
+                          style: TextStyle(
+                              color: e.value.toString() == 'Active'
+                                  ? Colors.green
+                                  : Colors.red),
+                        )));
+                  }
                   return Container(
                       decoration: DecorationEx.getBorderDecoration(),
                       child: Center(child: Text(e.value.toString())));
@@ -100,7 +112,7 @@ class _CityPageState extends MahgState<CityPage, CityController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ConstText.lightText(
-                      text: 'Supervisors',
+                      text: 'Cities',
                       fontWeight: FontWeight.bold,
                     ),
                     PopupMenuButton(
@@ -116,7 +128,7 @@ class _CityPageState extends MahgState<CityPage, CityController> {
                       ],
                       onSelected: (index) {
                         if (index == 1) {
-                          context.navigateNamedTo('/supervisorDetails?id=');
+                          context.navigateNamedTo('/cityDetails?id=');
                         }
                       },
                     )
@@ -170,7 +182,7 @@ class _CityPageState extends MahgState<CityPage, CityController> {
         children: [
           IconButton(
             onPressed: () async {
-              context.navigateNamedTo('/supervisorDetails?id=$value');
+              context.navigateNamedTo('/cityDetails?id=$value');
             },
             icon: Icon(Icons.edit),
           ),
@@ -204,51 +216,7 @@ class _CityPageState extends MahgState<CityPage, CityController> {
           // ),
           IconButton(
             onPressed: () async {
-              try {
-                bool? confirm;
-                await CoolAlert.show(
-                    width: NumbersConst.dialogWidth,
-                    context: context,
-                    type: CoolAlertType.confirm,
-                    onConfirmBtnTap: () {
-                      confirm = true;
-                    },
-                    onCancelBtnTap: () {
-                      confirm = false;
-                    },
-                    title: 'Are you sure you want to delete ?');
-
-                if (confirm ?? false) {
-                  if (!context.mounted) return;
-                  var result = await LoadingOverlay.showFutureLoadingDialog(
-                      context: context,
-                      future: () => CityService.deleteCity(value));
-
-                  if (result.result?.success ?? false) {
-                    if (!context.mounted) return;
-
-                    CoolAlert.show(
-                        width: NumbersConst.dialogWidth,
-                        context: context,
-                        type: CoolAlertType.success,
-                        text: 'City Deleted Successfully');
-                  } else {
-                    if (!context.mounted) return;
-
-                    CoolAlert.show(
-                        width: NumbersConst.dialogWidth,
-                        context: context,
-                        type: CoolAlertType.error,
-                        text: result.result?.errorMessage);
-                  }
-                }
-              } catch (e) {
-                CoolAlert.show(
-                    width: NumbersConst.dialogWidth,
-                    context: context,
-                    type: CoolAlertType.error,
-                    text: e.toString());
-              }
+              await controller.deleteCityHandler(value);
             },
             icon: Icon(
               Icons.delete,
