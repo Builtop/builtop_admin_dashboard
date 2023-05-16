@@ -6,7 +6,6 @@ import 'package:builtop_admin_dashboard/widgets/dialogs/change_password_dialog.w
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';
 
 class UsersMenuButton extends StatelessWidget {
@@ -87,7 +86,7 @@ class UsersMenuButton extends StatelessWidget {
               id: user.id ?? '',
               returnToIndex: returnToIndex);
         } else if (index == 4) {
-          var result = await showGeneralDialog(
+          await showGeneralDialog(
               transitionDuration: Duration(milliseconds: 200),
               barrierDismissible: true,
               barrierLabel: '',

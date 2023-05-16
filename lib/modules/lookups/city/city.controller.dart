@@ -7,7 +7,6 @@ import 'package:builtop_admin_dashboard/modules/lookups/city/city.model.dart';
 import 'package:builtop_admin_dashboard/modules/lookups/city/city.page.dart';
 import 'package:builtop_admin_dashboard/modules/lookups/city/city.service.dart';
 import 'package:builtop_admin_dashboard/modules/lookups/city/city_details.page.dart';
-import 'package:builtop_admin_dashboard/services/admin_users.service.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:mahg_essential_package/mahg_essential_package.dart';
@@ -52,6 +51,8 @@ class CityController extends MahgController {
       }
     } else {
       cities = [];
+      if (!context.mounted) return;
+
       CoolAlert.show(
           width: NumbersConst.dialogWidth,
           context: context,
@@ -71,6 +72,8 @@ class CityController extends MahgController {
           future: () => CityService.editCity(city?.toJson() ?? {}));
 
       if (result.result?.success ?? false) {
+        if (!context.mounted) return;
+
         CoolAlert.show(
                 width: NumbersConst.dialogWidth,
                 context: context,
@@ -78,6 +81,8 @@ class CityController extends MahgController {
                 text: 'Status Changed Successfully')
             .then((value) => autoTabRouter?.setActiveIndex(12));
       } else {
+        if (!context.mounted) return;
+
         CoolAlert.show(
             width: NumbersConst.dialogWidth,
             context: context,
@@ -111,6 +116,8 @@ class CityController extends MahgController {
             future: () => CityService.editCity(city?.toJson() ?? {}));
 
         if (result.result?.success ?? false) {
+          if (!context.mounted) return;
+
           CoolAlert.show(
                   width: NumbersConst.dialogWidth,
                   context: context,
@@ -118,6 +125,8 @@ class CityController extends MahgController {
                   text: 'City Updated Successfully')
               .then((value) => autoTabRouter?.setActiveIndex(12));
         } else {
+          if (!context.mounted) return;
+
           CoolAlert.show(
               width: NumbersConst.dialogWidth,
               context: context,
@@ -154,6 +163,8 @@ class CityController extends MahgController {
                 city?.toJson() ?? {}, city?.country?.id ?? ''));
 
         if (result.result?.success ?? false) {
+          if (!context.mounted) return;
+
           CoolAlert.show(
                   width: NumbersConst.dialogWidth,
                   context: context,
@@ -161,6 +172,8 @@ class CityController extends MahgController {
                   text: 'City Added Successfully')
               .then((value) => autoTabRouter?.setActiveIndex(12));
         } else {
+          if (!context.mounted) return;
+
           CoolAlert.show(
               width: NumbersConst.dialogWidth,
               context: context,
@@ -199,6 +212,8 @@ class CityController extends MahgController {
         print('ERROR TRACE $t');
       }
     } else {
+      if (!context.mounted) return;
+
       CoolAlert.show(
               width: NumbersConst.dialogWidth,
               context: context,

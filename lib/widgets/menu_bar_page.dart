@@ -106,6 +106,7 @@ class _MenuBarState extends State<MenuBarPage> {
     gr.CountryRoute(),
     gr.CityRoute(),
     gr.CityDetailsRoute(),
+    gr.CountryDetailsRoute(),
   ];
 
   // for change language
@@ -1210,6 +1211,8 @@ class _MenuBarState extends State<MenuBarPage> {
                 Text('${'Lookups'} '),
               ] else if (routeIndex == 13) ...[
                 Text('${'Cities'} '),
+              ] else if (routeIndex == 14) ...[
+                Text('${'Countries'} '),
               ] else ...[
                 // const Text(' / Extra Pages '),
                 Text(' / ${'not found page'} '),
