@@ -266,7 +266,9 @@ class _MenuBarState extends State<MenuBarPage> {
                     color:
                         isDark ? ColorConst.transparent : ColorConst.drawerBG,
                     padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(Images.smLogo, fit: BoxFit.contain),
+                    child: Image.asset(
+                        isDark ? Images.builtopSmLogoWh : Images.builtopSmLogo,
+                        fit: BoxFit.contain),
                   ),
                 );
               },
